@@ -17,7 +17,13 @@
 7. [ ] Mengubah data medical supplies
 8. [ ] Menambahkan medical supplies ke inventaris medical supplies sistem rawat jalan
 9. [ ] Membuat perencanaan pembelian medical supplies
+	- Yang mengajukan perencanaan pembelian adalah Staff Apoteker
+	- Ketika pertama kali mengajukan, maka status perancanaan default nya "diajukan"
+	- Minggu pertama: 1-7
+	- Minggu ketiga: 15-21
 10. [ ] Melihat perencanaan pembelian medical supplies
+	- Admin Farmasi yg berperan mengubah status perencanaan menjadi "diproses" dan "tersedia"
+	- Ketika status berubah menjadi "tersedia", secara otomatis jumlah Medical Supplies di inventaris SI Farmasi bertambah (terupdate)
 11. [ ] Melihat daftar permintaan medical supplies
 12. [ ] Web Service untuk menyediakan kebutuhan medical supplies dari Rawat Inap
 13. [ ] Mengubah status permintaan medical supplies
@@ -80,3 +86,7 @@
 	- username : varchar (255)
 	- password : varchar (255)
 	- role : varchar (255)
+
+
+## Constraint
+1. Ketika kita menambah inventaris obat SI Rawat Jalan, kita gak perlu tau apakah sana butuh atau enggak. Terserah kita kalo mau nambah kapan aja dan apa aja dan berapa aja
