@@ -20,7 +20,7 @@ public class FlagUrgent implements Serializable {
 	
 	@NotNull
 	@Column(name = "flag", nullable = false)
-	private int flag;
+	private short flag;
 	
 	@NotNull
 	@Size(max = 255)
@@ -35,11 +35,11 @@ public class FlagUrgent implements Serializable {
 		this.id = id;
 	}
 
-	public int getFlag() {
+	public short getFlag() {
 		return flag;
 	}
 
-	public void setFlag(int flag) {
+	public void setFlag(short flag) {
 		this.flag = flag;
 	}
 
