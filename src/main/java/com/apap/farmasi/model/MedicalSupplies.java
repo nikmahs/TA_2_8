@@ -1,6 +1,7 @@
 package com.apap.farmasi.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -49,6 +51,9 @@ public class MedicalSupplies implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private JenisMedicalSupplies jenisMedicalSupplies;
+	
+	@ManyToMany(mappedBy = "listMedicalSupplies")
+	private List<PerencanaanModel> listPerencanaan;
 
 	public long getId() {
 		return id;
@@ -96,6 +101,14 @@ public class MedicalSupplies implements Serializable {
 
 	public void setJenisMedicalSupplies(JenisMedicalSupplies jenisMedicalSupplies) {
 		this.jenisMedicalSupplies = jenisMedicalSupplies;
+	}
+
+	public List<PerencanaanModel> getListPerencanaan() {
+		return listPerencanaan;
+	}
+
+	public void setListPerencanaan(List<PerencanaanModel> listPerencanaan) {
+		this.listPerencanaan = listPerencanaan;
 	}
 
 	
