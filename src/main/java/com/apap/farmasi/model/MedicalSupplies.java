@@ -38,7 +38,7 @@ public class MedicalSupplies implements Serializable {
 	
 	@NotNull
 	@Column(name = "jumlah", nullable = false)
-	private Integer jumlah;
+	private int jumlah;
 	
 	@NotNull
 	@Column(name = "deskripsi", nullable = false)
@@ -74,11 +74,11 @@ public class MedicalSupplies implements Serializable {
 		this.price = price;
 	}
 
-	public Integer getJumlah() {
+	public int getJumlah() {
 		return jumlah;
 	}
 
-	public void setJumlah(Integer jumlah) {
+	public void setJumlah(int jumlah) {
 		this.jumlah = jumlah;
 	}
 
