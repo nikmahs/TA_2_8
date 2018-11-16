@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "medical_supplies")
-public class MedicalSupplies implements Serializable {
+public class MedicalSuppliesModel implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,7 @@ public class MedicalSupplies implements Serializable {
 	@JoinColumn(name = "id_jenis_medical_supplies", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
-	private JenisMedicalSupplies jenisMedicalSupplies;
+	private JenisMedicalSuppliesModel jenisMedicalSupplies;
 	
 	@ManyToMany(mappedBy = "listMedicalSupplies")
 	private List<PerencanaanModel> listPerencanaan;
@@ -95,11 +95,11 @@ public class MedicalSupplies implements Serializable {
 		this.deskripsi = deskripsi;
 	}
 
-	public JenisMedicalSupplies getJenisMedicalSupplies() {
+	public JenisMedicalSuppliesModel getJenisMedicalSupplies() {
 		return jenisMedicalSupplies;
 	}
 
-	public void setJenisMedicalSupplies(JenisMedicalSupplies jenisMedicalSupplies) {
+	public void setJenisMedicalSupplies(JenisMedicalSuppliesModel jenisMedicalSupplies) {
 		this.jenisMedicalSupplies = jenisMedicalSupplies;
 	}
 
