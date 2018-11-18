@@ -21,6 +21,7 @@
 	- Ketika pertama kali mengajukan, maka status perancanaan default nya "diajukan"
 	- Minggu pertama: 1-7
 	- Minggu ketiga: 15-21
+	- Sebelum melakukan perencanaan, Staf Apoteker perlu mengecek medical supplies yg habis di SI Lab melalui API yg disediakan oleh SI Lab menggunakan method GET
 10. [ ] Melihat perencanaan pembelian medical supplies
 	- Admin Farmasi yg berperan mengubah status perencanaan menjadi "diproses" dan "tersedia"
 	- Ketika status berubah menjadi "tersedia", secara otomatis jumlah Medical Supplies di inventaris SI Farmasi bertambah (terupdate)
@@ -89,4 +90,20 @@
 
 
 ## Constraint
+### apa ya
 1. Ketika kita menambah inventaris obat SI Rawat Jalan, kita gak perlu tau apakah sana butuh atau enggak. Terserah kita kalo mau nambah kapan aja dan apa aja dan berapa aja
+
+### Perencanaan
+kalo diliat2, kalo kita cuma bisa melakukan perencanaan untuk medsup yg habis di SI Lab, itu kurang enak gak sih
+
+karena, di inventaris kita, SI Farmasi, bakalan ada medsup yg URGENT. Jadi, menurut gua, gua perlu revisi lagi
+
+1. Nanti di interface nya, ketika mau melakukan perencanaan, tanyakan dulu apakah medsup yg direncanakan nanti yg sifatnya Urgent atau tidak
+2. Kalau sifatnya Urgent, nanti cukup tampilkan atau sediakan daftar pilihan medical supplies yg urgent
+3. Kalau sifatnya gak urgent, nanti tampilkan daftar semua medical supplies
+4. Kalau urgent, bisa melakukan perencanaan untuk kapan aja
+5. Kalau gak urgent, cuma bisa melakukan perencanaan untuk tanggal 1-7 (include) atau 15-21 (include) di setiap bulannya. Saran gue, nanti pas memasukkan tanggal milih aja tanggal nya. Dan ketika user memilih tanggal selain range di atas, dikasih notif ERROR blablabla gitu karena tanggal nya gak sama
+6. Urgent maupun gak urgent, nanti sistem langsung ngecek medsup yg habis di SI Lab. Artinya, ketika user pilih salah satu (urgent/ gak urgent) nanti sistem langsung manggil web service yg disediakan oleh SI Lab tsb.
+7. Terus, return value dari pemanggilan API itu sifatnya cuma untuk ngasih tau user kalo medsup yg abis di SI Lab itu ini ini ini... dan diharapkan user melakukan perencanaan untuk medsup yg habis tsb dan medsub lain yg user inginkan sesuai  dengan ketentuan di nomer 2-5. 
+8. Ketika user tekan tombol submit perencanaan, kalo medsup yg abis ada yg belum ikut direncanakan, user dikasih notifikasi bahwa ada medsub A, B, C yg belum direncanakan. Apakah akan tetap submit atau edit form ulang?
+9. Setelah submit, udah deh pikir lagi besok
