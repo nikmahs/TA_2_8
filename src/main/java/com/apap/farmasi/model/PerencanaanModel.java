@@ -50,18 +50,18 @@ public class PerencanaanModel implements Serializable {
     @JoinTable(name = "perencanaan_medical_supplies",
             joinColumns = { @JoinColumn(name = "id_medical_supplies") },
             inverseJoinColumns = { @JoinColumn(name = "id_perencanaan") })
-    private List<MedicalSupplies> listMedicalSupplies;
+    private List<MedicalSuppliesModel> listMedicalSupplies;
 	
 	@NotNull
 	@Column(name = "jumlah", nullable = false)
 	private Integer jumlah;
 	
 	
-	public List<MedicalSupplies> getListMedicalSupplies() {
+	public List<MedicalSuppliesModel> getListMedicalSupplies() {
 		return listMedicalSupplies;
 	}
 
-	public void setListMedicalSupplies(List<MedicalSupplies> listMedicalSupplies) {
+	public void setListMedicalSupplies(List<MedicalSuppliesModel> listMedicalSupplies) {
 		this.listMedicalSupplies = listMedicalSupplies;
 	}
 

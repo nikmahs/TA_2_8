@@ -13,14 +13,14 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "status_permintaan")
-public class StatusPermintaan implements Serializable {
+public class StatusPermintaanModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "nama", nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
 	@NotNull
