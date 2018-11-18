@@ -20,7 +20,7 @@ public class StatusPermintaanModel implements Serializable {
 	
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "nama", nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
 	@NotNull
