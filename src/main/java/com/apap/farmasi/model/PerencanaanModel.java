@@ -23,7 +23,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -42,20 +41,12 @@ public class PerencanaanModel implements Serializable {
 	@Column(name = "status", nullable = false)
 	private String status;
 
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            })
-    @JoinTable(name = "perencanaan_medical_supplies",
-            joinColumns = { @JoinColumn(name = "id_medical_supplies") },
-            inverseJoinColumns = { @JoinColumn(name = "id_perencanaan") })
-    private List<MedicalSupplies> listMedicalSupplies;
+	@OneToMany(mappedBy = "perencanaan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<MedicalSupplies> listMedicalSupplies;
 	
 	@NotNull
 	@Column(name = "jumlah", nullable = false)
 	private Integer jumlah;
-	
 	
 	public List<MedicalSupplies> getListMedicalSupplies() {
 		return listMedicalSupplies;
