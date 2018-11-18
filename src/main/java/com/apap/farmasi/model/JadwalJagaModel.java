@@ -86,5 +86,14 @@ public class JadwalJagaModel implements Serializable {
 	public void setStaff(StaffDetail staff) {
 		this.staff = staff;
 	}
-
+	
+//	public Object getTanggal() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	public Object getId() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
