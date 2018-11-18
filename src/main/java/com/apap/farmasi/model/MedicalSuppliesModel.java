@@ -52,8 +52,33 @@ public class MedicalSuppliesModel implements Serializable {
 	@JsonIgnore
 	private JenisMedicalSuppliesModel jenisMedicalSupplies;
 	
-	@ManyToMany(mappedBy = "listMedicalSupplies")
-	private List<PerencanaanModel> listPerencanaan;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_perencanaan", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private PerencanaanModel perencanaan;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_permintaan", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private PermintaanModel permintaan;
+	
+	public PerencanaanModel getPerencanaan() {
+		return perencanaan;
+	}
+
+	public void setPerencanaan(PerencanaanModel perencanaan) {
+		this.perencanaan = perencanaan;
+	}
+
+	public PermintaanModel getPermintaan() {
+		return permintaan;
+	}
+
+	public void setPermintaan(PermintaanModel permintaan) {
+		this.permintaan = permintaan;
+	}
 
 	public long getId() {
 		return id;
@@ -102,14 +127,5 @@ public class MedicalSuppliesModel implements Serializable {
 	public void setJenisMedicalSupplies(JenisMedicalSuppliesModel jenisMedicalSupplies) {
 		this.jenisMedicalSupplies = jenisMedicalSupplies;
 	}
-
-	public List<PerencanaanModel> getListPerencanaan() {
-		return listPerencanaan;
-	}
-
-	public void setListPerencanaan(List<PerencanaanModel> listPerencanaan) {
-		this.listPerencanaan = listPerencanaan;
-	}
-
 	
 }
