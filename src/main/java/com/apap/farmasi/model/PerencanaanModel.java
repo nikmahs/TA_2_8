@@ -40,19 +40,19 @@ public class PerencanaanModel implements Serializable {
 	@Size(max = 255)
 	@Column(name = "status", nullable = false)
 	private String status;
-
-	@OneToMany(mappedBy = "perencanaan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<MedicalSupplies> listMedicalSupplies;
 	
 	@NotNull
 	@Column(name = "jumlah", nullable = false)
 	private Integer jumlah;
 	
-	public List<MedicalSupplies> getListMedicalSupplies() {
+	@OneToMany(mappedBy = "perencanaan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<MedicalSuppliesModel> listMedicalSupplies;
+	
+	public List<MedicalSuppliesModel> getListMedicalSupplies() {
 		return listMedicalSupplies;
 	}
 
-	public void setListMedicalSupplies(List<MedicalSupplies> listMedicalSupplies) {
+	public void setListMedicalSupplies(List<MedicalSuppliesModel> listMedicalSupplies) {
 		this.listMedicalSupplies = listMedicalSupplies;
 	}
 

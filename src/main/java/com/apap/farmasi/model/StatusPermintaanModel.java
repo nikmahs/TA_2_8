@@ -12,20 +12,21 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "flag_urgent")
-public class FlagUrgent implements Serializable {
+@Table(name = "status_permintaan")
+public class StatusPermintaanModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@NotNull
-	@Column(name = "flag", nullable = false)
-	private short flag;
+	@Size(max = 255)
+	@Column(name = "nama", nullable = false)
+	private String name;
 	
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "deskripsi_flag_urgent", nullable = false)
-	private String deskripsiFlagUrgent;
+	@Column(name = "deskripsi", nullable = false)
+	private String deskripsi;
 
 	public int getId() {
 		return id;
@@ -35,21 +36,19 @@ public class FlagUrgent implements Serializable {
 		this.id = id;
 	}
 
-	public short getFlag() {
-		return flag;
+	public String getName() {
+		return name;
 	}
 
-	public void setFlag(short flag) {
-		this.flag = flag;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDeskripsiFlagUrgent() {
-		return deskripsiFlagUrgent;
+	public String getDeskripsi() {
+		return deskripsi;
 	}
 
-	public void setDeskripsiFlagUrgent(String deskripsiFlagUrgent) {
-		this.deskripsiFlagUrgent = deskripsiFlagUrgent;
+	public void setDeskripsi(String deskripsi) {
+		this.deskripsi = deskripsi;
 	}
-	
-	
 }
