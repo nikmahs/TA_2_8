@@ -41,7 +41,7 @@ public class JadwalJagaModel implements Serializable {
 	@Column(name = "waktu_selesai", nullable = false)
 	private Time waktuSelesai;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="id_staff", referencedColumnName = "id_staff", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore

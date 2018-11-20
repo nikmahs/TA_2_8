@@ -22,8 +22,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "user")
-public class UserModel implements Serializable {
+@Table(name = "user_role")
+public class UserRoleModel implements Serializable {
 	
 	@Id
 	@Size(max = 255)
@@ -32,7 +32,7 @@ public class UserModel implements Serializable {
 	
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "password", nullable = false, unique = true)
+	@Column(name = "password", nullable = false)
 	private String password;
 	
 	@NotNull
