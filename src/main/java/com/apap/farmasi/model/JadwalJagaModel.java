@@ -40,7 +40,7 @@ public class JadwalJagaModel implements Serializable {
 	@Column(name = "waktu_selesai", nullable = false)
 	private Time waktuSelesai;
 	
-//	@ManyToOne(fetch = FetchType.EAGER)
+//	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name ="id_staff", referencedColumnName = "id_staff", nullable = false)
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 //	@JsonIgnore
@@ -84,7 +84,7 @@ public class JadwalJagaModel implements Serializable {
 //
 //	public void setStaff(StaffDetail staff) {
 //		this.staff = staff;
-//	}
+	}
 	
 //	public Object getTanggal() {
 //		// TODO Auto-generated method stub
@@ -95,4 +95,3 @@ public class JadwalJagaModel implements Serializable {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-}
