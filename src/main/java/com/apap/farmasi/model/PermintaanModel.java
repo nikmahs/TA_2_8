@@ -39,35 +39,35 @@ public class PermintaanModel implements Serializable {
 	@Column(name = "tanggal", nullable = false)
 	private Date tanggal;
 	
-	@NotNull
-	@Column(name = "jumlah_medical_supplies", nullable = false)
-	private long jumlahMedicalSupplies;
-	
-	@NotNull
-	@Column(name = "id_pasien", nullable = false)
-	private int idPasien;
-	
 	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
             })
     @JoinTable(name = "permintaan_medical_supplies",
-            joinColumns = { @JoinColumn(name = "id_medical_supplies") },
-            inverseJoinColumns = { @JoinColumn(name = "id_permintaan") })
+            joinColumns = { @JoinColumn(name = "id_permintaan") },
+            inverseJoinColumns = { @JoinColumn(name = "id_medical_supplies") })
     private List<MedicalSuppliesModel> listMedicalSupplies;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private StatusPermintaanModel statusPermintaan;
+	@NotNull
+	@Column(name = "jumlah_medical_supplies", nullable = false)
+	private long jumlahMedicalSupplies;
 	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 //	@JsonIgnore
 //	private JadwalJagaModel jadwalJaga;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private StatusPermintaanModel statusPermintaan;
+	
+	@NotNull
+	@Column(name = "id_pasien", nullable = false)
+	private int idPasien;
 	
 	public long getId() {
 		return id;

@@ -42,44 +42,23 @@ public class MedicalSuppliesModel implements Serializable {
 	@Column(name = "jumlah", nullable = false)
 	private int jumlah;
 	
-	@NotNull
-	@Column(name = "deskripsi", nullable = false)
-	private String deskripsi;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_jenis_medical_supplies", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private JenisMedicalSuppliesModel jenisMedicalSupplies;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_perencanaan", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private PerencanaanModel perencanaan;
+	@NotNull
+	@Column(name = "deskripsi", nullable = false)
+	private String deskripsi;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_permintaan", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private PermintaanModel permintaan;
+	@ManyToMany(mappedBy = "medical_supplies")
+	private List<PerencanaanModel> listPerencanaan;
+
 	
-	public PerencanaanModel getPerencanaan() {
-		return perencanaan;
-	}
-
-	public void setPerencanaan(PerencanaanModel perencanaan) {
-		this.perencanaan = perencanaan;
-	}
-
-	public PermintaanModel getPermintaan() {
-		return permintaan;
-	}
-
-	public void setPermintaan(PermintaanModel permintaan) {
-		this.permintaan = permintaan;
-	}
-
+	@ManyToMany(mappedBy = "medical_supplies")
+	private List<PermintaanModel> listPermintaan;
+	
 	public long getId() {
 		return id;
 	}
@@ -126,6 +105,22 @@ public class MedicalSuppliesModel implements Serializable {
 
 	public void setJenisMedicalSupplies(JenisMedicalSuppliesModel jenisMedicalSupplies) {
 		this.jenisMedicalSupplies = jenisMedicalSupplies;
+	}
+
+	public List<PermintaanModel> getListPermintaan() {
+		return listPermintaan;
+	}
+
+	public void setListPermintaan(List<PermintaanModel> listPermintaan) {
+		this.listPermintaan = listPermintaan;
+	}
+
+	public List<PerencanaanModel> getListPerencanaan() {
+		return listPerencanaan;
+	}
+
+	public void setListPerencanaan(List<PerencanaanModel> listPerencanaan) {
+		this.listPerencanaan = listPerencanaan;
 	}
 	
 }

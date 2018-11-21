@@ -22,7 +22,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_role")
 public class UserRoleModel implements Serializable {
 	
 	@Id
