@@ -22,7 +22,6 @@ import com.apap.farmasi.rest.*;
 
 @Entity
 @Table(name = "jadwal_jaga")
-
 public class JadwalJagaModel implements Serializable {
 
 	@Id
