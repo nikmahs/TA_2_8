@@ -52,11 +52,11 @@ public class MedicalSuppliesModel implements Serializable {
 	@Column(name = "deskripsi", nullable = false)
 	private String deskripsi;
 	
-	@ManyToMany(mappedBy = "medical_supplies")
+	@ManyToMany(mappedBy = "listMedicalSupplies")
 	private List<PerencanaanModel> listPerencanaan;
 
 	
-	@ManyToMany(mappedBy = "medical_supplies")
+	@ManyToMany(mappedBy = "listMedicalSupplies")
 	private List<PermintaanModel> listPermintaan;
 	
 	public long getId() {

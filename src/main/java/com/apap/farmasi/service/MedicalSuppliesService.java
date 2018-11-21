@@ -5,4 +5,6 @@ import com.apap.farmasi.repository.MedicalSuppliesDb;
 
 public interface MedicalSuppliesService {
 	MedicalSuppliesDb viewAllDaftarMedicalSupplies();
+	
+	MedicalSuppliesModel getMedicalSuppliesDetailById(long id);
 }
