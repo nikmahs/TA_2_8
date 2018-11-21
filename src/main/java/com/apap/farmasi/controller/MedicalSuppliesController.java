@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.apap.farmasi.model.*;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
-import com.apap.farmasi.service.*;
 import com.apap.farmasi.service.JadwalService;
-import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.service.MedicalSuppliesService;
+//import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
 public class MedicalSuppliesController {
@@ -39,6 +39,7 @@ public class MedicalSuppliesController {
 		return "view-all-medical-supplies";
 	}
 	
+
 //	//TAMBAH JADWAL BARU
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/tambah", method = RequestMethod.GET)
 //		private String add(Model model) {
@@ -70,5 +71,5 @@ public class MedicalSuppliesController {
 //			model.addAttribute("id", newJadwal.getId());
 //			return "updateJadwalSuccess";
 //		}
-		
+
 }

@@ -10,7 +10,11 @@
 
 <body>
     <div class="container-fluid">
-        <h2>Hello!</h2>
+    	<br>
+        <h2>Rumah Sakit Cepat Sembuh</h2>
+		<p></p>
+		<h4>Selamat datang di Sistem Informasi Farmasi</h4>
+		<br>
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
@@ -23,12 +27,16 @@
                         </div>
                         <form th:action="@{/login}" method="POST">
                             <div class="row form-group">
-                                <label class="col-sm-4">Username:</label>
-                                <input type="text" class="col-sm-8 form-control input-sm" name="username">
+                                <label class="col-sm-3">Username</label>
+                                <input type="text" class="col-sm-9 form-control input-sm" name="username">
                             </div>
                             <div class="row form-group">
-                                <label class="col-sm-4">Password:</label>
-                                <input type="password" class="col-sm-8 form-control input-sm" name="password">
+                                <label class="col-sm-3">Password</label>
+                                <input type="password" class="col-sm-9 form-control input-sm" name="password">
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-sm-3">Role</label>
+                                <input type="text" class="col-sm-9 form-control input-sm" name="role">
                             </div>
                             <div class="row form-group">
                                 <button type="submit" class="btn btn-primary">Sign In</button>

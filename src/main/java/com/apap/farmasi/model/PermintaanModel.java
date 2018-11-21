@@ -53,11 +53,11 @@ public class PermintaanModel implements Serializable {
 	@Column(name = "jumlah_medical_supplies", nullable = false)
 	private long jumlahMedicalSupplies;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private JadwalJagaModel jadwalJaga;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonIgnore
+//	private JadwalJagaModel jadwalJaga;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
@@ -117,12 +117,12 @@ public class PermintaanModel implements Serializable {
 		this.statusPermintaan = statusPermintaan;
 	}
 
-	public JadwalJagaModel getJadwalJaga() {
-		return jadwalJaga;
-	}
-
-	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
-		this.jadwalJaga = jadwalJaga;
-	}
-	
+//	public JadwalJagaModel getJadwalJaga() {
+//		return jadwalJaga;
+//	}
+//
+//	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
+//		this.jadwalJaga = jadwalJaga;
+//	}
+//	
 }

@@ -17,9 +17,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.csrf()
-			.disable();
-		
+			//.csrf()
+			//.disable();
+			.authorizeRequests()
+			.antMatchers("/css/**").permitAll()
+			.antMatchers("/js/**").permitAll()
+			//Fitur 3
+			//.antMatchers("/").hasAnyAuthority("ADMIN")
+			//.antMatchers("/dealer/**", "/dealer/view").hasAnyAuthority("ADMIN")
+			.anyRequest().authenticated()
+			.and()
+			.formLogin()
+			.loginPage("/login")
+			.permitAll()
+			.and()
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+			.permitAll();
 	}
 	
 	@Bean
@@ -27,22 +40,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Autowired
-	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.passwordEncoder(encoder())
-			.withUser("thaitea").password(encoder().encode("dumdum	"))
-			.roles("USER");
-	}
+//	@Autowired
+//	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication()
+//			.passwordEncoder(encoder())
+//			.withUser("thaitea").password(encoder().encode("dumdum"))
+//			.roles("USER");
+//	}
 
 	
-//	@Autowired
-//	private UserDetailsService userDetailsService;
-//	
-//	@Autowired
-//	public void configAuthentication(AuthenticationManagerBuilder auth)throws Exception
-//	{
-//		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-//	}
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	public void configAuthentication(AuthenticationManagerBuilder auth)throws Exception
+	{
+		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+	}
 }
 	
