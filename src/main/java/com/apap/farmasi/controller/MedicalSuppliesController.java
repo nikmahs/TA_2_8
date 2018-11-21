@@ -5,22 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
+import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 
-//import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
 @RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
 	@Autowired MedicalSuppliesService medicalSuppliesService;
 	
-//	@Autowired
-//	private JadwalService jadwalService;
+//	@Autowired	private JadwalService jadwalService;
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model
@@ -59,16 +62,16 @@ public class MedicalSuppliesController {
 //		//UBAH JADWAL Jadwal staf apoteker jaga tidak bisa diubah jika tanggalnya sudah lewat
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/{idJadwaL}", method = RequestMethod.GET)
 //		private String updateJadwal(@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			JadwalJagaModel jadwal = jadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
+//			JadwalJagaModel jadwal = JadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
 //			model.addAttribute("jadwal", jadwal);
 //			model.addAttribute("newJadwal", new JadwalJagaModel());
 //			return "updateJadwal";
 //		}
 //		
-//		@RequestMapping(value = "/jabatan/ubah/{id_jabatan}", method = RequestMethod.POST)
+//		@RequestMapping(value = "/jabatan/update/{id_jabatan}", method = RequestMethod.POST)
 //		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel newJadwal, 
 //			@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			jadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
+//			JadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
 //			model.addAttribute("id", newJadwal.getId());
 //			return "updateJadwalSuccess";
 //		}
