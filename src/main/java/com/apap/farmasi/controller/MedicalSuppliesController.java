@@ -1,31 +1,24 @@
 package com.apap.farmasi.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.apap.farmasi.model.*;
-import com.apap.farmasi.repository.MedicalSuppliesDb;
-import com.apap.farmasi.service.*;
-import com.apap.farmasi.service.JadwalService;
 //import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
+@RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
 	//@Autowired MedicalSuppliesService medicalSuppliesService;
 	
 	//@Autowired
 	//private JadwalService jadwalService;
 	
+	
+	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
+	private String viewPerencanaan(Model model) {
+		return "view-perencanaan";
+	}
 	
 //	
 //	@RequestMapping(value="/medical-supplies", method = RequestMethod.GET)
