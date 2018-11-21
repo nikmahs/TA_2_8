@@ -32,7 +32,7 @@ public class UserModel implements Serializable {
 	
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "password", nullable = false, unique = true)
+	@Column(name = "password", nullable = false)
 	private String password;
 	
 	@NotNull

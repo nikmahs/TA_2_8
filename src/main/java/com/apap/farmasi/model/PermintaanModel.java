@@ -63,11 +63,11 @@ public class PermintaanModel implements Serializable {
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private JadwalJagaModel jadwalJaga;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonIgnore
+//	private JadwalJagaModel jadwalJaga;
 	
 	public long getId() {
 		return id;
@@ -117,12 +117,12 @@ public class PermintaanModel implements Serializable {
 		this.statusPermintaan = statusPermintaan;
 	}
 
-	public JadwalJagaModel getJadwalJaga() {
-		return jadwalJaga;
-	}
-
-	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
-		this.jadwalJaga = jadwalJaga;
-	}
-	
+//	public JadwalJagaModel getJadwalJaga() {
+//		return jadwalJaga;
+//	}
+//
+//	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
+//		this.jadwalJaga = jadwalJaga;
+//	}
+//	
 }
