@@ -39,26 +39,10 @@ public class PermintaanModel implements Serializable {
 	@Column(name = "tanggal", nullable = false)
 	private Date tanggal;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            })
-    @JoinTable(name = "permintaan_medical_supplies",
-            joinColumns = { @JoinColumn(name = "id_permintaan") },
-            inverseJoinColumns = { @JoinColumn(name = "id_medical_supplies") })
-    private List<MedicalSuppliesModel> listMedicalSupplies;
-	
 	@NotNull
 	@Column(name = "jumlah_medical_supplies", nullable = false)
 	private long jumlahMedicalSupplies;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonIgnore
-//	private JadwalJagaModel jadwalJaga;
-	
+		
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -101,14 +85,6 @@ public class PermintaanModel implements Serializable {
 		this.idPasien = idPasien;
 	}
 
-	public List<MedicalSuppliesModel> getListMedicalSupplies() {
-		return listMedicalSupplies;
-	}
-
-	public void setListMedicalSupplies(List<MedicalSuppliesModel> listMedicalSupplies) {
-		this.listMedicalSupplies = listMedicalSupplies;
-	}
-
 	public StatusPermintaanModel getStatusPermintaan() {
 		return statusPermintaan;
 	}
@@ -116,13 +92,4 @@ public class PermintaanModel implements Serializable {
 	public void setStatusPermintaan(StatusPermintaanModel statusPermintaan) {
 		this.statusPermintaan = statusPermintaan;
 	}
-
-//	public JadwalJagaModel getJadwalJaga() {
-//		return jadwalJaga;
-//	}
-//
-//	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
-//		this.jadwalJaga = jadwalJaga;
-//	}
-//	
 }
