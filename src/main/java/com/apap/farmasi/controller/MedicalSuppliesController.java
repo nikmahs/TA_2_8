@@ -1,42 +1,46 @@
 package com.apap.farmasi.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.apap.farmasi.model.*;
+import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
-import com.apap.farmasi.service.*;
-import com.apap.farmasi.service.JadwalService;
+import com.apap.farmasi.service.MedicalSuppliesService;
+
 //import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
+@RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
-	//@Autowired MedicalSuppliesService medicalSuppliesService;
+	@Autowired MedicalSuppliesService medicalSuppliesService;
 	
-	//@Autowired
-	//private JadwalService jadwalService;
+//	@Autowired
+//	private JadwalService jadwalService;
+	/**
+	 * fitur 3 melihat daftar medical supplies
+	 * @param model
+	 * @return tampilan daftar seluruh medical supplies
+	 */	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	private String viewAllDaftarMedicalSupplies(Model model) {
+		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+		model.addAttribute("allMedSup", allMedSup);
+		
+		return "view-all-medical-supplies";
+	}
+
+	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
+	private String viewPerencanaan(Model model) {
+		return "view-perencanaan";
+	}
 	
-	
-//	
-//	@RequestMapping(value="/medical-supplies", method = RequestMethod.GET)
-//	private String viewAllDaftarMedicalSupplies(Model model) {
-//		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-//		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
-//		model.addAttribute("allMedSup", allMedSup);
-//		
-//		return "view-all-medical-supplies";
-//	}
-	
+
 //	//TAMBAH JADWAL BARU
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/tambah", method = RequestMethod.GET)
 //		private String add(Model model) {
@@ -68,6 +72,5 @@ public class MedicalSuppliesController {
 //			model.addAttribute("id", newJadwal.getId());
 //			return "updateJadwalSuccess";
 //		}
-	
-	
+
 }

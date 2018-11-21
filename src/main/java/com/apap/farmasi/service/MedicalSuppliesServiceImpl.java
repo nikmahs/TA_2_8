@@ -23,5 +23,10 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	public List<MedicalSuppliesModel>  viewAllDaftarMedicalSupplies() {
 		return medicalSuppliesDb.findAll();
 	}
+
+	@Override
+	public MedicalSuppliesModel getMedicalSuppliesDetailById(long id) {
+		return medicalSuppliesDb.findById(id);
+	}
 	
 }
