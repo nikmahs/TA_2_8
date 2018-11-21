@@ -26,7 +26,7 @@ public class MedicalSuppliesController {
 	 * @param model
 	 * @return tampilan daftar seluruh medical supplies
 	 */	
-	@RequestMapping(value = "/medical-supplies", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private String viewAllDaftarMedicalSupplies(Model model) {
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
