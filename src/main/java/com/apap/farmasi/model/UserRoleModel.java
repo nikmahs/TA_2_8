@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user")
-public class UserModel implements Serializable {
+public class UserRoleModel implements Serializable {
 	
 	@Id
 	@Size(max = 255)

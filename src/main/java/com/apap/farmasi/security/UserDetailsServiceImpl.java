@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
-import com.apap.farmasi.model.UserModel;
+import com.apap.farmasi.model.UserRoleModel;
 import com.apap.farmasi.repository.UserDb;
 
 @Service
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserModel user = userDb.findByUsername(username);
+		UserRoleModel user = userDb.findByUsername(username);
 
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));

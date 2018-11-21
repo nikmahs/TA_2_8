@@ -46,48 +46,6 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Update Password
-                    </div>
-                    <div class="card-body">
-                    	<form th:action="@{/user/updatePassword}" method="post">
-                    		<input type="hidden" name="username" th:value="${#httpServletRequest.remoteUser}">
-                            <div class="row form-group">
-                                <label class="col-sm-4">Password lama:</label>
-                                <input type="password" class="col-sm-8 form-control input-sm" name="passLama"
-                                pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
-                                title="Must contain at least one number and one letter, and at least 8 or more 
-                                characters">
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-sm-4">Password Baru:</label>
-                                <input type="password" class="col-sm-8 form-control input-sm" name="passBaru"
-                                pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
-                                title="Must contain at least one number and one letter, and at least 8 or more 
-                                characters">
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-sm-4">Konfirmasi Password Baru:</label>
-                                <input type="password" class="col-sm-8 form-control input-sm" name="passUlang"
-                                pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
-                                title="Must contain at least one number and one letter, and at least 8 or more 
-                                characters">
-                            </div>
-                            <div>
-                            	<button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                    	
-                    	</form>
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
     </div>
 </body>
 </html>

@@ -22,7 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
-			//.antMatchers("/car/**", "/dealer/view").hasAnyAuthority("DEALER")
+			//Fitur 3
+			//.antMatchers("/").hasAnyAuthority("ADMIN")
 			//.antMatchers("/dealer/**", "/dealer/view").hasAnyAuthority("ADMIN")
 			.anyRequest().authenticated()
 			.and()

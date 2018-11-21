@@ -1,8 +1,10 @@
 package com.apap.farmasi.service;
 
-import com.apap.farmasi.model.UserModel;
+import com.apap.farmasi.model.UserRoleModel;
 
 public interface UserService {
-	UserModel addUser(UserModel user);
+	UserRoleModel addUser(UserRoleModel user);
 	public String encrypt(String password);
+	UserRoleModel findUserByUsername(String name);
+	void changePassword(UserRoleModel user, String passBaru);
 }
