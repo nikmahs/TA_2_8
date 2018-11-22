@@ -52,11 +52,8 @@ public class MedicalSuppliesModel implements Serializable {
 	@Column(name = "deskripsi", nullable = false)
 	private String deskripsi;
 	
-<<<<<<< HEAD
-	@ManyToMany(mappedBy = "lisMedicalSupplies")
-=======
+
 	@ManyToMany(mappedBy = "listMedicalSupplies")
->>>>>>> ffc8429c39182507c302281639e1e3605b82d8e5
 	private List<PerencanaanModel> listPerencanaan;
 
 	

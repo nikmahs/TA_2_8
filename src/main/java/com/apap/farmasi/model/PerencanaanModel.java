@@ -38,7 +38,7 @@ public class PerencanaanModel implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = {
 				CascadeType.MERGE,
-				CascadeType.PERSIST})
+				CascadeType.ALL})
 	@JoinTable(	name = "perencanaan_medical_supplies",
 				joinColumns = { @JoinColumn(name = "id_perencanaan")},
 				inverseJoinColumns = { @JoinColumn(name = "id_medical_supplies")})
