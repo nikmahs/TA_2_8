@@ -42,8 +42,8 @@ public class PermintaanModel implements Serializable {
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;
 	
-	@OneToMany(mappedBy = "permintaan")
-	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
+//	@OneToMany(mappedBy = "permintaan")
+//	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
 	
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
@@ -89,12 +89,12 @@ public class PermintaanModel implements Serializable {
 		this.statusPermintaan = statusPermintaan;
 	}
 
-	public List<PermintaanMedicalSuppliesModel> getListPermintaanMedicalSupplies() {
-		return listPermintaanMedicalSupplies;
-	}
-
-	public void setListPermintaanMedicalSupplies(List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies) {
-		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
-	}
+//	public List<PermintaanMedicalSuppliesModel> getListPermintaanMedicalSupplies() {
+//		return listPermintaanMedicalSupplies;
+//	}
+//
+//	public void setListPermintaanMedicalSupplies(List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies) {
+//		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
+//	}
 	
 }
