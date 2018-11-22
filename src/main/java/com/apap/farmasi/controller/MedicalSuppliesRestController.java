@@ -14,11 +14,11 @@ import com.apap.farmasi.service.MedicalSuppliesService;
 @RestController
 public class MedicalSuppliesRestController {
 	
-	@Autowired
-	private MedicalSuppliesService medicalSuppliesService;
+//	@Autowired
+//	private MedicalSuppliesService medicalSuppliesService;
 	
-	@GetMapping()
-	private MedicalSuppliesDb viewAllMedicalSupplies(Model model) {
-		return medicalSuppliesService.viewAllDaftarMedicalSupplies();
-	}
+//	@GetMapping()
+//	private MedicalSuppliesDb viewAllMedicalSupplies(Model model) {
+//		return medicalSuppliesService.viewAllDaftarMedicalSupplies();
+//	}
 }

@@ -21,7 +21,7 @@ import com.apap.farmasi.model.JadwalJagaModel;
 @Controller
 @RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
-	@Autowired MedicalSuppliesService medicalSuppliesService;
+//	@Autowired MedicalSuppliesService medicalSuppliesService;
 	
 //	@Autowired	private JadwalService jadwalService;
 	/**
@@ -29,14 +29,14 @@ public class MedicalSuppliesController {
 	 * @param model
 	 * @return tampilan daftar seluruh medical supplies
 	 */	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	private String viewAllDaftarMedicalSupplies(Model model) {
-		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
-		model.addAttribute("allMedSup", allMedSup);
-		
-		return "view-all-medical-supplies";
-	}
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	private String viewAllDaftarMedicalSupplies(Model model) {
+//		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+//		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+//		model.addAttribute("allMedSup", allMedSup);
+//		
+//		return "view-all-medical-supplies";
+//	}
 
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
