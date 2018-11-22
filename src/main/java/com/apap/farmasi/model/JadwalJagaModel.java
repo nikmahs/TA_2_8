@@ -2,6 +2,7 @@ package com.apap.farmasi.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +17,19 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.apap.farmasi.rest.StaffDetail;
+import com.apap.farmasi.service.RestService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.apap.farmasi.rest.*;
 
 @Entity
 @Table(name = "jadwal_jaga")
 public class JadwalJagaModel implements Serializable {
 
+//	@Autowired
+//	private RestService restService;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -40,11 +46,15 @@ public class JadwalJagaModel implements Serializable {
 	@Column(name = "waktu_selesai", nullable = false)
 	private Time waktuSelesai;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name ="id_staff", referencedColumnName = "id_staff", nullable = false)
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name ="id_staff", referencedColumnName = "id", nullable = false)
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 //	@JsonIgnore
 //	private StaffDetail staff;
+	
+	@NotNull
+	@Column(name = "id_staff", nullable = false)
+	private int idStaff;
 
 	public long getId() {
 		return id;
@@ -78,13 +88,37 @@ public class JadwalJagaModel implements Serializable {
 		this.waktuSelesai = waktuSelesai;
 	}
 
+	public int getIdStaff() {
+		return idStaff;
+	}
+
+	public void setIdStaff(int idStaff) {
+		this.idStaff = idStaff;
+	}
+	
 //	public StaffDetail getStaff() {
+//		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+//		for (StaffDetail staff : listStaff) {
+//			if (staff.getId() == this.idStaff) {
+//				return staff;
+//			}
+//		}
+//		return null;
+//	}
+	
+//	public StaffDetail getStaff() {
+//		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+//		for (StaffDetail staff : listStaff) {
+//			if (staff.getId() == this.id) {
+//				return staff;
+//			}
+//		}
 //		return staff;
 //	}
 //
 //	public void setStaff(StaffDetail staff) {
 //		this.staff = staff;
-	}
+//	}
 	
 //	public Object getTanggal() {
 //		// TODO Auto-generated method stub
@@ -95,3 +129,4 @@ public class JadwalJagaModel implements Serializable {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+}

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class PermintaanserviceImpl implements PermintaanService{
+public class PermintaanServiceImpl implements PermintaanService{
 
 	@Autowired
 	private PermintaanDb permintaanDb;

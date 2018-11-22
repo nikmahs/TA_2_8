@@ -6,24 +6,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StaffDetail {
 	
-	private int idStaff;
+	private int id;
 	
-	private String namaStaff;
-
+	private String nama;
 	
-	public int getIdStaff() {
-		return idStaff;
+	// jenis = 0 -> staff farmasi
+	private int jenis;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setIdStaff(int id_staff) {
-		this.idStaff = id_staff;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getNamaStaff() {
-		return namaStaff;
+	public String getNama() {
+		return nama;
 	}
 
-	public void setNamaStaff(String nama_staff) {
-		this.namaStaff = nama_staff;
+	public void setNama(String nama) {
+		this.nama = nama;
 	}
+
+	public int getJenis() {
+		return jenis;
+	}
+
+	public void setJenis(int jenis) {
+		this.jenis = jenis;
+	}
+	
+	
+	
+	/*
+	 * TODO:
+	 * 1. Buat StaffModel yg isinya status, message, result
+	 * 2. Buat StaffDetail yg isinya id, nama, jenis
+	 * 3. Buat method untuk mengambil data staff di SI Appointment
+	 */
 }
