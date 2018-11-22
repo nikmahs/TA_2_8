@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,20 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.apap.farmasi.model.JenisMedicalSuppliesModel;
-import com.apap.farmasi.model.MedicalSuppliesModel;
-import com.apap.farmasi.model.StatusPermintaanModel;
-import com.apap.farmasi.model.FlagUrgentModel;
-import com.apap.farmasi.model.PerencanaanModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -48,6 +41,9 @@ public class PermintaanModel implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;
+	
+	@OneToMany(mappedBy = "permintaan")
+	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
 	
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
@@ -92,4 +88,13 @@ public class PermintaanModel implements Serializable {
 	public void setStatusPermintaan(StatusPermintaanModel statusPermintaan) {
 		this.statusPermintaan = statusPermintaan;
 	}
+
+	public List<PermintaanMedicalSuppliesModel> getListPermintaanMedicalSupplies() {
+		return listPermintaanMedicalSupplies;
+	}
+
+	public void setListPermintaanMedicalSupplies(List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies) {
+		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
+	}
+	
 }

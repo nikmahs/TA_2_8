@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.apap.farmasi.model.PermintaanModel;
 
+@Repository
 public interface PermintaanDb extends JpaRepository<PermintaanModel,Long> {
 }
