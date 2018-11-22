@@ -35,20 +35,34 @@ public class PermintaanModel implements Serializable {
 	@NotNull
 	@Column(name = "jumlah_medical_supplies", nullable = false)
 	private long jumlahMedicalSupplies;
-		
+
+	@NotNull
+	@Column(name = "id_jadwal", nullable = false)
+	private long idJadwal;
+	
+	@OneToMany(mappedBy = "permintaan")
+	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;
-	
-	@OneToMany(mappedBy = "permintaan")
-	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
-	
+		
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
 	private int idPasien;
 	
+		
+	
+	public long getIdJadwal() {
+		return idJadwal;
+	}
+
+	public void setIdJadwal(long idJadwal) {
+		this.idJadwal = idJadwal;
+	}
+
 	public long getId() {
 		return id;
 	}
