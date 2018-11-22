@@ -13,13 +13,19 @@ import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.StaffDetail;
+//import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
+
+//import com.apap.farmasi.model.JadwalJagaModel;
+
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
+
 
 @Controller
 @RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
+
 	@Autowired 
 	private MedicalSuppliesService medicalSuppliesService;
 	
@@ -30,12 +36,15 @@ public class MedicalSuppliesController {
 	private RestService restService;
 	
 //	@Autowired	private JadwalService jadwalService;
+	//@Autowired JenisMedicalSuppliesService jenisMedicalSuppliesService;
+	//private JadwalService jadwalService;
+
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model
-	 * @return tampilan daftar seluruh medical supplies
+	 * @return tampilan tufter seluruh medical supplies
 	 */	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	private String viewAllDaftarMedicalSupplies(Model model) {
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
@@ -43,7 +52,25 @@ public class MedicalSuppliesController {
 		
 		return "view-all-medical-supplies";
 	}
-
+	
+	/**
+	 * fitur 5 melihat detail medical supplies HALF DONE
+	 * @param model
+	 * @return tampilan detail medical supplies
+	 */	
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
+//		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
+//		JenisMedicalSuppliesModel jenisMedsup = jenisMedicalSuppliesService.getJenisMedicalSuppliesDetailById(id);
+//		//StatusPermintaanModel statusMedsup =
+//		//tampilin jenis medsup
+//		//tampilin status medsup
+//		
+//		model.addAttribute("medsup", medsup);
+//
+//		return "view-detail-medical-supplies";
+//	}
+	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
 		return "view-perencanaan";
