@@ -32,16 +32,12 @@ public class PermintaanModel implements Serializable {
 	@Column(name = "tanggal", nullable = false)
 	private Date tanggal;
 	
+	@OneToMany(mappedBy = "permintaan")
+	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
+	
 	@NotNull
 	@Column(name = "jumlah_medical_supplies", nullable = false)
 	private long jumlahMedicalSupplies;
-
-	@NotNull
-	@Column(name = "id_jadwal", nullable = false)
-	private long idJadwal;
-	
-	@OneToMany(mappedBy = "permintaan")
-	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
@@ -49,20 +45,17 @@ public class PermintaanModel implements Serializable {
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;
 		
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_jadwal", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private JadwalJagaModel jadwalJaga;
+	
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
 	private int idPasien;
 	
 		
-	
-	public long getIdJadwal() {
-		return idJadwal;
-	}
-
-	public void setIdJadwal(long idJadwal) {
-		this.idJadwal = idJadwal;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -74,9 +67,17 @@ public class PermintaanModel implements Serializable {
 	public Date getTanggal() {
 		return tanggal;
 	}
-
+	
 	public void setTanggal(Date tanggal) {
 		this.tanggal = tanggal;
+	}
+	
+	public List<PermintaanMedicalSuppliesModel> getListPermintaanMedicalSupplies() {
+		return listPermintaanMedicalSupplies;
+	}
+
+	public void setListPermintaanMedicalSupplies(List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies) {
+		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
 	}
 
 	public long getJumlahMedicalSupplies() {
@@ -87,12 +88,12 @@ public class PermintaanModel implements Serializable {
 		this.jumlahMedicalSupplies = jumlahMedicalSupplies;
 	}
 
-	public int getIdPasien() {
-		return idPasien;
+	public JadwalJagaModel getJadwalJaga() {
+		return jadwalJaga;
 	}
 
-	public void setIdPasien(int idPasien) {
-		this.idPasien = idPasien;
+	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
+		this.jadwalJaga = jadwalJaga;
 	}
 
 	public StatusPermintaanModel getStatusPermintaan() {
@@ -103,12 +104,11 @@ public class PermintaanModel implements Serializable {
 		this.statusPermintaan = statusPermintaan;
 	}
 
-	public List<PermintaanMedicalSuppliesModel> getListPermintaanMedicalSupplies() {
-		return listPermintaanMedicalSupplies;
+	public int getIdPasien() {
+		return idPasien;
 	}
 
-	public void setListPermintaanMedicalSupplies(List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies) {
-		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
-	}
-	
+	public void setIdPasien(int idPasien) {
+		this.idPasien = idPasien;
+	}	
 }

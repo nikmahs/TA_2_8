@@ -5,20 +5,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
+import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PermintaanService;
+import com.apap.farmasi.service.RestService;
 
 @Controller
 @RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
-	@Autowired MedicalSuppliesService medicalSuppliesService;
-	@Autowired PermintaanService permintaanService;
+	@Autowired 
+	private MedicalSuppliesService medicalSuppliesService;
+	
+	@Autowired 
+	private PermintaanService permintaanService;
+	
+	@Autowired 
+	private RestService restService;
 	
 //	@Autowired	private JadwalService jadwalService;
 	/**
@@ -40,12 +49,17 @@ public class MedicalSuppliesController {
 		return "view-perencanaan";
 	}
 	
-	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
+//	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
+	@GetMapping(value = "/permintaan")
 	private String viewAllPermintaan(Model model) {
+		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
 		model.addAttribute("listPermintaan", listPermintaan);
+		model.addAttribute("listStaff", listStaff);
 		return "viewall-permintaan";
 	}
+	
+	
 	
 
 //	//TAMBAH JADWAL BARU
