@@ -11,20 +11,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
+import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
+import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
-import com.apap.farmasi.service.JenisMedicalSuppliesService;;
 
 //import com.apap.farmasi.model.JadwalJagaModel;
+
+import com.apap.farmasi.service.PermintaanService;
+
 
 @Controller
 @RequestMapping("/medical-supplies")
 public class MedicalSuppliesController {
 	@Autowired MedicalSuppliesService medicalSuppliesService;
-	
+	@Autowired PermintaanService permintaanService;
 	@Autowired JenisMedicalSuppliesService jenisMedicalSuppliesService;
-//	@Autowired
-//	private JadwalService jadwalService;
+	@Autowired
+	//private JadwalService jadwalService;
+
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model
@@ -62,6 +67,13 @@ public class MedicalSuppliesController {
 		return "view-perencanaan";
 	}
 	
+	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
+	private String viewAllPermintaan(Model model) {
+		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
+		model.addAttribute("listPermintaan", listPermintaan);
+		return "viewall-permintaan";
+	}
+	
 
 //	//TAMBAH JADWAL BARU
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/tambah", method = RequestMethod.GET)
@@ -81,16 +93,16 @@ public class MedicalSuppliesController {
 //		//UBAH JADWAL Jadwal staf apoteker jaga tidak bisa diubah jika tanggalnya sudah lewat
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/{idJadwaL}", method = RequestMethod.GET)
 //		private String updateJadwal(@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			JadwalJagaModel jadwal = jadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
+//			JadwalJagaModel jadwal = JadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
 //			model.addAttribute("jadwal", jadwal);
 //			model.addAttribute("newJadwal", new JadwalJagaModel());
 //			return "updateJadwal";
 //		}
 //		
-//		@RequestMapping(value = "/jabatan/ubah/{id_jabatan}", method = RequestMethod.POST)
+//		@RequestMapping(value = "/jabatan/update/{id_jabatan}", method = RequestMethod.POST)
 //		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel newJadwal, 
 //			@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			jadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
+//			JadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
 //			model.addAttribute("id", newJadwal.getId());
 //			return "updateJadwalSuccess";
 //		}

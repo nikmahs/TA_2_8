@@ -35,15 +35,6 @@ public class PerencanaanModel implements Serializable {
 	@Column(name = "status", nullable = false)
 	private String status;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-				CascadeType.MERGE,
-				CascadeType.PERSIST})
-	@JoinTable(	name = "perencanaan_medical_supplies",
-				joinColumns = { @JoinColumn(name = "id_perencanaan")},
-				inverseJoinColumns = { @JoinColumn(name = "id_medical_supplies")})
-	private List<MedicalSuppliesModel> listMedicalSupplies;
-	
 	@NotNull
 	@Column(name = "jumlah", nullable = false)
 	private Integer jumlah;
@@ -78,13 +69,5 @@ public class PerencanaanModel implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public List<MedicalSuppliesModel> getListMedicalSupplies() {
-		return listMedicalSupplies;
-	}
-
-	public void setListMedicalSupplies(List<MedicalSuppliesModel> listMedicalSupplies) {
-		this.listMedicalSupplies = listMedicalSupplies;
 	}
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,20 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.apap.farmasi.model.JenisMedicalSuppliesModel;
-import com.apap.farmasi.model.MedicalSuppliesModel;
-import com.apap.farmasi.model.StatusPermintaanModel;
-import com.apap.farmasi.model.FlagUrgentModel;
-import com.apap.farmasi.model.PerencanaanModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -39,31 +32,18 @@ public class PermintaanModel implements Serializable {
 	@Column(name = "tanggal", nullable = false)
 	private Date tanggal;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            })
-    @JoinTable(name = "permintaan_medical_supplies",
-            joinColumns = { @JoinColumn(name = "id_permintaan") },
-            inverseJoinColumns = { @JoinColumn(name = "id_medical_supplies") })
-    private List<MedicalSuppliesModel> listMedicalSupplies;
-	
 	@NotNull
 	@Column(name = "jumlah_medical_supplies", nullable = false)
 	private long jumlahMedicalSupplies;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonIgnore
-//	private JadwalJagaModel jadwalJaga;
-	
+		
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;
+	
+	@OneToMany(mappedBy = "permintaan")
+	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
 	
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
@@ -101,14 +81,6 @@ public class PermintaanModel implements Serializable {
 		this.idPasien = idPasien;
 	}
 
-	public List<MedicalSuppliesModel> getListMedicalSupplies() {
-		return listMedicalSupplies;
-	}
-
-	public void setListMedicalSupplies(List<MedicalSuppliesModel> listMedicalSupplies) {
-		this.listMedicalSupplies = listMedicalSupplies;
-	}
-
 	public StatusPermintaanModel getStatusPermintaan() {
 		return statusPermintaan;
 	}
@@ -117,12 +89,12 @@ public class PermintaanModel implements Serializable {
 		this.statusPermintaan = statusPermintaan;
 	}
 
-//	public JadwalJagaModel getJadwalJaga() {
-//		return jadwalJaga;
-//	}
-//
-//	public void setJadwalJaga(JadwalJagaModel jadwalJaga) {
-//		this.jadwalJaga = jadwalJaga;
-//	}
-//	
+	public List<PermintaanMedicalSuppliesModel> getListPermintaanMedicalSupplies() {
+		return listPermintaanMedicalSupplies;
+	}
+
+	public void setListPermintaanMedicalSupplies(List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies) {
+		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
+	}
+	
 }
