@@ -10,10 +10,10 @@ import com.apap.farmasi.repository.JenisMedicalSuppliesDb;
 @Service
 @Transactional
 public class JenisMedicalSuppliesServiceImpl {
-	@Autowired
-	JenisMedicalSuppliesDb jenisMedicalSuppliesDb;
-	
-	public JenisMedicalSuppliesModel getJenisMedicalSuppliesDetailById(long id) {
-		return jenisMedicalSuppliesDb.findById(id);
-	}
+//	@Autowired
+//	JenisMedicalSuppliesDb jenisMedicalSuppliesDb;
+//	
+//	public JenisMedicalSuppliesModel getJenisMedicalSuppliesDetailById(long id) {
+//		return jenisMedicalSuppliesDb.findById(id);
+//	}
 }

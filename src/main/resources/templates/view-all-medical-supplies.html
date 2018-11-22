@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title>View All Medical Supplies</title>
+
+    <head th:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    </head>
+
+    <head th:fragment="js">
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+    
 	<object th:include="fragments/fragment :: title" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -28,6 +38,7 @@
 			<table id = "list-all-medsup" class = "table table-striped table-bordered" style = "width:100%">
 				<thead>
 					<tr>
+						<th>No.</th>
 						<th>Nama</th>
 						<th>Jumlah</th>
 						<th>Harga</th>
@@ -35,6 +46,7 @@
 				</thead>
 				<tbody>
 					<tr th:each = "medsup, iterationStatus: ${allMedSup}">
+						<td th:text="${iterationStatus.count}"></td>
 						<td th:text = "${medsup.nama}"></td>
 						<td th:text = "${medsup.jumlah}"></td>
 						<td th:text = "${medsup.price}"></td>
