@@ -20,8 +20,8 @@ public class StatusPermintaanModel implements Serializable {
 	
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "name", nullable = false)
-	private String name;
+	@Column(name = "nama", nullable = false)
+	private String nama;
 	
 	@NotNull
 	@Size(max = 255)
@@ -36,12 +36,12 @@ public class StatusPermintaanModel implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNama() {
+		return nama;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNama(String nama) {
+		this.nama = nama;
 	}
 
 	public String getDeskripsi() {

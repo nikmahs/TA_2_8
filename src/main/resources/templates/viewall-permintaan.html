@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Daftar Permintaan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container-fluid">
+    	<h3 class="text-center">Daftar Permintaan</h3>
+    	
+    	<table id="tableAllPermintaan" class="display">
+			<thead>
+				<tr>
+					<th>tanggal</th>
+					<th>nama</th>
+					<th>jumlah</th>
+					<th>jenis</th>
+					<th>status</th>
+					<th>staf</th>
+					<th>pasien</th>
+				</tr>
+			</thead>
+			<tbody>
+				<span th:each="permintaan : ${listPermintaan}">
+					<span th:each="permintaanMedSup : ${permintaan.listPermintaanMedicalSupplies}">
+						<tr>
+							<td th:text="${permintaan.tanggal}"></td>
+							<td th:text="${permintaanMedSup.medicalSupplies.nama}"></td>
+							<td th:text="${permintaan.jumlahMedicalSupplies}"></td>
+							<td th:text="${permintaanMedSup.medicalSupplies.jenisMedicalSupplies.jenisMedicalSupplies}"></td>
+							<td th:text="${permintaan.statusPermintaan.nama}"></td>
+							<td th:text="${permintaan.jadwalJaga.idStaff}"></td>
+							<td th:text="${permintaan.idPasien}"></td>
+						</tr>
+					</span>
+				</span>
+			</tbody>
+		</table>
+    </div>
+</body>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script>
+	$(document).ready( function () {
+	    $('#tableAllPermintaan').DataTable();
+	} );
+</script>
+
+</html>

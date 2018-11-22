@@ -52,14 +52,6 @@ public class MedicalSuppliesModel implements Serializable {
 	@Column(name = "deskripsi", nullable = false)
 	private String deskripsi;
 	
-
-	@ManyToMany(mappedBy = "listMedicalSupplies")
-	private List<PerencanaanModel> listPerencanaan;
-
-	
-	@ManyToMany(mappedBy = "listMedicalSupplies")
-	private List<PermintaanModel> listPermintaan;
-	
 	public long getId() {
 		return id;
 	}
@@ -107,21 +99,4 @@ public class MedicalSuppliesModel implements Serializable {
 	public void setJenisMedicalSupplies(JenisMedicalSuppliesModel jenisMedicalSupplies) {
 		this.jenisMedicalSupplies = jenisMedicalSupplies;
 	}
-
-	public List<PermintaanModel> getListPermintaan() {
-		return listPermintaan;
-	}
-
-	public void setListPermintaan(List<PermintaanModel> listPermintaan) {
-		this.listPermintaan = listPermintaan;
-	}
-
-	public List<PerencanaanModel> getListPerencanaan() {
-		return listPerencanaan;
-	}
-
-	public void setListPerencanaan(List<PerencanaanModel> listPerencanaan) {
-		this.listPerencanaan = listPerencanaan;
-	}
-	
 }
