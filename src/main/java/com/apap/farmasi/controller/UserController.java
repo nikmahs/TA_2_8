@@ -45,4 +45,6 @@ public class UserController {
 		redirect.addFlashAttribute("msg", message);
 		return redirects;
 	}
+	
+	
 }

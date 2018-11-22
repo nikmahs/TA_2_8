@@ -34,7 +34,7 @@ public class MedicalSuppliesController {
 	
 	@Autowired 
 	private RestService restService;
-
+	
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model

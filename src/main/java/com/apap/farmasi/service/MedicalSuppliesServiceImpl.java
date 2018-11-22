@@ -10,23 +10,23 @@ import com.apap.farmasi.repository.MedicalSuppliesDb;
 
 @Service
 @Transactional
-public class MedicalSuppliesServiceImpl{// implements MedicalSuppliesService {
+public class MedicalSuppliesServiceImpl implements MedicalSuppliesService { 
 	@Autowired 
 	private MedicalSuppliesDb medicalSuppliesDb;
 
-//	@Override
-//	public MedicalSuppliesDb viewAllDaftarMedicalSupplies() {
-//		return medicalSuppliesDb;
-//	}
+	@Override
+	public MedicalSuppliesDb viewAllDaftarMedicalSupplies() {
+		return medicalSuppliesDb;
+	}
 	
 //	@Override
 //	public List<MedicalSuppliesModel>  viewAllDaftarMedicalSupplies() {
 //		return medicalSuppliesDb.findAll();
 //	}
 
-//	@Override
-//	public MedicalSuppliesModel getMedicalSuppliesDetailById(long id) {
-//		return medicalSuppliesDb.findById(id);
-//	}
-//	
+	@Override
+	public MedicalSuppliesModel getMedicalSuppliesDetailById(long id) {
+		return medicalSuppliesDb.findById(id);
+	}
+	
 }
