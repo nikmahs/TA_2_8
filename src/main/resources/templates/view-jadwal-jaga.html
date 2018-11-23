@@ -14,6 +14,17 @@
     <div class="container-fluid">
     	<br>
     	<h3 class="text-center">Jadwal Jaga Staf Apoteker</h3>
+    	 	<div class="row form-group">
+                    <form th:action="@{/medical-supplies/jadwal-staf/tambah}" style="margin-left:20px;">
+						<button type="submit" class="btn btn-primary">Tambah</button>
+					</form>
+            </div>
+            
+            <div class="row form-group">
+                    <form th:action="@{/medical-supplies/jadwal-staf/update}" style="margin-right:50px;">
+						<button type="submit" class="btn btn-primary">Update</button>
+					</form>
+            </div>
     	
     	<table id="tableAllJadwalJaga" class="display">
 			<thead>

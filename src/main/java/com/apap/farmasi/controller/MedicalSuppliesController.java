@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,7 +77,6 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/{id}/", method = RequestMethod.GET)
 	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
 		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
-
 		model.addAttribute("medsup", medsup);
 
 		return "view-detail-medical-supplies";
@@ -117,7 +120,7 @@ public class MedicalSuppliesController {
 	//bukan kerjaan awl lagi
 	
 //	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
-	@GetMapping(value = "/permintaan")
+	@GetMapping(value = "/permintaan/")
 	private String viewAllPermintaan(Model model) {
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
@@ -128,16 +131,7 @@ public class MedicalSuppliesController {
 		model.addAttribute("listStaff", listStaff);
 		return "viewall-permintaan";
 	}
-	
-	
-	
 
-	//TAMBAH JADWAL BARU
-//		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
-//		private String add(Model model) {
-//			model.addAttribute("jadwal", new JadwalJagaModel());
-//			return "addNewJadwal";
-//		}
 		
 	//LIHAT JADWAL JAGA
 			@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
@@ -148,15 +142,20 @@ public class MedicalSuppliesController {
 				model.addAttribute("listStaff", listStaff);
 				return "view-jadwal-jaga";
 			}
-	
-//		
-//		//HARUSNYA BIAR BISA TAMBAH DICEK DULU PADA TANGGAL DAN WAKTU TERSEBUT TERSEDIA ATAU ENGGA
-//		@RequestMapping(value = "/medical-supplies/jadwal-staf/", method = RequestMethod.POST)
-//		private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
-//			jadwalService.addJadwal(jadwal);
-//			model.addAttribute("tanggal", jadwal.getTanggal());
-//			return "addNewJadwalSuccess";
-//		}
+			
+			//TAMBAH JADWAL BARU
+			@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.GET)
+			private String add(Model model) {
+				model.addAttribute("jadwal", new JadwalJagaModel());
+				List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+				model.addAttribute("listStaff", listStaff);
+				return "addNewJadwal";
+			}	
+		@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.POST)
+		private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
+			jadwalService.addJadwal(jadwal);
+			return "addNewJadwalSuccess";
+		}
 //		
 //		//UBAH JADWAL Jadwal staf apoteker jaga tidak bisa diubah jika tanggalnya sudah lewat
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/{idJadwaL}", method = RequestMethod.GET)
