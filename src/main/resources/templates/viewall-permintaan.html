@@ -25,10 +25,11 @@
 					<th>status</th>
 					<th>staf</th>
 					<th>pasien</th>
+					<th>aksi</th>
 				</tr>
 			</thead>
 			<tbody>
-				<span th:each="permintaan,iterationStatus : ${listPermintaan}">
+				<span th:each="permintaan : ${listPermintaan}">
 					<span th:each="permintaanMedSup : ${permintaan.listPermintaanMedicalSupplies}">
 						<tr>
 							<td th:text="${permintaan.tanggal}"></td>
@@ -37,15 +38,17 @@
 							<td th:text="${permintaanMedSup.medicalSupplies.jenisMedicalSupplies.jenisMedicalSupplies}"></td>
 							<td th:text="${permintaan.statusPermintaan.nama}">
 	  							<form th:action="@{/permintaan/ubah/{id}(id=${permintaan.id})}" method="GET">					
-									<option th:each="status : ${listStatus}" 
-											th:value="${status.id}" 
-											th:text="${status.nama}"
-											name = "id" >
-									</option>
+								<button type="submit">Terima</button>
 								</form>
 							</td>
 							<td th:text="${permintaan.jadwalJaga.idStaff}"></td>
 							<td th:text="${permintaan.idPasien}"></td>
+							<td>
+								 <form th:action="@{/medical-supplies/permintaan/ubah/{id}(id=${permintaan.id})}" method="POST">					
+									<button type="submit" class="btn btn-primary">Terima</button>
+								</form>
+							</td>
+							
 						</tr>
 					</span>
 				</span>

@@ -44,6 +44,7 @@
 						<th>Nama</th>
 						<th>Jumlah</th>
 						<th>Harga</th>
+						<th>Kirim ke Rawat Jalan</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -52,6 +53,14 @@
 						<td th:text = "${medsup.nama}"></td>
 						<td th:text = "${medsup.jumlah}"></td>
 						<td th:text = "${medsup.price}"></td>
+						<td>
+							<form method="POST">
+								<input type=hidden th:value="${medsup.id}"name=id>					
+								<input type=number name=jumlah>					
+								<button type="submit" class="btn btn-primary">Kirim</button>
+							</form>
+						</td>
+						
 					</tr>
 				</tbody>
 			</table>
