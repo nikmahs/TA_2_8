@@ -15,6 +15,7 @@ import com.apap.farmasi.model.PerencanaanModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.StaffDetail;
+import com.apap.farmasi.service.JadwalService;
 //import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
@@ -40,6 +41,9 @@ public class MedicalSuppliesController {
 	
 	@Autowired 
 	private RestService restService;
+	
+	@Autowired 
+	private JadwalService jadwalService;
 	
 	/**
 	 * fitur 3 melihat daftar medical supplies
@@ -91,14 +95,33 @@ public class MedicalSuppliesController {
 		return "viewall-permintaan";
 	}
 	
-	//TAMBAH JADWAL BARU
-		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
-		private String add(Model model) {
-			model.addAttribute("jadwal", new JadwalJagaModel());
-			//perlu ada sesuatu ga?
-			return "addNewJadwal";
-		}
+//	//TAMBAH JADWAL BARU
+//<<<<<<< HEAD
+//		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
+//		private String add(Model model) {
+//			model.addAttribute("jadwal", new JadwalJagaModel());
+//			//perlu ada sesuatu ga?
+//			return "addNewJadwal";
+//		}
 		
+//		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
+//		private String add(Model model) {
+//			model.addAttribute("jadwal", new JadwalJagaModel());
+//			return "addNewJadwal";
+//		}
+		
+	//LIHAT JADWAL JAGA
+			@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
+			private String viewJadwalJaga(Model model) {
+				List<JadwalJagaModel> listJadwalJaga = jadwalService.findAllJadwal();
+				List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+				model.addAttribute("listJadwalJaga", listJadwalJaga);
+				model.addAttribute("listStaff", listStaff);
+				return "view-jadwal-jaga";
+			}
+	
+//		
+
 //		//HARUSNYA BIAR BISA TAMBAH DICEK DULU PADA TANGGAL DAN WAKTU TERSEBUT TERSEDIA ATAU ENGGA
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/", method = RequestMethod.POST)
 //		private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
