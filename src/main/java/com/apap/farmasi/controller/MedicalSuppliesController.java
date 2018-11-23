@@ -116,7 +116,7 @@ public class MedicalSuppliesController {
 	//bukan kerjaan awl lagi
 	
 //	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
-	@GetMapping(value = "/permintaan")
+	@GetMapping(value = "/permintaan/")
 	private String viewAllPermintaan(Model model) {
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
