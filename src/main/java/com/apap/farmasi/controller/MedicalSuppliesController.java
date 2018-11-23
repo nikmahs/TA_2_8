@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
+import com.apap.farmasi.model.PerencanaanModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.StaffDetail;
 //import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
+import com.apap.farmasi.service.PerencanaanService;
 
 //import com.apap.farmasi.model.JadwalJagaModel;
 
@@ -32,6 +34,9 @@ public class MedicalSuppliesController {
 	
 	@Autowired 
 	private PermintaanService permintaanService;
+	
+	@Autowired
+	private PerencanaanService perencanaanService;
 	
 	@Autowired 
 	private RestService restService;
@@ -71,7 +76,8 @@ public class MedicalSuppliesController {
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
-		
+		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
+		model.addAttribute("listPerencanaan", listPerencanaan);
 		return "view-perencanaan";
 	}
 	
