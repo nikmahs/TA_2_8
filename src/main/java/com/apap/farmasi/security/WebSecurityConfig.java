@@ -22,6 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
+			//ini harus ada biar apinya bisa diakses tanpa security
+			.antMatchers("/api/**").permitAll()
 			.antMatchers("/user/addUser").permitAll()
 			.antMatchers("/user/add").permitAll()
 			.antMatchers("/daftar-medical-service").permitAll()
