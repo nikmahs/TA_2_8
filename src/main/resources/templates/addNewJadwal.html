@@ -49,10 +49,10 @@
 	<form class="form-horizontal" th:action="@{/medical-supplies/jadwal-staf/tambah}" th:object="${jadwal}" method="POST">
 
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="namaStaff">Nama Staff Jaga</label>
+			<label class="control-label col-sm-2">Nama Staff Jaga</label>
 			<div class="col-sm-10">
-    			<select type="text" name="namaStaff">
-					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}" th:field="*{idStaff}"></option>
+    			<select type="text" name="idStaff">
+					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}"></option>
 				</select>
     		</div>
 		</div>
