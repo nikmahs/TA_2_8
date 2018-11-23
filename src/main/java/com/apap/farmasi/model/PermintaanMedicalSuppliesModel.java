@@ -1,7 +1,6 @@
 package com.apap.farmasi.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "permintaan_medical_supplies")
@@ -24,6 +24,7 @@ public class PermintaanMedicalSuppliesModel implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_permintaan", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	private PermintaanModel permintaan;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
