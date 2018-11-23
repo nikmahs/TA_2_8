@@ -50,6 +50,7 @@ public class PermintaanModel implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private StatusPermintaanModel statusPermintaan;	
+
 	
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
@@ -110,4 +111,5 @@ public class PermintaanModel implements Serializable {
 	public void setIdPasien(int idPasien) {
 		this.idPasien = idPasien;
 	}	
+
 }
