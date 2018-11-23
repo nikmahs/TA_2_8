@@ -17,13 +17,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-//			.csrf()
+			.csrf().ignoringAntMatchers("/api/**").and()
 //			.disable();
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
-//			.antMatchers("/user/addUser").permitAll()
-//			.antMatchers("/user/add").permitAll()
+			//ini harus ada biar apinya bisa diakses tanpa security
+			.antMatchers("/api/**").permitAll()
 			.antMatchers("/daftar-medical-service").permitAll()
 			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
 //			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>View Detail Medical Supplies</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+
+	<body>
+	<nav th:replace = "fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+	<br>
+		<h3 th:text="'Lihat Detail Medical Supplies - ' + ${medsup.nama}"></h3>
+	<div class = "card my-5">
+    	<table class = "table">
+    		<tbody>
+    			<tr>
+    				<th scope "row">Nama</th>
+    				<td th:text = "${medsup.nama}"></td>
+    			</tr>
+    			<tr>
+    				<th scope "row">Jumlah</th>
+    				<td th:text = "${medsup.jumlah}"></td>
+    			</tr>
+    		    <tr>
+    				<th scope "row">Harga</th>
+    				<td th:text = "${medsup.price}"></td>
+    			</tr>
+    			<tr>
+    				<th scope "row">Deskripsi</th>
+    				<td th:text = "${medsup.deskripsi}"></td>
+    			</tr>
+    			<tr>
+    				<th scope "row">Jenis</th>
+    				<td th:text = "${medsup.jenisMedicalSupplies.jenisMedicalSupplies}"></td>
+    			</tr>
+    			<tr>
+    				<th scope "row">Status</th>
+    				<td th:text = "${medsup.jenisMedicalSupplies.idUrgent.deskripsiFlagUrgent}"></td>
+    			</tr>
+    		</tbody>
+    	</table>
+        <div class="card-body">
+        	<a th:href="@{/}" class="btn btn-primary">Ubah</a>
+       	</div>
+    </div>
+	</div>
+	</body>
+</html>
