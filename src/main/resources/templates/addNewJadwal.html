@@ -51,7 +51,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="id_staff"></label>
 			<div class="col-sm-10">
-    			<select name="id_staff" th:field="*{idStaff}">
+    			<select name="nama_staff" th:field="*{namaStaff}">
 					<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">
 					</option>
 				</select>

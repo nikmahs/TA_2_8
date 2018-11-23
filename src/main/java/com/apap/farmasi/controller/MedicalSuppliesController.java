@@ -91,16 +91,14 @@ public class MedicalSuppliesController {
 		return "viewall-permintaan";
 	}
 	
-	
-	
-
 	//TAMBAH JADWAL BARU
 		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
 		private String add(Model model) {
 			model.addAttribute("jadwal", new JadwalJagaModel());
+			//perlu ada sesuatu ga?
 			return "addNewJadwal";
 		}
-//		
+		
 //		//HARUSNYA BIAR BISA TAMBAH DICEK DULU PADA TANGGAL DAN WAKTU TERSEBUT TERSEDIA ATAU ENGGA
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/", method = RequestMethod.POST)
 //		private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
