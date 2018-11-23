@@ -1,27 +1,30 @@
 package com.apap.farmasi.controller;
 
-import com.apap.farmasi.model.*;
-import com.apap.farmasi.service.*;
 import com.apap.farmasi.repository.*;
+import com.apap.farmasi.model.*;
 import com.apap.farmasi.rest.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.model.PermintaanModel;
+import com.apap.farmasi.repository.JadwalJagaDb;
+import com.apap.farmasi.repository.PermintaanDb;
+import com.apap.farmasi.repository.StatusPermintaanDb;
+import com.apap.farmasi.rest.BaseResponse;
+import com.apap.farmasi.service.PermintaanService;
 
 @RestController
 public class PermintaanRestController {
@@ -127,33 +130,10 @@ public class PermintaanRestController {
 					jadwalDipakai = jadwalTemp;
 //					System.out.println("masukakhir");	
 				}
-			}
-			
-			
-			
-//			if (today.get(Calendar.DATE) == tempJadwalCal.get(Calendar.DATE) &&
-//				today.get(Calendar.MONTH) == tempJadwalCal.get(Calendar.MONTH) &&
-//				today.get(Calendar.YEAR) == tempJadwalCal.get(Calendar.YEAR)) {
-//				
-//				if(today.get(Calendar.HOUR_OF_DAY)>=0 && 
-//				   today.get(Calendar.HOUR_OF_DAY)<16 &&
-//				   tempJadwalMulai.get(Calendar.HOUR_OF_DAY) == 8) {
-//					jadwalDipakai = jadwalTemp;
-//					}
-//				else if(today.get(Calendar.HOUR_OF_DAY)>=16 && 
-//						today.get(Calendar.HOUR_OF_DAY)<=11 &&
-//						tempJadwalMulai.get(Calendar.HOUR_OF_DAY) == 16) {
-//					jadwalDipakai = jadwalTemp;
-//					
-//				}
-//			}
+			}			
 		}
-		
-		
-		
-		
+				
 		List<PermintaanMedicalSuppliesModel> tempPMSMlst = permintaan.getListPermintaanMedicalSupplies();
-		
 		List<PermintaanMedicalSuppliesModel> PMSMAkhir = new ArrayList();
 		
 		//buat list permintaan

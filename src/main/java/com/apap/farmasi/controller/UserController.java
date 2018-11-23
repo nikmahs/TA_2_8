@@ -30,19 +30,31 @@ public class UserController {
 		return false;
 	}
 	
-	@RequestMapping( value = "/addUser", method = RequestMethod.POST)
-	private ModelAndView addUserSubmit(@ModelAttribute UserRoleModel user, RedirectAttributes redirect) {
-		String message="";
-		
-		if(this.validatePassword(user.getPassword())) {
-			userService.addUser(user);
-			message= null;
-		}
-		else {
-			message="password minimal terdiri dari 8 kata dengan minimal 1 huruf dan angka";
-		}
-		ModelAndView redirects = new ModelAndView("redirect:/");
-		redirect.addFlashAttribute("msg", message);
-		return redirects;
+//	@RequestMapping( value = "/addUser", method = RequestMethod.POST)
+//	private ModelAndView addUserSubmit(@ModelAttribute UserRoleModel user, RedirectAttributes redirect) {
+//		String message="";
+//		
+//		if(this.validatePassword(user.getPassword())) {
+//			userService.addUser(user);
+//			message= null;
+//		}
+//		else {
+//			message="password minimal terdiri dari 8 kata dengan minimal 1 huruf dan angka";
+//		}
+//		ModelAndView redirects = new ModelAndView("redirect:/");
+//		redirect.addFlashAttribute("msg", message);
+//		return redirects;
+//	}
+	
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	private String addUserSubmit(@ModelAttribute UserRoleModel user) {
+		userService.addUser(user);
+		return "login";
+	}
+	
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	private String addUser(@ModelAttribute UserRoleModel user) {
+		//userService.addUser(user);
+		return "add-user";
 	}
 }
