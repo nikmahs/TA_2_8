@@ -25,10 +25,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//ini harus ada biar apinya bisa diakses tanpa security
 			.antMatchers("/api/**").permitAll()
 			.antMatchers("/daftar-medical-service").permitAll()
+			//Fitur 3
 			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
-//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
-//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
-//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
+			//Fitur 6
+			//.antMatchers("/medical-supplies/tambah/").hasAnyAuthority("ADMIN")
+			//Fitur 7
+			//.antMatchers("/medical-supplies/ubah/**").hasAnyAuthority("ADMIN")
+			//Fitur 8
+			//.antMatchers("/rawat-jalan/obat/tambah").hasAnyAuthority("ADMIN", "STAF")
+			//Fitur 9
+			//.antMatchers("/medical-supplies/perencanaan/tambah/").hasAnyAuthority("STAF")
+			//Fitur 10
+			.antMatchers("/medical-supplies/perencanaan/").hasAnyAuthority("ADMIN", "STAF")
+			//Fitur 11
+			.antMatchers("/medical-supplies/permintaan/").hasAnyAuthority("ADMIN", "STAF")
+			//Fitur 13
+			.antMatchers("/medical-supplies/permintaan/ubah/**").hasAnyAuthority("ADMIN")
+			//Fitur 14, 15, 16
+			.antMatchers("/medical-supplies/jadwal-staf/**").hasAnyAuthority("ADMIN")
+			
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

@@ -18,7 +18,7 @@ public class MedicalSuppliesRestController {
 	@Autowired
 	private MedicalSuppliesService medicalSuppliesService;
 	
-	@GetMapping(value="/daftar-medical-service")
+	@GetMapping(value="/api/daftar-medical-service")
 	private List<MedicalSuppliesModel> getAllMedicalSupplies(){
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
