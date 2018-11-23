@@ -16,22 +16,31 @@
 
 <body>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">SI Farmasi</a>
+        <a class="navbar-brand" href="#">SI-FARMASI</a>
+>>>>>>> 552e8a0af78c1763f8b94b39333d05a78c8eb0e8
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}">Home</a>
+                    <a class="nav-link" th:href="@{/}"> || Home || </a>
                 </li>
+                <li>
+					<a class="nav-link" th:href="@{/medical-supplies/}">Medical Supplies || </a>
+				</li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/medical-supplies}">Lihat Daftar Medical Supplies</a>
-                </li>
+					<a class="nav-link" th:href="@{/medical-supplies/permintaan/}">Permintaan || </a>
+				</li>
+				
+				<li class="nav-item active">
+					<a class="nav-link" th:href="@{/medical-supplies/perencanaan}">Perencanaan || </a>
+				</li>
+				
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/medical-supplies/permintaan}">Lihat Permintaan</a>
-                </li>
+					<a class="nav-link" th:href="@{/medical-supplies/jadwal-staf/}">Jadwal Jaga ||</a>
+				</li>
             </ul>
             <ul class ="navbar-nav pull-right">
             	<li class="nav-item active">	
-            		<a class="nav-link" th:href="@{/logout}">Logout</a>
+            		<a class="nav-link" th:href="@{/logout}">Logout &#10162; </a>
             	</li>
             </ul>
         </div>

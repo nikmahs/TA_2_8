@@ -40,21 +40,23 @@ public class PermintaanModel implements Serializable {
 	private long jumlahMedicalSupplies;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private StatusPermintaanModel statusPermintaan;
+		
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_jadwal", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private JadwalJagaModel jadwalJaga;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private StatusPermintaanModel statusPermintaan;	
+
 	
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
 	private int idPasien;
 	
+		
 	public long getId() {
 		return id;
 	}
@@ -110,4 +112,5 @@ public class PermintaanModel implements Serializable {
 	public void setIdPasien(int idPasien) {
 		this.idPasien = idPasien;
 	}	
+
 }

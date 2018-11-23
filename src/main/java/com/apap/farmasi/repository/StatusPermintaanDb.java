@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.model.*;
 
-public interface JadwalDb extends JpaRepository<JadwalJagaModel,Long> {
+@Repository
+public interface StatusPermintaanDb extends JpaRepository<StatusPermintaanModel,Integer> {
 }
