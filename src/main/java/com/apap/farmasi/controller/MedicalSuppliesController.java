@@ -6,18 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.StaffDetail;
-//import com.apap.farmasi.service.JenisMedicalSuppliesService;
+import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.StatusPermintaanService;
@@ -25,7 +27,6 @@ import com.apap.farmasi.service.StatusPermintaanService;
 
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
-
 
 @Controller
 @RequestMapping("/medical-supplies")
@@ -46,10 +47,13 @@ public class MedicalSuppliesController {
 	@Autowired
 	private StatusPermintaanService statusPermintaanService;
 	
+	@Autowired 
+	private JadwalService jadwalService;
+	
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model
-	 * @return tampilan tufter seluruh medical supplies
+	 * @return tampilan daftar seluruh medical supplies
 	 */	
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -62,22 +66,18 @@ public class MedicalSuppliesController {
 	}
 	
 	/**
-	 * fitur 5 melihat detail medical supplies HALF DONE
-	 * @param model
+	 * fitur 5 melihat detail medical supplies
+	 * @param id, model
 	 * @return tampilan detail medical supplies
 	 */	
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
-//		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
-//		JenisMedicalSuppliesModel jenisMedsup = jenisMedicalSuppliesService.getJenisMedicalSuppliesDetailById(id);
-//		//StatusPermintaanModel statusMedsup =
-//		//tampilin jenis medsup
-//		//tampilin status medsup
-//		
-//		model.addAttribute("medsup", medsup);
-//
-//		return "view-detail-medical-supplies";
-//	}
+	@RequestMapping(value = "/{id}/", method = RequestMethod.GET)
+	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
+		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
+
+		model.addAttribute("medsup", medsup);
+
+		return "view-detail-medical-supplies";
+	}
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
@@ -133,11 +133,22 @@ public class MedicalSuppliesController {
 	
 
 	//TAMBAH JADWAL BARU
-		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
-		private String add(Model model) {
-			model.addAttribute("jadwal", new JadwalJagaModel());
-			return "addNewJadwal";
-		}
+//		@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
+//		private String add(Model model) {
+//			model.addAttribute("jadwal", new JadwalJagaModel());
+//			return "addNewJadwal";
+//		}
+		
+	//LIHAT JADWAL JAGA
+			@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
+			private String viewJadwalJaga(Model model) {
+				List<JadwalJagaModel> listJadwalJaga = jadwalService.findAllJadwal();
+				List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+				model.addAttribute("listJadwalJaga", listJadwalJaga);
+				model.addAttribute("listStaff", listStaff);
+				return "view-jadwal-jaga";
+			}
+	
 //		
 //		//HARUSNYA BIAR BISA TAMBAH DICEK DULU PADA TANGGAL DAN WAKTU TERSEBUT TERSEDIA ATAU ENGGA
 //		@RequestMapping(value = "/medical-supplies/jadwal-staf/", method = RequestMethod.POST)
