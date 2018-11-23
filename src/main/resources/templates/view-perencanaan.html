@@ -30,7 +30,52 @@
 					<td height="30">Jumlah</td>
 					<td>Tebak!</td>
 				</tr>
-		</table>	
+		</table>
+    	<div class="row">
+    		<div class="col-md-8">
+    			<h3 class="text-center">Detail Perencanaan</h3>
+		    	<table>
+					<tr>
+						<td height="30" width="100">Nama</td>
+						<td>Siapa?</td>
+					</tr>
+					<tr>
+						<td height="30">Status</td>
+						<td>Jomblo</td>
+					</tr>
+					<tr>
+						<td height="30">Tanggal</td>
+						<td>Hayo lupa ya?</td>
+					</tr>
+					<tr>
+						<td height="30">Jumlah</td>
+						<td>Tebak!</td>
+					</tr>
+				</table>
+    		</div>
+    		<div class="col-md-4">
+    			<h3>Daftar Perencanaan</h3>
+    			<table>
+    				<thead>
+    					<th>Id</th>
+    					<th>Tanggal</th>
+    					<th>Status</th>
+    				</thead>
+    				<tbody>
+    					<span th:each="perencanaan : ${listPerencanaan}">
+    						<tr>
+    							<td th:text="${perencanaan.id}"></td>
+    							<td th:text="${perencanaan.tanggal}"></td>
+    							<td th:text="${perencanaan.status}"></td>
+    						</tr>
+    					</span>
+    				</tbody>
+    			</table>
+    		</div>
+    	</div>
+    	
+			
+>>>>>>> 526a2298966379a835f167243da3741b26654852
     </div>
     <div class="footer navbar-fixed-bottom">
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>

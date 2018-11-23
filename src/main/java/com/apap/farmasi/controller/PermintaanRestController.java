@@ -1,11 +1,16 @@
 package com.apap.farmasi.controller;
 
+import com.apap.farmasi.repository.*;
+import com.apap.farmasi.model.*;
+import com.apap.farmasi.rest.*;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -32,8 +37,13 @@ public class PermintaanRestController {
 	private StatusPermintaanDb statusPermintaanDb;
 	
 	@Autowired
+	private PermintaanMedicalSuppliesDb permintaanMedicalSuppliesDb;
+	
+	@Autowired
 	private JadwalJagaDb jadwalJagaDb;
 	
+	@Autowired
+	private MedicalSuppliesDb medicalSuppliesDb;
 	
 	@Autowired
 	private PermintaanDb permintaanDb;
@@ -78,10 +88,10 @@ public class PermintaanRestController {
 			String jadwalDateTanggal = splitJadwalDateStr[2];
 			
 			
-			Calendar tempJadwalCal = Calendar.getInstance();
-			tempJadwalCal.setTime(tempJadwalDate);
-			Calendar tempJadwalMulai = Calendar.getInstance();
-			tempJadwalCal.setTime(waktuJadwalMulai);
+//			Calendar tempJadwalCal = Calendar.getInstance();
+//			tempJadwalCal.setTime(tempJadwalDate);
+//			Calendar tempJadwalMulai = Calendar.getInstance();
+//			tempJadwalCal.setTime(waktuJadwalMulai);
 
 //			System.out.println(today);
 //			System.out.println(tempJadwalCal);
@@ -111,42 +121,52 @@ public class PermintaanRestController {
 				if(today.get(Calendar.HOUR_OF_DAY)>=0 && 
 				   today.get(Calendar.HOUR_OF_DAY)<16 &&
 				    waktuJadwalMulaiInt == 8) {
-					System.out.println("masukakhir");
+//					System.out.println("masukakhir");
 					jadwalDipakai = jadwalTemp;
 				}
 				else if(today.get(Calendar.HOUR_OF_DAY)>=16 && 
 					today.get(Calendar.HOUR_OF_DAY)<=24 &&
 					waktuJadwalMulaiInt == 16) {
 					jadwalDipakai = jadwalTemp;
-					System.out.println("masukakhir");	
+//					System.out.println("masukakhir");	
 				}
-			}
-			
-			
-			
-//			if (today.get(Calendar.DATE) == tempJadwalCal.get(Calendar.DATE) &&
-//				today.get(Calendar.MONTH) == tempJadwalCal.get(Calendar.MONTH) &&
-//				today.get(Calendar.YEAR) == tempJadwalCal.get(Calendar.YEAR)) {
-//				
-//				if(today.get(Calendar.HOUR_OF_DAY)>=0 && 
-//				   today.get(Calendar.HOUR_OF_DAY)<16 &&
-//				   tempJadwalMulai.get(Calendar.HOUR_OF_DAY) == 8) {
-//					jadwalDipakai = jadwalTemp;
-//					}
-//				else if(today.get(Calendar.HOUR_OF_DAY)>=16 && 
-//						today.get(Calendar.HOUR_OF_DAY)<=11 &&
-//						tempJadwalMulai.get(Calendar.HOUR_OF_DAY) == 16) {
-//					jadwalDipakai = jadwalTemp;
-//					
-//				}
-//			}
+			}			
 		}
+				
+		List<PermintaanMedicalSuppliesModel> tempPMSMlst = permintaan.getListPermintaanMedicalSupplies();
+		List<PermintaanMedicalSuppliesModel> PMSMAkhir = new ArrayList();
+		
+		//buat list permintaan
+
+		for(PermintaanMedicalSuppliesModel masukKeDb : tempPMSMlst) {
+			PermintaanMedicalSuppliesModel tempIterasi = masukKeDb;
+			//cari obat dari nama
+			MedicalSuppliesModel tempObat = medicalSuppliesDb.findByNama(masukKeDb.getMedicalSupplies().getNama());
+
+			//save ke db PMSM
+//			masukKeDb.setPermintaan(permintaan);
+			masukKeDb.setMedicalSupplies(tempObat);
+			
+//			permitaanMedicalSuppliesDb.save(masukKeDb);
+			//masukin PSMS yang udah bener ke list buat permintaan
+			PMSMAkhir.add(masukKeDb);
+		}
+		
+		
 		
 //		System.out.println("masuk" + jadwalDipakai.getId());
 		permintaan.setJadwalJaga(jadwalDipakai);
 		permintaan.setTanggal(tanggalMasuk);
+		permintaan.setListPermintaanMedicalSupplies(PMSMAkhir);
 		permintaan.setStatusPermintaan(statusPermintaanDb.findById(1).get());
 		permintaanDb.save(permintaan);
+		
+		//save ke tabel antara
+		for (int i = 0;i < permintaan.getListPermintaanMedicalSupplies().size();i++) {
+			PermintaanMedicalSuppliesModel temp =permintaan.getListPermintaanMedicalSupplies().get(i);
+			temp.setPermintaan(permintaan);
+			permintaanMedicalSuppliesDb.save(temp);
+		}
 		
 		response.setStatus(200);
 		response.setMessage("success");	
