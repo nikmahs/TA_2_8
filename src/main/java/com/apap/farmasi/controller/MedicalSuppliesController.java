@@ -36,15 +36,12 @@ public class MedicalSuppliesController {
 	@Autowired 
 	private RestService restService;
 	
-//	@Autowired	private JadwalService jadwalService;
-	//@Autowired JenisMedicalSuppliesService jenisMedicalSuppliesService;
-	//private JadwalService jadwalService;
-
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model
 	 * @return tampilan tufter seluruh medical supplies
 	 */	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	private String viewAllDaftarMedicalSupplies(Model model) {
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();

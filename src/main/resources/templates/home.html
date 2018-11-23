@@ -26,6 +26,40 @@
     <div class="container-fluid">
         <h2 th:text="'Selamat Datang ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
        
+<!-- 
+    <br>
+        <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
+        <p th:text="${msg}"></p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card border-info mb-3 text-center">
+                    <div class="card-header">
+                        Tambah User Baru
+                    </div>
+                    <div class="card-body">
+                    	<form th:action="@{/user/addUser}" method="post">
+                            <div class="row form-group">
+                                <label class="col-sm-3">User Name</label>
+                                <input type="text" class="col-sm-9 form-control input-sm" name="username">
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-sm-3">Password</label>
+                                <input type="password" class="col-sm-9 form-control input-sm" name="password">
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-sm-3">Role</label>
+                                <input type="text" class="col-sm-9 form-control input-sm" name="role">
+                            </div>
+                            <div>
+                            	<button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                    	</form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+-->
     </div>
     <br></br>
     <div class="footer navbar-fixed-bottom">

@@ -36,17 +36,17 @@
 		</center>
 		
 		<br>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card">
+                <div class="card card border-info mb-3 text-center">
                     <div class="card-header">
-                        Log In
+                       <h4> Log In </h4>
                     </div>
                     <div class="card-body">
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid username or password</span>
                         </div>
-                        <form th:action="@{/login}" method="POST">
+                        <form th:action="@{/login}" method="POST" >
                             <div class="row form-group">
                                 <label class="col-sm-3">Username</label>
                                 <input type="text" class="col-sm-9 form-control input-sm" name="username">
@@ -55,16 +55,18 @@
                                 <label class="col-sm-3">Password</label>
                                 <input type="password" class="col-sm-9 form-control input-sm" name="password">
                             </div>
-                            <!-- 
-                            <div class="row form-group">
-                                <label class="col-sm-3">Role</label>
-                                <input type="text" class="col-sm-9 form-control input-sm" name="role">
-                            </div>
-                             -->
-                            <div class="row form-group">
-                                <button type="submit" class="btn btn-primary">Sign In</button>
+                            <div class="row form-group" >
+                                <button type="submit" class="btn btn-primary" style="margin-left:150px;">Sign In</button>
                             </div>
                         </form>
+                        <!-- <center><h7>Doesn't have any account?</h7></center>
+                        
+                        <div class="row form-group">
+                            <form th:action="@{/user/addUser}" method="POST" style="margin-left:150px;">
+								<button type="submit" class="btn btn-primary">Sign Up</button>
+							</form>
+                        </div>
+                         -->
                     </div>
                 </div>
             </div>
