@@ -24,7 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/js/**").permitAll()
 			//ini harus ada biar apinya bisa diakses tanpa security
 			.antMatchers("/api/**").permitAll()
-			.antMatchers("/daftar-medical-service").permitAll()
 			//Fitur 3
 			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
 			//Fitur 5
