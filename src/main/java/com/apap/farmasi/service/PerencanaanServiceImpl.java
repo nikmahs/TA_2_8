@@ -1,5 +1,6 @@
 package com.apap.farmasi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,10 @@ public class PerencanaanServiceImpl implements PerencanaanService {
 	@Override
 	public Optional<PerencanaanModel> getPerencanaanDetailById(long id) {
 		return perencanaanDb.findById(id);
+	}
+	
+	@Override
+	public List<PerencanaanModel> getAllPerencanaan() {
+		return perencanaanDb.findAll();
 	}
 }

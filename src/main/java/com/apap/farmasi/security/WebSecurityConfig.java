@@ -17,11 +17,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-//			.csrf()
+			.csrf().ignoringAntMatchers("/api/**").and()
 //			.disable();
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
+			.antMatchers("/user/addUser").permitAll()
+			.antMatchers("/user/add").permitAll()
+			.antMatchers("/daftar-medical-service").permitAll()
+			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
+//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
+//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
+//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

@@ -34,7 +34,6 @@
 		<center>
 		<img src="https://olvigusnita.files.wordpress.com/2015/06/logo_bumsil_3.jpg" alt="farmasi" style="width:150px;height:150px;">
 		</center>
-		
 		<br>
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -59,22 +58,19 @@
                                 <button type="submit" class="btn btn-primary" style="margin-left:150px;">Sign In</button>
                             </div>
                         </form>
-                        <!-- <center><h7>Doesn't have any account?</h7></center>
-                        
+                        <center><h7>Doesn't have any account?</h7></center>
+                        <br>
                         <div class="row form-group">
-                            <form th:action="@{/user/addUser}" method="POST" style="margin-left:150px;">
+                            <form th:action="@{/user/add}" style="margin-left:150px;">
 								<button type="submit" class="btn btn-primary">Sign Up</button>
 							</form>
                         </div>
-                         -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer navbar-fixed-bottom">
-  		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
-	</div>
+	<footer th:replace="fragments/fragment :: footer"></footer>
 </body>
 
 </html>
