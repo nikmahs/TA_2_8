@@ -24,19 +24,28 @@
     <div class="container-fluid">
     	<br>
         <h2>
-       		<center>RUMAH SAKIT CEPAT SEMBUH</center>
+       	<center>RUMAH SAKIT CEPAT SEMBUH</center>
+      	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css' />
+      	<style>
+         body {
+            font-family: 'Poppins';
+            font-size: 11pt;
+         }
+     	</style>
+     	
         </h2>
 		<p></p>
 		<marquee>
 			<h4>Selamat datang di Sistem Informasi Farmasi!</h4>
 		</marquee>
 		<br></br>
+		
 		<center>
 		<img src="https://olvigusnita.files.wordpress.com/2015/06/logo_bumsil_3.jpg" alt="farmasi" style="width:150px;height:150px;">
 		</center>
 		<br>
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="card card border-info mb-3 text-center">
                     <div class="card-header">
                        <h4> Log In </h4>
@@ -55,17 +64,17 @@
                                 <input type="password" class="col-sm-9 form-control input-sm" name="password">
                             </div>
                             <div class="row form-group" >
-                                <button type="submit" class="btn btn-primary" style="margin-left:150px;">Sign In</button>
+                                <button type="submit" class="btn btn-primary" style="margin-left:213px;">Log In</button>
                             </div>
                         </form>
-                        <center><h7>Doesn't have any account?</h7></center>
-                        <br>
-                        <div class="row form-group">
-                            <form th:action="@{/user/add}" style="margin-left:150px;">
-								<button type="submit" class="btn btn-primary">Sign Up</button>
-							</form>
-                        </div>
                     </div>
+                </div>
+                <center><h7>Doesn't have any account?</h7></center>
+                <br>
+                <div class="row form-group">
+                    <form th:action="@{/user/add}" style="margin-left:150px;">
+					<button type="submit" class="btn btn-primary" style="margin-left:80px;">Sign Up</button>
+					</form>
                 </div>
             </div>
         </div>

@@ -26,9 +26,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/add").permitAll()
 			.antMatchers("/daftar-medical-service").permitAll()
 			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
-//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
-//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
-//			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF")
+			.antMatchers("/medical-supplies/{id}/").hasAnyAuthority("ADMIN", "STAF")
+			.antMatchers("/medical-supplies/perencanaan").hasAnyAuthority("ADMIN", "STAF") //fitur 10
+			.antMatchers("/medical-supplies/permintaan/").hasAnyAuthority("ADMIN", "STAF") //fitur 11
+			.antMatchers("/medical-supplies/permintaan/ubah/**").hasAnyAuthority("ADMIN") //fitur 13
+			.antMatchers("/medical-supplies/jadwal-staf/tambah").hasAnyAuthority("ADMIN") //fitur 14
+			.antMatchers("/medical-supplies/jadwal-staf/**").hasAnyAuthority("ADMIN", "STAF") //fitur 15
+			
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

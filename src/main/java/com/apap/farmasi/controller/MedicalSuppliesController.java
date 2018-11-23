@@ -66,7 +66,6 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/{id}/", method = RequestMethod.GET)
 	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
 		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
-
 		model.addAttribute("medsup", medsup);
 
 		return "view-detail-medical-supplies";
