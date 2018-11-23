@@ -15,26 +15,25 @@
 </head>
 
 <body>
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav th:fragment="navbar" class="navbar navbar-expand-sm bg-info navbar-dark">
         <a class="navbar-brand" href="#">SI-FARMASI</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}"> || Home || </a>
+                    <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
-                <li>
-					<a class="nav-link" th:href="@{/medical-supplies/}">Medical Supplies || </a>
+                <li class="nav-item active">
+					<a class="nav-link" th:href="@{/medical-supplies/}">Medical Supplies</a>
 				</li>
                 <li class="nav-item active">
-					<a class="nav-link" th:href="@{/medical-supplies/permintaan/}">Permintaan || </a>
+					<a class="nav-link" th:href="@{/medical-supplies/permintaan/}">Permintaan</a>
 				</li>
 				
 				<li class="nav-item active">
-					<a class="nav-link" th:href="@{/medical-supplies/perencanaan}">Perencanaan || </a>
+					<a class="nav-link" th:href="@{/medical-supplies/perencanaan}">Perencanaan</a>
 				</li>
-				
                 <li class="nav-item active">
-					<a class="nav-link" th:href="@{/medical-supplies/jadwal-staf/}">Jadwal Jaga ||</a>
+					<a class="nav-link" th:href="@{/medical-supplies/jadwal-staf/}">Jadwal Jaga</a>
 				</li>
             </ul>
             <ul class ="navbar-nav pull-right">
