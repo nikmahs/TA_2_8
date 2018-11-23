@@ -22,7 +22,7 @@ public class RestServiceImpl implements RestService {
 	
 	@Override
 	public StaffRestModel getAllStaff() {
-		String path = Setting.staffUrl + "/2/getAllStaffFarmasi";
+		String path = Setting.urlApt + "/2/getAllStaffFarmasi";
 		StaffRestModel staff = restTemplate.getForObject(path, StaffRestModel.class);
 		return staff;
 	}
