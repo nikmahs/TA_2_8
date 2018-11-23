@@ -6,26 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
 import com.apap.farmasi.model.PermintaanModel;
+import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
-//import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
-
+import com.apap.farmasi.service.StatusPermintaanService;
 //import com.apap.farmasi.model.JadwalJagaModel;
 
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
-
 
 @Controller
 @RequestMapping("/medical-supplies")
@@ -42,6 +47,9 @@ public class MedicalSuppliesController {
 	
 	@Autowired 
 	private RestService restService;
+
+	@Autowired
+	private StatusPermintaanService statusPermintaanService;
 	
 	@Autowired 
 	private JadwalService jadwalService;
@@ -49,7 +57,7 @@ public class MedicalSuppliesController {
 	/**
 	 * fitur 3 melihat daftar medical supplies
 	 * @param model
-	 * @return tampilan tufter seluruh medical supplies
+	 * @return tampilan daftar seluruh medical supplies
 	 */	
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -62,22 +70,18 @@ public class MedicalSuppliesController {
 	}
 	
 	/**
-	 * fitur 5 melihat detail medical supplies HALF DONE
-	 * @param model
+	 * fitur 5 melihat detail medical supplies
+	 * @param id, model
 	 * @return tampilan detail medical supplies
 	 */	
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
-//		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
-//		JenisMedicalSuppliesModel jenisMedsup = jenisMedicalSuppliesService.getJenisMedicalSuppliesDetailById(id);
-//		//StatusPermintaanModel statusMedsup =
-//		//tampilin jenis medsup
-//		//tampilin status medsup
-//		
-//		model.addAttribute("medsup", medsup);
-//
-//		return "view-detail-medical-supplies";
-//	}
+	@RequestMapping(value = "/{id}/", method = RequestMethod.GET)
+	private String detailMedicalSupplies(@PathVariable (value = "id") long id, Model model) {
+		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
+
+		model.addAttribute("medsup", medsup);
+
+		return "view-detail-medical-supplies";
+	}
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
@@ -85,12 +89,45 @@ public class MedicalSuppliesController {
 		model.addAttribute("listPerencanaan", listPerencanaan);
 		return "view-perencanaan";
 	}
+
+	//kerjaan awl
+	//fitur 13
+	//lebih ribet daripada yg aing bayangin
+	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.POST)
+	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model) {
+		System.out.println("hay awl");
+		
+		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
+		model.addAttribute("listPermintaan", listPermintaan);
+		model.addAttribute("listStaff", listStaff);
+		return "viewall-permintaan";
+	}
+	//fitur 8
+	//lebih ribet daripada yg aing bayangin juga
+//	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.POST)
+//	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model) {
+//		PermintaanModel tempPermintaan = permintaanService.getPermintaanDetailById(id).get();
+//		
+//		
+//		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+//		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
+//		model.addAttribute("listPermintaan", listPermintaan);
+//		model.addAttribute("listStaff", listStaff);
+//		return "viewall-permintaan";
+//	}
+	
+	
+	//bukan kerjaan awl lagi
 	
 //	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
 	@GetMapping(value = "/permintaan")
 	private String viewAllPermintaan(Model model) {
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
+		//ditambah awl
+		List<StatusPermintaanModel> listStatus = statusPermintaanService.getAllPermintaan();
+		model.addAttribute("listStatus",listStatus);
 		model.addAttribute("listPermintaan", listPermintaan);
 		model.addAttribute("listStaff", listStaff);
 		return "viewall-permintaan";

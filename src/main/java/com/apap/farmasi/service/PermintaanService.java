@@ -6,7 +6,7 @@ import java.util.List;
 import com.apap.farmasi.model.PermintaanModel;
 
 public interface PermintaanService {
-	Optional<PermintaanModel> getDealerDetailById(Long id);
+	Optional<PermintaanModel> getPermintaanDetailById(Long id);
 	List<PermintaanModel> getPermintaanList();
 	void addPermintaan(PermintaanModel permintaan);
 }
