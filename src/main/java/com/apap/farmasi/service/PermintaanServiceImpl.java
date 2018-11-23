@@ -18,7 +18,7 @@ public class PermintaanServiceImpl implements PermintaanService{
 	private PermintaanDb permintaanDb;
 	
 	@Override
-	public Optional<PermintaanModel> getDealerDetailById(Long id) {		
+	public Optional<PermintaanModel> getPermintaanDetailById(Long id) {		
 		return permintaanDb.findById(id);
 	}
 
