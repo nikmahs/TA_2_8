@@ -71,6 +71,7 @@ public class MedicalSuppliesController {
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
+		
 		return "view-perencanaan";
 	}
 	
