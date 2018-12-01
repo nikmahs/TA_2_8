@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add Medical Supplies</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace = "fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+		<div class="container-fluid">
+  		<div class="header">
+    		<div class="row">
+    			<div class="col-sm-12">
+    				<br>
+        			<h3 class="text-center">Tambah Medical Supplies</h3>
+      			</div>
+    		</div>
+  		</div>
+  	<hr>
+  	<div id="add-medsup">
+	<form th:action="@{/medical-supplies/tambah}" th:object="${medsup}" method="POST">
+  		<input type="hidden" name="id" th:value="*{id}">
+		<div class = "row">
+  			<div class="col-sm-3"><p>Nama</p></div>
+  			<div class="col-sm-9">
+				<input type="text" class="form-control" name="nama" th:value="*{nama}">
+			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Harga</p></div>
+  			<div class="col-sm-9">
+				<input type="number" class="form-control" name="price" th:value="*{price}">
+			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Jumlah</p></div>
+  			<div class="col-sm-9">
+  				<input type="number" class="form-control" name="jumlah" th:value="*{jumlah}">
+  			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Deskripsi</p></div>
+  			<div class="col-sm-9">
+  				<input type="text" class="form-control" name="deskripsi" th:value="*{deskripsi}">
+  			</div>
+  		</div>
+  		<br>
+  		<button type="submit" class="btn btn-dark">Simpan</button>
+  	</form>
+  	</div>
+</body>
+</html>

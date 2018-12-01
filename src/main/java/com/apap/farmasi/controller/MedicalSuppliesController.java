@@ -59,7 +59,6 @@ public class MedicalSuppliesController {
 	 * @param model
 	 * @return tampilan daftar seluruh medical supplies
 	 */	
-
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	private String viewAllDaftarMedicalSupplies(Model model) {
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
@@ -80,6 +79,24 @@ public class MedicalSuppliesController {
 		model.addAttribute("medsup", medsup);
 
 		return "view-detail-medical-supplies";
+	}
+	
+	/**
+	 * fitur 6 menambahkan medical supplies
+	 * @param id, model
+	 * @return tampilan form menambahkan medical supplies
+	 */	
+	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
+	private String addMedsupSubmission(@ModelAttribute MedicalSuppliesModel medsup, Model model) {
+		medicalSuppliesService.addMedsup(medsup);
+		model.addAttribute("msg", "Berhasil ditambahkan");
+		return "success";
+	}
+	
+	@RequestMapping(value = "/tambah", method = RequestMethod.GET)
+	private String addMedsup(Model model) {
+		model.addAttribute("medsup", new MedicalSuppliesModel());
+		return "add-medsup";
 	}
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)

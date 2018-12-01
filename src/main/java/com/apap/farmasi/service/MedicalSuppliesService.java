@@ -9,4 +9,5 @@ public interface MedicalSuppliesService {
 
 	MedicalSuppliesDb viewAllDaftarMedicalSupplies();
 	MedicalSuppliesModel getMedicalSuppliesDetailById(long id);
+	public void addMedsup(MedicalSuppliesModel medsup);
 }
