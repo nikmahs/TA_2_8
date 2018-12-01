@@ -4,6 +4,7 @@ public class BaseResponse<T> {
 	private int status;
 	private String message;
 	private T result;
+	
 	public int getStatus() {
 		return status;
 	}
