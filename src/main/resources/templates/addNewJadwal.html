@@ -45,38 +45,38 @@
 	<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pilot')"></nav>
 	<div id="Content" class="container-full-bg">
 		<h2 class="text-center"> Tambah Jadwal Jaga Baru</h2>
-
+		<br></br>
 	<form class="form-horizontal" th:action="@{/medical-supplies/jadwal-staf/tambah}" th:object="${jadwal}" method="POST">
 
 		<div class="form-group">
-			<label class="control-label col-sm-2">Nama Staff Jaga</label>
-			<div class="col-sm-10">
+			<label class="control-label col-sm-2">Nama Staff Jaga:</label>
     			<select type="text" name="idStaff">
 					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}"></option>
 				</select>
-    		</div>
-		</div>
-	 
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="tanggal_jaga">Tanggal Jaga</label>
-    		<div class="col-sm-10">
-    		  <input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}">
-    		</div>
 		</div>
 		  
 		<div class="form-group">
-			<label class="control-label col-sm-2">Waktu Mulai Jaga</label>
+			<label class="control-label col-sm-2">Waktu Mulai Jaga:</label>
 			<input list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}">
 		</div>
 		
 		<div class="form-group">
-			<label class="control-label col-sm-2">Waktu Berakhir Jaga</label>
+			<label class="control-label col-sm-2">Waktu Berakhir Jaga:</label>
 	    	<input list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}">
 		</div>
 		
-		<br></br>
-		
 		<div class="form-group">
+			<label class="control-label col-sm-2" for="tanggal_jaga">Tanggal Jaga:</label>
+    		<div class="col-sm-2">
+    		  <input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}">
+    		</div>
+		</div>
+		
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<div class="form-group" >
 			<button type="submit" class="button" >Submit</button>
 		</div>
 
