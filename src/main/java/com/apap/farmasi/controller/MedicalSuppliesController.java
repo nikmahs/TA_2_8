@@ -6,21 +6,19 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.client.RestTemplate;
 import org.springframework.context.annotation.Bean;
 
 
 import com.apap.farmasi.model.JadwalJagaModel;
-import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
+import com.apap.farmasi.model.PerencanaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.PermintaanMedicalSuppliesModel;
@@ -33,11 +31,10 @@ import com.apap.farmasi.rest.BillingResponse;
 import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
-import com.apap.farmasi.service.StatusPermintaanService;
-//import com.apap.farmasi.model.JadwalJagaModel;
-
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
+import com.apap.farmasi.service.StatusPermintaanService;
+//import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
 @RequestMapping("/medical-supplies")
@@ -120,6 +117,13 @@ public class MedicalSuppliesController {
 	private String viewPerencanaan(Model model) {
 		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
 		model.addAttribute("listPerencanaan", listPerencanaan);
+		
+		PerencanaanModel perencanaan = listPerencanaan.get(0);
+		model.addAttribute("aPerencanaan", perencanaan);
+		
+		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
+		model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
+		
 		return "view-perencanaan";
 	}
 

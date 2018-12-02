@@ -5,16 +5,12 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,17 +31,12 @@ public class PerencanaanModel implements Serializable {
 	@Column(name = "status", nullable = false)
 	private String status;
 	
-	@NotNull
-	@Column(name = "jumlah", nullable = false)
-	private Integer jumlah;
+	@OneToMany(mappedBy = "perencanaan")
+	private List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies;
 	
-	public Integer getJumlah() {
-		return jumlah;
-	}
-
-	public void setJumlah(Integer jumlah) {
-		this.jumlah = jumlah;
-	}
+	
+	
+	
 
 	public long getId() {
 		return id;
@@ -70,4 +61,14 @@ public class PerencanaanModel implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public List<PerencanaanMedicalSuppliesModel> getListPerencanaanMedicalSupplies() {
+		return listPerencanaanMedicalSupplies;
+	}
+
+	public void setListPerencanaanMedicalSupplies(List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies) {
+		this.listPerencanaanMedicalSupplies = listPerencanaanMedicalSupplies;
+	}
+	
+	
 }
