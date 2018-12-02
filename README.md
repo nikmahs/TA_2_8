@@ -8,28 +8,43 @@
 5. Athifa Michel - 1606918143
 
 ## Checklist Fitur
-1. [ ] Login
-2. [ ] Logout
+1. [x] Login
+
+2. [x] Logout
+
 3. [ ] Melihat daftar medical supplies
+
 4. [ ] Web Service menyediakan informasi medical supplies untuk IGD
+
 5. [ ] Melihat detail informasi medical supplies
+
 6. [ ] Menambahkan medical supplies
+
 7. [ ] Mengubah data medical supplies
+
 8. [ ] Menambahkan medical supplies ke inventaris medical supplies sistem rawat jalan
+
 9. [ ] Membuat perencanaan pembelian medical supplies
 	- Yang mengajukan perencanaan pembelian adalah Staff Apoteker
 	- Ketika pertama kali mengajukan, maka status perancanaan default nya "diajukan"
 	- Minggu pertama: 1-7
 	- Minggu ketiga: 15-21
 	- Sebelum melakukan perencanaan, Staf Apoteker perlu mengecek medical supplies yg habis di SI Lab melalui API yg disediakan oleh SI Lab menggunakan method GET
+	
 10. [ ] Melihat perencanaan pembelian medical supplies
 	- Admin Farmasi yg berperan mengubah status perencanaan menjadi "diproses" dan "tersedia"
 	- Ketika status berubah menjadi "tersedia", secara otomatis jumlah Medical Supplies di inventaris SI Farmasi bertambah (terupdate)
-11. [ ] Melihat daftar permintaan medical supplies
+	
+11. [x] Melihat daftar permintaan medical supplies
+
 12. [ ] Web Service untuk menyediakan kebutuhan medical supplies dari Rawat Inap
+
 13. [ ] Mengubah status permintaan medical supplies
+
 14. [ ] Membuat jadwal staf apoteker jaga
+
 15. [ ] Mengubah jadwal staf apoteker jaga
+
 16. [ ] Melihat jadwal staf apoteker jaga
 
 ## Dokumentasi Web Service
