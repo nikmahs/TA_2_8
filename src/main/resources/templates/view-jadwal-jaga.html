@@ -7,24 +7,24 @@
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    
+    <style>
+		.footer {
+		   color: black;
+		   width:100%;
+		   height:50px; 
+		   text-align: center;
+		   font-size:12px;
+		   bottom: 0px;
+		}
+	</style>
 </head>
 
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container-fluid">
     	<br>
-    	<h3 class="text-center">Jadwal Jaga Staf Apoteker</h3>
-    	 	<div class="row form-group">
-                    <form th:action="@{/medical-supplies/jadwal-staf/tambah}" style="margin-left:20px;">
-						<button type="submit" class="btn btn-primary">Tambah</button>
-					</form>
-            </div>
-            
-            <div class="row form-group">
-                    <form th:action="@{/medical-supplies/jadwal-staf/update}" style="margin-right:50px;">
-						<button type="submit" class="btn btn-primary">Update</button>
-					</form>
-            </div>
+    	<h3 class="text-center">Jadwal Jaga Staf Apoteker</h3>    
     	
     	<table id="tableAllJadwalJaga" class="display">
 			<thead>
@@ -51,6 +51,21 @@
 			</tbody>
 		</table>
     </div>
+
+    <div class="row form-group">
+    	<form th:action="@{/medical-supplies/jadwal-staf/tambah}" style="margin-left:600px;">
+			<button type="submit" class="btn btn-primary">Tambah</button>
+		</form>
+					
+		<form th:action="@{/medical-supplies/jadwal-staf/update}" style="margin-left:20px;">
+			<button type="submit" class="btn btn-primary">Update</button>
+		</form>
+     </div> 
+    
+    <br></br>
+    <div class="footer navbar-fixed-bottom text-center">
+  		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
+	</div>
     
 </body>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
