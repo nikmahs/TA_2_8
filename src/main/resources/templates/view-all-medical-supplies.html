@@ -25,6 +25,7 @@
 						<th>Nama</th>
 						<th>Jumlah</th>
 						<th>Harga</th>
+						<th></th>
 						<th>Kirim ke Rawat Jalan</th>
 					</tr>
 				</thead>
@@ -35,13 +36,19 @@
 						<td th:text = "${medsup.jumlah}"></td>
 						<td th:text = "${medsup.price}"></td>
 						<td>
-							<form method="POST">
-								<input type=hidden th:value="${medsup.id}"name=id>					
-								<input type=number name=jumlah>					
-								<button type="submit" class="btn btn-primary">Kirim</button>
-							</form>
+						<!-- 
+							somehow kalo formnya di td ini ga bisa jalan 
+															aing ga paham
+																	- awl 
+						-->
 						</td>
-						
+						<td>
+							 <form th:action="@{/medical-supplies/kirim}" method="post">				
+									<input type=hidden th:value="${medsup.id}"name=id>					
+									<input type=number name=jumlah required="true">												 		
+								<button type="submit" class="btn btn-primary">Terima</button>
+							</form>
+						</td>						
 					</tr>
 				</tbody>
 			</table>

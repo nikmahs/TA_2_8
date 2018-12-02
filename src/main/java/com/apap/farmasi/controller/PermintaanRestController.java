@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.context.annotation.Bean;
 
 import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.PermintaanModel;
@@ -28,7 +30,6 @@ import com.apap.farmasi.service.PermintaanService;
 
 @RestController
 public class PermintaanRestController {
-	
 	
 	@Autowired
 	private PermintaanService permintaanService;
@@ -47,6 +48,15 @@ public class PermintaanRestController {
 	
 	@Autowired
 	private PermintaanDb permintaanDb;
+
+	@Autowired
+	RestTemplate restTemplate;
+	
+	@Bean
+	public RestTemplate rest() {
+		return new RestTemplate();
+	}
+	
 	@PostMapping(value="/api/medical-supplies/permintaan")
 	private BaseResponse<PermintaanModel> addPermintaanSubmit(
 												@RequestBody PermintaanModel permintaan,
