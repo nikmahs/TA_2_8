@@ -45,6 +45,9 @@
 	<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pilot')"></nav>
 	<div id="Content" class="container-full-bg">
 		<h2 class="text-center"> Tambah Jadwal Jaga Baru</h2>
+		<center>
+			<img src="https://img.icons8.com/ios/1600/user-female-circle-filled.png" alt="farmasi" style="width:150px;height:150px;">
+		</center>
 		<br></br>
 	<form class="form-horizontal" th:action="@{/medical-supplies/jadwal-staf/tambah}" th:object="${jadwal}" method="POST">
 
