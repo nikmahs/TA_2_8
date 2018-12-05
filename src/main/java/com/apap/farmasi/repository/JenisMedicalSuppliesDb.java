@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 
+import antlr.collections.List;
+
 @Repository
-public interface JenisMedicalSuppliesDb {
+public interface JenisMedicalSuppliesDb extends JpaRepository<JenisMedicalSuppliesModel, Long>{
 	JenisMedicalSuppliesModel findById(long id);
 }
