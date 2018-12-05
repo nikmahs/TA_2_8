@@ -150,26 +150,26 @@ public class MedicalSuppliesController {
 			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(medSupIterasi.getId());
 			
 			targetMedSuplst.add(medSupIterasi);
-			if(targetPermintaan.getJumlahMedicalSupplies() > medSupDiDb.getJumlah()) {
-				return "gagal";
-			}
+//			if(targetPermintaan.getJumlahMedicalSupplies() > medSupDiDb.getJumlah()) {
+//				return "gagal";
+//			}
 			System.out.println(counter++ + " " + medSupIterasi.getNama());
 			
 		}
 		//ngurangin di db, bikin billing
 		List<BillingDetail> billinglst = new ArrayList<BillingDetail>();
-		int jumlahDipesan = (int)targetPermintaan.getJumlahMedicalSupplies();
+//		int jumlahDipesan = (int)targetPermintaan.getJumlahMedicalSupplies();
 		for (MedicalSuppliesModel temp : targetMedSuplst) {
 			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(temp.getId());
-			int jumlahBaru = medSupDiDb.getJumlah()-jumlahDipesan;
+//			int jumlahBaru = medSupDiDb.getJumlah()-jumlahDipesan;
 			
-			medSupDiDb.setJumlah(jumlahBaru);
+//			medSupDiDb.setJumlah(jumlahBaru);
 			
 			medicalSuppliesService.addMedsup(medSupDiDb);
 
 			BillingDetail billingTemp = new BillingDetail();
 			billingTemp.setPasien(new ArrayList<Integer>(targetPermintaan.getIdPasien()));
-			billingTemp.setJumlahTagihan((int)medSupDiDb.getPrice()*jumlahDipesan);
+//			billingTemp.setJumlahTagihan((int)medSupDiDb.getPrice()*jumlahDipesan);
 			billingTemp.setTanggalTagihan(targetPermintaan.getTanggal().toString());
 			billinglst.add(billingTemp);
 		}
