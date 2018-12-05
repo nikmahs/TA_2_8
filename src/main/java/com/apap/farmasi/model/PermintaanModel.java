@@ -35,9 +35,6 @@ public class PermintaanModel implements Serializable {
 	@OneToMany(mappedBy = "permintaan")
 	private List<PermintaanMedicalSuppliesModel> listPermintaanMedicalSupplies;
 	
-	@NotNull
-	@Column(name = "jumlah_medical_supplies", nullable = false)
-	private long jumlahMedicalSupplies;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status_permintaan", referencedColumnName = "id", nullable = false)
@@ -81,13 +78,7 @@ public class PermintaanModel implements Serializable {
 		this.listPermintaanMedicalSupplies = listPermintaanMedicalSupplies;
 	}
 
-	public long getJumlahMedicalSupplies() {
-		return jumlahMedicalSupplies;
-	}
-
-	public void setJumlahMedicalSupplies(long jumlahMedicalSupplies) {
-		this.jumlahMedicalSupplies = jumlahMedicalSupplies;
-	}
+	
 
 	public JadwalJagaModel getJadwalJaga() {
 		return jadwalJaga;

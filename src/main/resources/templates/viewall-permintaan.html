@@ -42,12 +42,31 @@
 			</thead>
 			<tbody>
 				<span th:each="permintaan : ${listPermintaan}">
-					<span th:each="permintaanMedSup : ${permintaan.listPermintaanMedicalSupplies}">
+					
 						<tr>
 							<td th:text="${permintaan.tanggal}"></td>
-							<td th:text="${permintaanMedSup.medicalSupplies.nama}"></td>
-							<td th:text="${permintaan.jumlahMedicalSupplies}"></td>
-							<td th:text="${permintaanMedSup.medicalSupplies.jenisMedicalSupplies.jenisMedicalSupplies}"></td>
+							
+							<td>
+								<ul>
+									<span th:each="permintaanMedSup : ${permintaan.listPermintaanMedicalSupplies}">
+										<li th:text="${permintaanMedSup.medicalSupplies.nama}"></li>
+									</span>
+								</ul>
+							</td>
+							<td>
+								<ul>
+									<span th:each="permintaanMedSup : ${permintaan.listPermintaanMedicalSupplies}">
+										<li th:text="${permintaanMedSup.jumlahMedicalSupplies}"></li>
+									</span>
+								</ul>
+							</td>
+							<td>
+								<ul>
+									<span th:each="permintaanMedSup : ${permintaan.listPermintaanMedicalSupplies}">
+										<li th:text="${permintaanMedSup.medicalSupplies.jenisMedicalSupplies.jenisMedicalSupplies}"></li>
+									</span>
+								</ul>
+							</td>
 							<td th:text="${permintaan.statusPermintaan.nama}"></td>
 							<td th:text="${permintaan.jadwalJaga.idStaff}"></td>
 							<td th:text="${permintaan.idPasien}"></td>
@@ -59,7 +78,6 @@
 							</td>
 							
 						</tr>
-					</span>
 				</span>
 			</tbody>
 		</table>
