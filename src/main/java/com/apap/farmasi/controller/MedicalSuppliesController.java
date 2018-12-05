@@ -255,7 +255,7 @@ public class MedicalSuppliesController {
 				return "view-jadwal-jaga";
 			}
 			
-			//TAMBAH JADWAL BARU
+		//TAMBAH JADWAL BARU
 			@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.GET)
 			private String add(Model model) {
 				model.addAttribute("jadwal", new JadwalJagaModel());
@@ -263,27 +263,34 @@ public class MedicalSuppliesController {
 				model.addAttribute("listStaff", listStaff);
 				return "addNewJadwal";
 			}	
-		@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.POST)
-		private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
-			jadwalService.addJadwal(jadwal);
-			return "addNewJadwalSuccess";
-		}
-//		
-//		//UBAH JADWAL Jadwal staf apoteker jaga tidak bisa diubah jika tanggalnya sudah lewat
-//		@RequestMapping(value = "/medical-supplies/jadwal-staf/{idJadwaL}", method = RequestMethod.GET)
+			@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.POST)
+			private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
+				jadwalService.addJadwal(jadwal);
+				return "addNewJadwalSuccess";
+			}
+		
+		//UBAH JADWAL  (tidak bisa diubah jika tanggalnya sudah lewat)
+		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.GET)
+		private String updateJadwal(Model model) {
+		model.addAttribute("jadwal", new JadwalJagaModel());
+		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+		model.addAttribute("listStaff", listStaff);
 //		private String updateJadwal(@PathVariable(value = "idJadwal") String idJadwal, Model model) {
 //			JadwalJagaModel jadwal = JadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
 //			model.addAttribute("jadwal", jadwal);
 //			model.addAttribute("newJadwal", new JadwalJagaModel());
-//			return "updateJadwal";
-//		}
-//		
-//		@RequestMapping(value = "/jabatan/update/{id_jabatan}", method = RequestMethod.POST)
+			return "updateJadwal";
+		}
+
+		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.POST)
+		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
+			jadwalService.addJadwal(jadwal);
+//		@RequestMapping(value = "/jadwal-staf/{idJadwaL}", method = RequestMethod.POST)
 //		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel newJadwal, 
 //			@PathVariable(value = "idJadwal") String idJadwal, Model model) {
 //			JadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
 //			model.addAttribute("id", newJadwal.getId());
-//			return "updateJadwalSuccess";
-//		}
-
+		return "updateJadwalSuccess";
+		}
+		
 }

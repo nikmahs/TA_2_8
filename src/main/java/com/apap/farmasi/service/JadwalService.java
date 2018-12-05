@@ -12,7 +12,5 @@ public interface JadwalService {
 
 	JadwalJagaModel getJadwalDetailById(long parseLong);
 
-	void updateJadwalJaga(long parseLong, JadwalJagaModel newJadwal);
-
-	void updateJadwal(long parseLong, JadwalJagaModel newJadwal);
+	//void updateJadwal(long parseLong, JadwalJagaModel newJadwal);
 }
