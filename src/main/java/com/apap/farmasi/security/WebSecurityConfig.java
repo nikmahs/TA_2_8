@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//Fitur 6
 			//.antMatchers("/medical-supplies/tambah/").hasAnyAuthority("ADMIN")
 			//Fitur 7
-			//.antMatchers("/medical-supplies/ubah/**").hasAnyAuthority("ADMIN")
+			//.antMatchers("/medical-supplies/ubah/**").hasAnyAuthority("ADMIN") 
 			//Fitur 8
 			//.antMatchers("/rawat-jalan/obat/tambah").hasAnyAuthority("ADMIN", "STAF")
 			//Fitur 9 	

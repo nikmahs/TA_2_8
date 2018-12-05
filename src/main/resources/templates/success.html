@@ -2,14 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Home</title>
+    <title>Success</title>
 
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    
     <style>
 		.footer {
-		   position: fixed;
 		   color: black;
 		   width:100%;
 		   height:50px;
@@ -21,20 +19,17 @@
 </head>
 
 <body>
+	<nav th:replace = "fragments/fragment :: navbar"></nav>    
 	
-    <nav th:replace="fragments/fragment :: navbar"></nav>
-
-    <div class="container-fluid">
-    <br></br>
-    <marquee>
-			<h4>Selamat datang di Sistem Informasi Farmasi!</h4>
-	</marquee>
-	
-    <br></br>
-        <h5 th:text="'Berhasil login sebagai ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h5>
-    </div>
-    <br></br>
-    <div class="footer navbar-fixed-bottom">
+	<div class = "container-fluid">
+		<div class = "header">
+			<div class = "alert alert-success" role = "alert">
+				<h1>Sukses!</h1>
+				<p th:text = "${msg}"></p>
+			</div>
+		</div>
+	</div>
+	<div class="footer navbar-fixed-bottom text-center">
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
 </body>
