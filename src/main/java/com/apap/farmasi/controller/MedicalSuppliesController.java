@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.farmasi.model.JadwalJagaModel;
+import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
@@ -25,6 +26,7 @@ import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
 import com.apap.farmasi.service.StatusPermintaanService;
+import com.apap.farmasi.service.JenisMedicalSuppliesService;
 //import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
@@ -48,6 +50,9 @@ public class MedicalSuppliesController {
 	
 	@Autowired 
 	private JadwalService jadwalService;
+	
+	@Autowired
+	private JenisMedicalSuppliesService jenisMedicalSuppliesService;
 	
 	/**
 	 * fitur 3 melihat daftar medical supplies
@@ -78,7 +83,7 @@ public class MedicalSuppliesController {
 	
 	/**
 	 * fitur 6 menambahkan medical supplies
-	 * @param id, model
+	 * @param medsup, model
 	 * @return tampilan form menambahkan medical supplies
 	 */	
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
@@ -91,6 +96,8 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/tambah", method = RequestMethod.GET)
 	private String addMedsup(Model model) {
 		model.addAttribute("medsup", new MedicalSuppliesModel());
+		List<JenisMedicalSuppliesModel> listJenis = jenisMedicalSuppliesService.getAllJenisMedicalSuppliesById();
+		model.addAttribute("listJenis", listJenis);
 		return "add-medsup";
 	}
 	
