@@ -225,7 +225,7 @@ public class MedicalSuppliesController {
 	//bukan kerjaan awl lagi
 	
 //	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
-	@GetMapping(value = "/permintaan/")
+	@GetMapping(value = "/permintaan")
 	private String viewAllPermintaan(Model model) {
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
@@ -239,7 +239,7 @@ public class MedicalSuppliesController {
 
 		
 	//LIHAT JADWAL JAGA
-			@RequestMapping(value = "/jadwal-staf/", method = RequestMethod.GET)
+			@RequestMapping(value = "/jadwal-staf", method = RequestMethod.GET)
 			private String viewJadwalJaga(Model model) {
 				List<JadwalJagaModel> listJadwalJaga = jadwalService.findAllJadwal();
 				List<StaffDetail> listStaff = restService.getAllStaff().getResult();
