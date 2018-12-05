@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.StatusPermintaanDb;
 
@@ -20,5 +21,11 @@ public class StatusPermintaanServiceImpl implements StatusPermintaanService {
 		return statusPermintaanDb.findAll();		
 
 	}
+
+	@Override
+	public StatusPermintaanModel getStatusPermintaanDetailById(int id) {
+		return statusPermintaanDb.findById(id).get();
+	}
+
 
 }

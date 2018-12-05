@@ -48,16 +48,13 @@
 							<td th:text="${permintaanMedSup.medicalSupplies.nama}"></td>
 							<td th:text="${permintaan.jumlahMedicalSupplies}"></td>
 							<td th:text="${permintaanMedSup.medicalSupplies.jenisMedicalSupplies.jenisMedicalSupplies}"></td>
-							<td th:text="${permintaan.statusPermintaan.nama}">
-	  							<form th:action="@{/permintaan/ubah/{id}(id=${permintaan.id})}" method="GET">					
-								<button type="submit">Terima</button>
-								</form>
-							</td>
+							<td th:text="${permintaan.statusPermintaan.nama}"></td>
 							<td th:text="${permintaan.jadwalJaga.idStaff}"></td>
 							<td th:text="${permintaan.idPasien}"></td>
 							<td>
-								 <form th:action="@{/medical-supplies/permintaan/ubah/{id}(id=${permintaan.id})}" method="POST">					
-									<button type="submit" class="btn btn-primary">Terima</button>
+								 <form th:action="@{/medical-supplies/permintaan/ubah/{id}(id=${permintaan.id})}" method="post">					
+									<button th:if="${permintaan.statusPermintaan.nama == 'pending'}" type="submit" class="btn btn-primary">Terima</button>
+									<button th:unless="${permintaan.statusPermintaan.nama == 'pending'}" type="submit" class="btn btn-secondary" disabled>Terima</button>
 								</form>
 							</td>
 							
