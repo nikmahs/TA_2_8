@@ -35,9 +35,7 @@ public class PermintaanMedicalSuppliesModel implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private MedicalSuppliesModel medicalSupplies;
 	
-	@NotNull
-	@Column(name = "jumlah_medical_supplies", nullable = false)
-	private long jumlahMedicalSupplies;
+	
 
 	public PermintaanModel getPermintaan() {
 		return permintaan;
@@ -59,11 +57,5 @@ public class PermintaanMedicalSuppliesModel implements Serializable {
 		return id;
 	}
 	
-	public long getJumlahMedicalSupplies() {
-		return jumlahMedicalSupplies;
-	}
-
-	public void setJumlahMedicalSupplies(long jumlahMedicalSupplies) {
-		this.jumlahMedicalSupplies = jumlahMedicalSupplies;
-	}
+	
 }

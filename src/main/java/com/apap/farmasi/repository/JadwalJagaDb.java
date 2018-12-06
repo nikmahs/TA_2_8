@@ -7,4 +7,6 @@ import com.apap.farmasi.model.*;
 
 @Repository
 public interface JadwalJagaDb extends JpaRepository<JadwalJagaModel, Long> {
+	//JadwalJagaModel findJadwalById(long id);
 }
+

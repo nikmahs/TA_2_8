@@ -1,9 +1,10 @@
 package com.apap.farmasi.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,30 +17,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpMethod;
 
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.context.annotation.Bean;
-
 
 import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
-import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.PermintaanMedicalSuppliesModel;
+import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
-import com.apap.farmasi.rest.StaffDetail;
-import com.apap.farmasi.rest.Setting;
 import com.apap.farmasi.rest.BillingDetail;
 import com.apap.farmasi.rest.BillingResponse;
+import com.apap.farmasi.rest.Setting;
+import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
+import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
 import com.apap.farmasi.service.StatusPermintaanService;
-import com.apap.farmasi.service.JenisMedicalSuppliesService;
 //import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
@@ -137,6 +137,11 @@ public class MedicalSuppliesController {
 		
 		return "view-perencanaan";
 	}
+	
+	@RequestMapping(value = "/perencanaan/getPerencanaanById", method = RequestMethod.GET)
+	private PerencanaanModel getPerencanaanById(@RequestParam(value = "idPerencanaan", required = true) long idPerencanaan, Model model) {
+		return perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
+	}
 
 	//kerjaan awl
 	//fitur 13
@@ -218,17 +223,6 @@ public class MedicalSuppliesController {
 //		
 ////		StatusPermintaanModel diterima = statusPermintaanService.getStatusPermintaanDetailById(2);
 ////		targetPermintaan.setStatusPermintaan(diterima);
-//		permintaanService.addPermintaan(targetPermintaan);
-//		
-//		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
-//		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
-//		//ditambah awl
-//		List<StatusPermintaanModel> listStatus = statusPermintaanService.getAllPermintaan();
-//		model.addAttribute("listStatus",listStatus);
-//		model.addAttribute("listPermintaan", listPermintaan);
-//		model.addAttribute("listStaff", listStaff);
-//		return "viewall-permintaan";
-//	}
 	//fitur 8
 	//lebih ribet daripada yg aing bayangin juga
 	@RequestMapping(value = "/kirim", method = RequestMethod.POST)
@@ -281,7 +275,7 @@ public class MedicalSuppliesController {
 				return "view-jadwal-jaga";
 			}
 			
-			//TAMBAH JADWAL BARU
+		//TAMBAH JADWAL BARU
 			@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.GET)
 			private String add(Model model) {
 				model.addAttribute("jadwal", new JadwalJagaModel());
@@ -289,27 +283,34 @@ public class MedicalSuppliesController {
 				model.addAttribute("listStaff", listStaff);
 				return "addNewJadwal";
 			}	
-		@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.POST)
-		private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
-			jadwalService.addJadwal(jadwal);
-			return "addNewJadwalSuccess";
-		}
-//		
-//		//UBAH JADWAL Jadwal staf apoteker jaga tidak bisa diubah jika tanggalnya sudah lewat
-//		@RequestMapping(value = "/medical-supplies/jadwal-staf/{idJadwaL}", method = RequestMethod.GET)
+			@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.POST)
+			private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
+				jadwalService.addJadwal(jadwal);
+				return "addNewJadwalSuccess";
+			}
+		
+		//UBAH JADWAL  (tidak bisa diubah jika tanggalnya sudah lewat)
+		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.GET)
+		private String updateJadwal(Model model) {
+		model.addAttribute("jadwal", new JadwalJagaModel());
+		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+		model.addAttribute("listStaff", listStaff);
 //		private String updateJadwal(@PathVariable(value = "idJadwal") String idJadwal, Model model) {
 //			JadwalJagaModel jadwal = JadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
 //			model.addAttribute("jadwal", jadwal);
 //			model.addAttribute("newJadwal", new JadwalJagaModel());
-//			return "updateJadwal";
-//		}
-//		
-//		@RequestMapping(value = "/jabatan/update/{id_jabatan}", method = RequestMethod.POST)
+			return "updateJadwal";
+		}
+
+		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.POST)
+		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
+			jadwalService.addJadwal(jadwal);
+//		@RequestMapping(value = "/jadwal-staf/{idJadwaL}", method = RequestMethod.POST)
 //		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel newJadwal, 
 //			@PathVariable(value = "idJadwal") String idJadwal, Model model) {
 //			JadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
 //			model.addAttribute("id", newJadwal.getId());
-//			return "updateJadwalSuccess";
-//		}
-
+		return "updateJadwalSuccess";
+		}
+		
 }

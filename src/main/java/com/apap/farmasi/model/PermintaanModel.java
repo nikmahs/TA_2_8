@@ -47,6 +47,10 @@ public class PermintaanModel implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private JadwalJagaModel jadwalJaga;
+	
+	@NotNull
+	@Column(name = "jumlah_medical_supplies", nullable = false)
+	private long jumlahMedicalSupplies;
 
 	
 	@NotNull
@@ -102,6 +106,16 @@ public class PermintaanModel implements Serializable {
 
 	public void setIdPasien(int idPasien) {
 		this.idPasien = idPasien;
+	}
+
+	public long getJumlahMedicalSupplies() {
+		return jumlahMedicalSupplies;
+	}
+
+	public void setJumlahMedicalSupplies(long jumlahMedicalSupplies) {
+		this.jumlahMedicalSupplies = jumlahMedicalSupplies;
 	}	
+	
+	
 
 }

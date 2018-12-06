@@ -34,16 +34,17 @@ public class JadwalServiceImpl implements JadwalService{
 		return null;
 	}
 
-	@Override
-	public void updateJadwalJaga(long parseLong, JadwalJagaModel newJadwal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateJadwal(long parseLong, JadwalJagaModel newJadwal) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public JadwalJagaModel getJadwalDetailById(long parseLong) {
+//		return JadwalJagaModel.findJadwalById(parseLong);
+//	}
+//
+//	@Override
+//	public void updateJadwal(long parseLong, JadwalJagaModel newJadwal) {
+//		JadwalModel jadwalLama = this.getJadwalDetailById(idJadwal); TANGGA WAKTU MULAI WAKTU SELESAI
+//		JadwalLama.setDeskripsi(jabatan.getDeskripsi());
+//		JadwalLama.setNama(jabatan.getNama());
+//		JadwalLama.setGajiPokok(jabatan.getGajiPokok());
+//	}
 
 }
