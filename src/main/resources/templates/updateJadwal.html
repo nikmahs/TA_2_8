@@ -44,7 +44,8 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pilot')"></nav>
 	<div id="Content" class="container-full-bg">
-		<h2 class="text-center"> Update Jadwal (nama staf)</h2>
+		<h2 class="text-center"> Update Jadwal</h2>
+		
 	<form class="form-horizontal" th:action="@{/medical-supplies/jadwal-staf/update}" th:object="${jadwal}" method="POST">
 		<center>
 			<img src="https://img.icons8.com/ios/1600/user-female-circle-filled.png" alt="farmasi" style="width:150px;height:150px;">
