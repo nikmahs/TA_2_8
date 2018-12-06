@@ -1,6 +1,7 @@
 package com.apap.farmasi.rest;
 
 import java.util.List;
+import com.apap.farmasi.rest.PasienModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //data yang didapat itu json terus langsung diparsing ke java -ka gitta
@@ -14,7 +15,7 @@ public class BillingDetail {
 	
 	private String tanggalTagihan;
 	
-	private List<Integer> pasien;
+	private PasienModel pasien;
 
 	
 	public long getId() {
@@ -41,11 +42,11 @@ public class BillingDetail {
 		this.tanggalTagihan = tanggalTagihan;
 	}
 
-	public List<Integer> getPasien() {
+	public PasienModel getPasien() {
 		return pasien;
 	}
 
-	public void setPasien(List<Integer> pasien) {
+	public void setPasien(PasienModel pasien) {
 		this.pasien = pasien;
 	}
 	

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpMethod;
+
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +31,8 @@ import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.BillingDetail;
-import com.apap.farmasi.rest.BillingResponse;
+import com.apap.farmasi.rest.PasienModel;
+import com.apap.farmasi.rest.ObatModel;
 import com.apap.farmasi.rest.Setting;
 import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
@@ -156,49 +162,62 @@ public class MedicalSuppliesController {
 			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(medSupIterasi.getId());
 			
 			targetMedSuplst.add(medSupIterasi);
-//			if(targetPermintaan.getJumlahMedicalSupplies() > medSupDiDb.getJumlah()) {
-//				return "gagal";
-//			}
-			System.out.println(counter++ + " " + medSupIterasi.getNama());
+			if(targetPermintaan.getJumlahMedicalSupplies() > medSupDiDb.getJumlah()) {
+				return "gagal";
+			}
 			
 		}
 		//ngurangin di db, bikin billing
 		List<BillingDetail> billinglst = new ArrayList<BillingDetail>();
-//		int jumlahDipesan = (int)targetPermintaan.getJumlahMedicalSupplies();
+		int jumlahDipesan = (int)targetPermintaan.getJumlahMedicalSupplies();
 		for (MedicalSuppliesModel temp : targetMedSuplst) {
 			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(temp.getId());
-//			int jumlahBaru = medSupDiDb.getJumlah()-jumlahDipesan;
+			int jumlahBaru = medSupDiDb.getJumlah()-jumlahDipesan;
 			
-//			medSupDiDb.setJumlah(jumlahBaru);
+			medSupDiDb.setJumlah(jumlahBaru);
 			
 			medicalSuppliesService.addMedsup(medSupDiDb);
 
 			BillingDetail billingTemp = new BillingDetail();
-			billingTemp.setPasien(new ArrayList<Integer>(targetPermintaan.getIdPasien()));
-//			billingTemp.setJumlahTagihan((int)medSupDiDb.getPrice()*jumlahDipesan);
+			PasienModel pasienTarget = new PasienModel();
+			pasienTarget.setId(targetPermintaan.getIdPasien());
+			billingTemp.setPasien(pasienTarget);
+			billingTemp.setJumlahTagihan((int)medSupDiDb.getPrice()*jumlahDipesan);
 			billingTemp.setTanggalTagihan(targetPermintaan.getTanggal().toString());
 			billinglst.add(billingTemp);
 		}
 		//kirim billing
 		RestTemplate rt = rest();
-		List<BillingResponse> responselst = new ArrayList<>();
+		List<String> responselst = new ArrayList<>();
 		int responseCounter = 0;
-		String path = Setting.urlApt + "/2/addBilling";		
-//		BillingResponse detail = rt.postForObject(path, billinglst.get(0), BillingResponse.class);
-//		responselst.add(detail);
-		System.out.println("hay awl");
+		String path = Setting.urlApt + "/2/addBilling";
+		System.out.println(path);
 		for(BillingDetail temp : billinglst) {			
-			System.out.println(temp.getJumlahTagihan());
-			System.out.println(temp.getTanggalTagihan().toString());
+			System.out.print(temp.getJumlahTagihan() + " ");
+			System.out.print(temp.getTanggalTagihan().toString() + " ");
 			System.out.println(temp.getPasien());
 
-			BillingResponse detail = rt.postForObject(path, temp, BillingResponse.class);
-			responselst.add(detail);
-			System.out.println(detail.getMessage());
-		}		
+			RestTemplate template = new RestTemplate();
+			HttpEntity<BillingDetail> requestEntity= new HttpEntity<BillingDetail>(temp);
+			System.out.println(requestEntity.toString());
+			String response = "";
+		    try{
+		       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
+		       response = responseEntity.getBody();
+		    }
+		    catch(Exception e){
+		       response = e.getMessage();
+		    }
+		    responselst.add(response);
+			System.out.println(response);
+			
+			
+		}
+
+		
 		StatusPermintaanModel diterima = statusPermintaanService.getStatusPermintaanDetailById(2);
-//		targetPermintaan.setStatusPermintaan(diterima);
-//		permintaanService.addPermintaan(targetPermintaan);
+		targetPermintaan.setStatusPermintaan(diterima);
+		permintaanService.addPermintaan(targetPermintaan);
 		
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
@@ -214,18 +233,43 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/kirim", method = RequestMethod.POST)
 	private String kirimMedSup(@ModelAttribute MedicalSuppliesModel medSup,Model model) {
 		
-		System.out.println("hay aul");
+//		System.out.println("hay aul");
 		//inisiasi dan kurangin jumlah
 		int jumlahDitambah = medSup.getJumlah();
 		MedicalSuppliesModel target = medicalSuppliesService.getMedicalSuppliesDetailById(medSup.getId());
 		target.setJumlah(target.getJumlah()-jumlahDitambah);
 		medicalSuppliesService.addMedsup(target);
+
+		
 		
 		//kirim ke api sono
+
+		ObatModel obatDikirim = new ObatModel();
+		obatDikirim.setJumlah(jumlahDitambah);
+		obatDikirim.setNama(target.getNama());
 		
-//		String path = Setting.urlMock + "/obat/tambah";
-//		ObatDetail obat = ;
-//		obatResponse response = restTemplate.postForObject(path, obat, obatResponse.class);
+		
+		String path = Setting.urlMock + "/obat/tambah";
+
+		RestTemplate template = new RestTemplate();
+		HttpEntity<ObatModel> requestEntity= new HttpEntity<ObatModel>(obatDikirim);
+		System.out.println(requestEntity.toString());
+		String response = "";
+
+		System.out.println(path);
+		System.out.println("nama = " + obatDikirim.getNama());
+		System.out.println("jumlah = " + obatDikirim.getJumlah());
+
+		
+		try{
+	       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
+	       response = responseEntity.getBody();
+	    }
+	    catch(Exception e){
+	       response = e.getMessage();
+	    }
+		
+		System.out.println(response);
 		
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
