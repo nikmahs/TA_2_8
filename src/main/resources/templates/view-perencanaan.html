@@ -32,11 +32,11 @@
     				<table>
 						<tr>
 							<th height="60">Tanggal</th>
-							<td th:text="': ' + ${aPerencanaan.tanggal}"></td>
+							<td id="tanggalPerencanaan" th:text="': ' + ${aPerencanaan.tanggal}"></td>
 						</tr>
 						<tr>
 							<th height="60">Status</th>
-							<td th:text="': ' + ${aPerencanaan.status}"></td>
+							<td id="statusPerencanaan" th:text="': ' + ${aPerencanaan.status}"></td>
 						</tr>
     				</table>
     				
@@ -71,7 +71,7 @@
 	    					<span th:each="perencanaan : ${listPerencanaan}">
 	    						<div>
 	    							<tr class="rowPerencanaan" >
-		    							<td class="id" th:text="${perencanaan.id}"></td>
+		    							<td class="idPerencanaan" th:text="${perencanaan.id}"></td>
 		    							<td th:text="${perencanaan.tanggal}"></td>
 		    							<td th:text="${perencanaan.status}"></td>
 		    						</tr>
@@ -99,8 +99,19 @@
 <script th:inline="javascript">
 	$(document).ready(function(){
 		$('.rowPerencanaan').click(function(){
-			alert(this.children("td.id").val());	
-			//alert("asdasd")
+			$.ajax({
+				method : 'GET',
+				url : "/medical-supplies/perencanaan/getPerencanaanById",
+				data : {idPerencanaan : $(this).children("td.idPerencanaan").text()}
+			}).done(function(data){
+				var newTanggal = '<td id="tanggalPerencanaan">: ' + data.tanggal + '</td>';
+				$('#tanggalPerencanaan').html(newTanggal);
+				
+				var newStatus = '<td id="statusPerencanaan">: ' + data.status + '</td>';
+				$('#statusPerencanaan').html(newStatus);
+				
+				//var listMedsupLen = data.listPerencanaanMedicalSupplies;
+			}); 
 		});
 	});
 </script>

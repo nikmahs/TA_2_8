@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "perencanaan_medical_supplies")
 public class PerencanaanMedicalSuppliesModel implements Serializable {
@@ -26,6 +28,7 @@ public class PerencanaanMedicalSuppliesModel implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_perencanaan", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	private PerencanaanModel perencanaan;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.apap.farmasi.model.JadwalJagaModel;
@@ -134,6 +135,7 @@ public class MedicalSuppliesController {
 	}
 	
 	@RequestMapping(value = "/perencanaan/getPerencanaanById", method = RequestMethod.GET)
+	@ResponseBody
 	private PerencanaanModel getPerencanaanById(@RequestParam(value = "idPerencanaan", required = true) long idPerencanaan, Model model) {
 		return perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
 	}
