@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Daftar Permintaan</title>
+    <title>Daftar Jadwal Jaga</title>
 
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -33,7 +33,9 @@
 					<th>Tanggal</th>
 					<th>Waktu Mulai</th>
 					<th>Waktu Selesai</th>
+					<th>Update Jadwal</th>
 				</tr>
+				<br></br>
 			</thead>
 			<tbody>
 				<span th:each="jadwalJaga : ${listJadwalJaga}">
@@ -44,6 +46,11 @@
 								<td th:text="${jadwalJaga.tanggal}"></td>
 								<td th:text="${jadwalJaga.waktuMulai}"></td>
 								<td th:text="${jadwalJaga.waktuSelesai}"></td>
+								<td>
+									<form th:action="@{/medical-supplies/jadwal-staf/update}" style="margin-left:20px;">
+										<button type="submit" class="btn btn-primary">Update</button>
+									</form>
+								</td>
 							</tr>
 						</span>
 					</span>
@@ -55,10 +62,6 @@
     <div class="row form-group">
     	<form th:action="@{/medical-supplies/jadwal-staf/tambah}" style="margin-left:600px;">
 			<button type="submit" class="btn btn-primary">Tambah</button>
-		</form>
-					
-		<form th:action="@{/medical-supplies/jadwal-staf/update}" style="margin-left:20px;">
-			<button type="submit" class="btn btn-primary">Update</button>
 		</form>
      </div> 
     
