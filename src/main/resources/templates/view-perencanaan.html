@@ -45,13 +45,13 @@
 		    				<th>Nama Obat/Alat</th>
 		    				<th>Jumlah</th>
 		    			</thead>
-		    			<tbody>
-		    				<span th:each="perencanaanMedSup : ${listPerencanaanMedSup}">
-		    					<tr>
-			    					<td th:text="${perencanaanMedSup.medicalSupplies.nama}"></td>
-			    					<td th:text="${perencanaanMedSup.jumlah}" class="text-center"></td>
-			    				</tr>
-		    				</span>
+		    			<tbody id="itemPerencanaan" >
+	    					<tr th:each="perencanaanMedSup : ${listPerencanaanMedSup}">
+		    					<td th:text="${perencanaanMedSup.medicalSupplies.nama}"></td>
+		    					<td th:text="${perencanaanMedSup.jumlah}" class="text-center"></td>
+			    			</tr>
+		    						
+		    				
 		    				
 		    			</tbody>
 					</table>
@@ -69,14 +69,11 @@
 	    				</thead>
 	    				<tbody>
 	    					<span th:each="perencanaan : ${listPerencanaan}">
-	    						<div>
-	    							<tr class="rowPerencanaan" >
-		    							<td class="idPerencanaan" th:text="${perencanaan.id}"></td>
-		    							<td th:text="${perencanaan.tanggal}"></td>
-		    							<td th:text="${perencanaan.status}"></td>
-		    						</tr>
-	    						</div>
-	    						
+    							<tr class="rowPerencanaan" >
+	    							<td class="idPerencanaan" th:text="${perencanaan.id}"></td>
+	    							<td th:text="${perencanaan.tanggal}"></td>
+	    							<td th:text="${perencanaan.status}"></td>
+	    						</tr>
 	    					</span>
 	    				</tbody>
 	    			</table>
@@ -110,7 +107,19 @@
 				var newStatus = '<td id="statusPerencanaan">: ' + data.status + '</td>';
 				$('#statusPerencanaan').html(newStatus);
 				
-				//var listMedsupLen = data.listPerencanaanMedicalSupplies;
+				var itemHtml = '';
+				var listMedSup = data.listPerencanaanMedicalSupplies;
+				var listMedSupLen = listMedSup.length;
+				
+				for (var i = 0; i < listMedSupLen; i++) {
+					itemHtml += '<tr id="idPerencanaan">'
+								+ '<td>' + listMedSup[i].medicalSupplies.nama + '</td>'
+								+ '<td class="text-center">' + listMedSup[i].jumlah + '</td>' +
+								'</tr>';
+				}
+				
+				$("#itemPerencanaan").html(itemHtml);
+				
 			}); 
 		});
 	});
