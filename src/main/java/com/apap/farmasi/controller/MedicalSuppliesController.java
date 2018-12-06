@@ -101,6 +101,27 @@ public class MedicalSuppliesController {
 		return "add-medsup";
 	}
 	
+	/**
+	 * fitur 7 mengubah medical supplies
+	 * @param medsup, model
+	 * @return tampilan form mengubah medical supplies
+	 */	
+	@RequestMapping(value = "/ubah/{id}/", method = RequestMethod.POST)
+	private String updateMedsupSubmission(@PathVariable (value = "id") long id, MedicalSuppliesModel medsup, Model model) {
+		medicalSuppliesService.addMedsup(medsup);
+		model.addAttribute("msg", "Berhasil ditambahkan");
+		return "success";
+	}
+	
+	@RequestMapping(value = "/ubah/{id}/", method = RequestMethod.GET)
+	private String updateMedsup(@PathVariable (value = "id") long id, MedicalSuppliesModel medsup, Model model) {
+		MedicalSuppliesModel medsup1 = medicalSuppliesService.getMedicalSuppliesDetailById(id);
+		model.addAttribute("medsup1", medsup1);
+		List<JenisMedicalSuppliesModel> listJenis = jenisMedicalSuppliesService.getAllJenisMedicalSuppliesById();
+		model.addAttribute("listJenis", listJenis);
+		return "add-medsup";
+	}
+	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
 		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
