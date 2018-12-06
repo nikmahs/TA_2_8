@@ -1,9 +1,10 @@
 package com.apap.farmasi.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,31 +12,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.context.annotation.Bean;
-
 
 import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
-import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.PermintaanMedicalSuppliesModel;
+import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
-import com.apap.farmasi.rest.StaffDetail;
-import com.apap.farmasi.rest.Setting;
 import com.apap.farmasi.rest.BillingDetail;
 import com.apap.farmasi.rest.BillingResponse;
+import com.apap.farmasi.rest.Setting;
+import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
+import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
 import com.apap.farmasi.service.StatusPermintaanService;
-import com.apap.farmasi.service.JenisMedicalSuppliesService;
 //import com.apap.farmasi.model.JadwalJagaModel;
 
 @Controller
@@ -132,6 +131,11 @@ public class MedicalSuppliesController {
 		model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
 		
 		return "view-perencanaan";
+	}
+	
+	@RequestMapping(value = "/perencanaan/getPerencanaanById", method = RequestMethod.GET)
+	private PerencanaanModel getPerencanaanById(@RequestParam(value = "idPerencanaan", required = true) long idPerencanaan, Model model) {
+		return perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
 	}
 
 	//kerjaan awl
