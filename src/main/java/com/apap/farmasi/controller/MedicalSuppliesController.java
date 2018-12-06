@@ -166,6 +166,13 @@ public class MedicalSuppliesController {
 	private PerencanaanModel getPerencanaanById(@RequestParam(value = "idPerencanaan", required = true) long idPerencanaan, Model model) {
 		return perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
 	}
+	
+	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.GET)
+	private String tambahPerencanaan(Model model) {
+		PerencanaanModel newPerencanaan = new PerencanaanModel();
+		model.addAttribute("perencanaan", newPerencanaan);
+		return "add-perencanaan";
+	}
 
 	//kerjaan awl
 	//fitur 13
