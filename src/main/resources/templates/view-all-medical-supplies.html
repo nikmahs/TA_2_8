@@ -37,7 +37,6 @@
 						<th>Nama</th>
 						<th>Jumlah</th>
 						<th>Harga</th>
-						<th></th>
 						<th>Kirim ke Rawat Jalan</th>
 					</tr>
 				</thead>
@@ -47,13 +46,6 @@
 						<td> <a th:href="@{/medical-supplies/{id}/(id=${medsup.id})}" th:text = "${medsup.nama}"></td>
 						<td th:text = "${medsup.jumlah}"></td>
 						<td th:text = "${medsup.price}"></td>
-						<td>
-						<!-- 
-							somehow kalo formnya di td ini ga bisa jalan 
-															aing ga paham
-																	- awl 
-						-->
-						</td>
 						<td>
 							 <form th:action="@{/medical-supplies/kirim}" method="post">				
 									<input type=hidden th:value="${medsup.id}"name=id>					
