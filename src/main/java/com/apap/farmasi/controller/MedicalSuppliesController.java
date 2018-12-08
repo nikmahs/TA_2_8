@@ -174,71 +174,8 @@ public class MedicalSuppliesController {
 	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model) {
 		
 		PermintaanModel targetPermintaan =permintaanService.getPermintaanDetailById(id).get();
-		
-		List<MedicalSuppliesModel> targetMedSuplst = new ArrayList<MedicalSuppliesModel>();
-		int counter = 0;
-		//cek cukup ato ga
-		for (PermintaanMedicalSuppliesModel temp : targetPermintaan.getListPermintaanMedicalSupplies()) {
-			MedicalSuppliesModel medSupIterasi = temp.getMedicalSupplies();
-			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(medSupIterasi.getId());
-			
-			targetMedSuplst.add(medSupIterasi);
-			if(targetPermintaan.getJumlahMedicalSupplies() > medSupDiDb.getJumlah()) {
-				return "gagal";
-			}
-			
-		}
-		//ngurangin di db, bikin billing
-		List<BillingDetail> billinglst = new ArrayList<BillingDetail>();
-		int jumlahDipesan = (int)targetPermintaan.getJumlahMedicalSupplies();
-		for (MedicalSuppliesModel temp : targetMedSuplst) {
-			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(temp.getId());
-			int jumlahBaru = medSupDiDb.getJumlah()-jumlahDipesan;
-			
-			medSupDiDb.setJumlah(jumlahBaru);
-			
-			medicalSuppliesService.addMedsup(medSupDiDb);
 
-			BillingDetail billingTemp = new BillingDetail();
-			PasienModel pasienTarget = new PasienModel();
-			pasienTarget.setId(targetPermintaan.getIdPasien());
-			billingTemp.setPasien(pasienTarget);
-			billingTemp.setJumlahTagihan((int)medSupDiDb.getPrice()*jumlahDipesan);
-			billingTemp.setTanggalTagihan(targetPermintaan.getTanggal().toString());
-			billinglst.add(billingTemp);
-		}
-		//kirim billing
-		RestTemplate rt = rest();
-		List<String> responselst = new ArrayList<>();
-		int responseCounter = 0;
-		String path = Setting.urlApt + "/2/addBilling";
-		System.out.println(path);
-		for(BillingDetail temp : billinglst) {			
-			System.out.print(temp.getJumlahTagihan() + " ");
-			System.out.print(temp.getTanggalTagihan().toString() + " ");
-			System.out.println(temp.getPasien());
-
-			RestTemplate template = new RestTemplate();
-			HttpEntity<BillingDetail> requestEntity= new HttpEntity<BillingDetail>(temp);
-			System.out.println(requestEntity.toString());
-			String response = "";
-		    try{
-		       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
-		       response = responseEntity.getBody();
-		    }
-		    catch(Exception e){
-		       response = e.getMessage();
-		    }
-		    responselst.add(response);
-			System.out.println(response);
-			
-			
-		}
-
-		
-		StatusPermintaanModel diterima = statusPermintaanService.getStatusPermintaanDetailById(2);
-		targetPermintaan.setStatusPermintaan(diterima);
-		permintaanService.addPermintaan(targetPermintaan);
+		permintaanService.postBilling(targetPermintaan);
 		
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
@@ -261,37 +198,8 @@ public class MedicalSuppliesController {
 		target.setJumlah(target.getJumlah()-jumlahDitambah);
 		medicalSuppliesService.addMedsup(target);
 
-		
-		
-		//kirim ke api sono
-
-		ObatModel obatDikirim = new ObatModel();
-		obatDikirim.setJumlah(jumlahDitambah);
-		obatDikirim.setNama(target.getNama());
-		
-		
-		String path = Setting.urlMock + "/obat/tambah";
-
-		RestTemplate template = new RestTemplate();
-		HttpEntity<ObatModel> requestEntity= new HttpEntity<ObatModel>(obatDikirim);
-		System.out.println(requestEntity.toString());
-		String response = "";
-
-		System.out.println(path);
-		System.out.println("nama = " + obatDikirim.getNama());
-		System.out.println("jumlah = " + obatDikirim.getJumlah());
-
-		
-		try{
-	       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
-	       response = responseEntity.getBody();
-	    }
-	    catch(Exception e){
-	       response = e.getMessage();
-	    }
-		
-		System.out.println(response);
-		
+		medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
+				
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
 		model.addAttribute("allMedSup", allMedSup);
