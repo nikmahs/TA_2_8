@@ -164,8 +164,6 @@ public class MedicalSuppliesController {
 		}
 		
 		return "perencanaan-kosong";
-		
-		
 	}
 	
 	@RequestMapping(value = "/perencanaan/getPerencanaanById", method = RequestMethod.GET)

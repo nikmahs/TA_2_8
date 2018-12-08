@@ -9,12 +9,23 @@
 </head>
 
 <body>
-	<nav th:replace = "fragments/fragment :: navbar"></nav>
+	<nav th:replace = "fragments/fragment :: navbar"></z>
 	<div class="container-fluid">
 		<h3 class="text-center">Tambah Perencanaan</h3>
+		
+		<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
+  			<input type="hidden" name="id" th:value="*{id}">
+			<div class = "row">
+	  			<div class="col-sm-3"><p>Tanggal</p></div>
+	  			<div class="col-sm-9">
+					<input type="text" class="form-control" name="tanggal" th:value="*{tanggal}">
+				</div>
+	  		</div>
+  		</form>
 	</div>
-	<div class="footer navbar-fixed-bottom text-center">
+	<!-- <div class="footer navbar-fixed-bottom text-center">
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
+	-->
 </body>
 </html>

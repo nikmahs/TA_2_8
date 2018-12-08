@@ -28,6 +28,7 @@
     	<div class="row">
     		<div class="col-md-7">
     			<h3 class="text-center">Detail Perencanaan</h3>
+    			<a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-primary">Tambah</a>
     			<div class="card my-5" id="tablePerencanaanContent">
     				<table>
 						<tr>
@@ -50,9 +51,6 @@
 		    					<td th:text="${perencanaanMedSup.medicalSupplies.nama}"></td>
 		    					<td th:text="${perencanaanMedSup.jumlah}" class="text-center"></td>
 			    			</tr>
-		    						
-		    				
-		    				
 		    			</tbody>
 					</table>
     			</div>
