@@ -150,15 +150,22 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
 		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
-		model.addAttribute("listPerencanaan", listPerencanaan);
 		
-		PerencanaanModel perencanaan = listPerencanaan.get(0);
-		model.addAttribute("aPerencanaan", perencanaan);
+		if (!listPerencanaan.isEmpty()) {
+			model.addAttribute("listPerencanaan", listPerencanaan);
+			
+			PerencanaanModel perencanaan = listPerencanaan.get(0);
+			model.addAttribute("aPerencanaan", perencanaan);
+			
+			List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
+			model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
+			
+			return "view-perencanaan";
+		}
 		
-		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
-		model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
+		return "perencanaan-kosong";
 		
-		return "view-perencanaan";
+		
 	}
 	
 	@RequestMapping(value = "/perencanaan/getPerencanaanById", method = RequestMethod.GET)
