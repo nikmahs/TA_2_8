@@ -341,27 +341,19 @@ public class MedicalSuppliesController {
 			}
 		
 		//UBAH JADWAL  (tidak bisa diubah jika tanggalnya sudah lewat)
-		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.GET)
-		private String updateJadwal(Model model) {
-		model.addAttribute("jadwal", new JadwalJagaModel());
-		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
-		model.addAttribute("listStaff", listStaff);
-//		private String updateJadwal(@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			JadwalJagaModel jadwal = JadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
-//			model.addAttribute("jadwal", jadwal);
-//			model.addAttribute("newJadwal", new JadwalJagaModel());
+		@RequestMapping(value = "/jadwal-staf/{id}", method = RequestMethod.GET)
+		private String updateJadwal(@PathVariable(value="id") long id, Model model) {
+			JadwalJagaModel listJadwalJaga = jadwalService.getJadwalDetailById(id).get();
+			List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+			model.addAttribute("listJadwalJaga", listJadwalJaga);
+			model.addAttribute("listStaff", listStaff);
 			return "updateJadwal";
 		}
-
-		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.POST)
-		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
-			jadwalService.addJadwal(jadwal);
-//		@RequestMapping(value = "/jadwal-staf/{idJadwaL}", method = RequestMethod.POST)
-//		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel newJadwal, 
-//			@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			JadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
-//			model.addAttribute("id", newJadwal.getId());
-		return "updateJadwalSuccess";
-		}
 		
+		@RequestMapping(value = "/jadwal-staf/{idJadwal}", method = RequestMethod.POST)
+		private String updateJadwalSubmit(@PathVariable(value = "idJadwal")long idJadwal,@ModelAttribute JadwalJagaModel jadwal, Model model) {
+			jadwal.setId(idJadwal);
+			jadwalService.updateJadwal(jadwal);
+			return "updateJadwalSuccess";
+		}
 }
