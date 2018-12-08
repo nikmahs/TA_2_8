@@ -131,20 +131,20 @@ public class MedicalSuppliesController {
 	 * @param medsup, model
 	 * @return tampilan form mengubah medical supplies
 	 */	
-	@RequestMapping(value = "/ubah/{id}/", method = RequestMethod.POST)
-	private String updateMedsupSubmission(@PathVariable (value = "id") long id, MedicalSuppliesModel medsup, Model model) {
+	@RequestMapping(value = "/ubah", method = RequestMethod.POST)
+	private String updateMedsupSubmission(@ModelAttribute MedicalSuppliesModel medsup, Model model) {
 		medicalSuppliesService.addMedsup(medsup);
-		model.addAttribute("msg", "Berhasil ditambahkan");
+		model.addAttribute("msg", "Berhasil diperbaharui");
 		return "success";
 	}
 	
-	@RequestMapping(value = "/ubah/{id}/", method = RequestMethod.GET)
-	private String updateMedsup(@PathVariable (value = "id") long id, MedicalSuppliesModel medsup, Model model) {
-		MedicalSuppliesModel medsup1 = medicalSuppliesService.getMedicalSuppliesDetailById(id);
-		model.addAttribute("medsup1", medsup1);
+	@RequestMapping(value = "/ubah/{id}", method = RequestMethod.GET)
+	private String updateMedsup(@PathVariable (value = "id") long id, Model model) {
+		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
+		model.addAttribute("medsup", medsup);
 		List<JenisMedicalSuppliesModel> listJenis = jenisMedicalSuppliesService.getAllJenisMedicalSuppliesById();
 		model.addAttribute("listJenis", listJenis);
-		return "add-medsup";
+		return "update-medical-supplies";
 	}
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
