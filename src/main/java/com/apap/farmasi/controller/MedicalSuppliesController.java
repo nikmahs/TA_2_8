@@ -175,7 +175,11 @@ public class MedicalSuppliesController {
 		
 		PermintaanModel targetPermintaan =permintaanService.getPermintaanDetailById(id).get();
 
-		permintaanService.postBilling(targetPermintaan);
+		String response = permintaanService.postBilling(targetPermintaan);
+		
+		if(response.equals("gagal")) {
+			return "gagal";
+		}
 		
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
@@ -195,22 +199,27 @@ public class MedicalSuppliesController {
 		//inisiasi dan kurangin jumlah
 		int jumlahDitambah = medSup.getJumlah();
 		MedicalSuppliesModel target = medicalSuppliesService.getMedicalSuppliesDetailById(medSup.getId());
-		target.setJumlah(target.getJumlah()-jumlahDitambah);
-		medicalSuppliesService.addMedsup(target);
-
-		medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
-				
-		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
-		model.addAttribute("allMedSup", allMedSup);
-		return "view-all-medical-supplies";
-//		return "home";
+		if(target.getJumlah() < jumlahDitambah) {
+			System.out.println("gagal awl");
+			return "gagal";
+		}
+		else {
+			
+			target.setJumlah(target.getJumlah()-jumlahDitambah);
+			medicalSuppliesService.addMedsup(target);
+	
+			medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
+					
+			MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+			List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+			model.addAttribute("allMedSup", allMedSup);
+			return "view-all-medical-supplies";
+		}
 	}
 	
 	
 	//bukan kerjaan awl lagi
 	
-//	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
 	@GetMapping(value = "/permintaan")
 	private String viewAllPermintaan(Model model) {
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
