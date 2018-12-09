@@ -88,9 +88,12 @@ public class MedicalSuppliesController {
 	private String viewAllDaftarMedicalSupplies(Model model) {
 		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
-		model.addAttribute("allMedSup", allMedSup);
-		
-		return "view-all-medical-supplies";
+		if (!allMedSup.isEmpty()) {
+			model.addAttribute("allMedSup", allMedSup);
+			
+			return "view-all-medical-supplies";
+		}
+		return "medsup-kosong";
 	}
 	
 	/**
