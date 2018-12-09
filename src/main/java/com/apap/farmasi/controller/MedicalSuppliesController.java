@@ -248,7 +248,7 @@ public class MedicalSuppliesController {
 		//inisiasi dan kurangin jumlah
 		int jumlahDitambah = medSup.getJumlah();
 		MedicalSuppliesModel target = medicalSuppliesService.getMedicalSuppliesDetailById(medSup.getId());
-		if(target.getJumlah() < jumlahDitambah) {
+		if(target.getJumlah() < jumlahDitambah || jumlahDitambah == 0) {
 			System.out.println("gagal awl");
 			return "gagal";
 		}
