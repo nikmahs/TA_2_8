@@ -84,9 +84,14 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	private String viewAllDaftarMedicalSupplies(Model model) {
 		List<MedicalSuppliesModel> allMedSup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		model.addAttribute("allMedSup", allMedSup);
-		
-		return "view-all-medical-supplies";
+
+		if (!allMedSup.isEmpty()) {
+			model.addAttribute("allMedSup", allMedSup);
+			
+			return "view-all-medical-supplies";
+		}
+		return "medsup-kosong";
+
 	}
 	
 	/**

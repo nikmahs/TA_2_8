@@ -6,7 +6,7 @@
 
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-     <style>
+    <style>
 		.footer {
 		   position: fixed;
 		   color: black;
@@ -30,9 +30,11 @@
 <body>
     <div class="container-fluid">
     	<br>
+    	<center>
         <h2> RS UNIVERSITAS INDONESIA</h2>
         <h6> Jl. Akses UI, Depok, Jawa Barat, (021) 8701234 </h6>
-
+		</center>
+		
       	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'/ >
       	<style>
          body {
@@ -55,7 +57,7 @@
 		<br>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card card border-info mb-3 text-center">
+                <div class="card card border-info mb-3 text-center" style="background-color: #EAEAEA">
                     <br>
                     <h3>Log In </h3>
                     <br>
@@ -77,16 +79,15 @@
                         </form>
                         <br>
                         <br>
-                        <h7 class="text-center">Don't have any account?</h7>
-                        <form th:action="@{/user/add}" style="margin-left:150px;">
-                        	<br>
-                            <div class="row form-group" >
-                                <button type="submit" class="btn btn-primary" style="margin-left:10px;">Sign Up</button>
-                            </div>
-                        </form>
                     </div>
-                
             </div>
+            <h7 class="text-center" style="margin-left:100px;">Don't have any account?</h7>
+            	<form th:action="@{/user/add}" style="margin-left:150px;">
+                 	<br>
+                    <div class="row form-group" >
+         	           <button type="submit" class="btn btn-primary" style="margin-left:10px;">Sign Up</button>
+                    </div>
+                </form>
         </div>
     </div>
     
