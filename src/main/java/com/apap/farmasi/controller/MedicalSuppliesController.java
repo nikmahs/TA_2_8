@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,18 +23,14 @@ import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
-import com.apap.farmasi.model.PermintaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
-import com.apap.farmasi.rest.BillingDetail;
-import com.apap.farmasi.rest.ObatModel;
-import com.apap.farmasi.rest.PasienModel;
-import com.apap.farmasi.rest.Setting;
 import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
+import com.apap.farmasi.service.PerencanaanMedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
@@ -65,6 +58,9 @@ public class MedicalSuppliesController {
 	
 	@Autowired 
 	private JadwalService jadwalService;
+	
+	@Autowired
+	private PerencanaanMedicalSuppliesService perencanaanMedsupService;
 
 	@Autowired
 	RestTemplate restTemplate;
@@ -86,8 +82,7 @@ public class MedicalSuppliesController {
 	 */	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	private String viewAllDaftarMedicalSupplies(Model model) {
-		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+		List<MedicalSuppliesModel> allMedSup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		model.addAttribute("allMedSup", allMedSup);
 		
 		return "view-all-medical-supplies";
@@ -175,12 +170,22 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.GET)
 	private String tambahPerencanaan(Model model) {
 		PerencanaanModel newPerencanaan = new PerencanaanModel();
+		
 		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedsup = new ArrayList<PerencanaanMedicalSuppliesModel>();
 		listPerencanaanMedsup.add(new PerencanaanMedicalSuppliesModel());
+		model.addAttribute("listPerencanaanMedsup", listPerencanaanMedsup);
+		
+		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		model.addAttribute("listMedsup", listMedsup);
+		
+//		Calendar currenttime = Calendar.getInstance();
+//	    Date sqldate = new Date((currenttime.getTime()).getTime());
+//	    newPerencanaan.setTanggal(sqldate);
+		
 		newPerencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
 
 		model.addAttribute("perencanaan", newPerencanaan);
-		model.addAttribute("listPerencanaanMedsup", listPerencanaanMedsup);
+		
 		return "add-perencanaan";
 	}
 	
@@ -199,6 +204,9 @@ public class MedicalSuppliesController {
 		perencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
 		model.addAttribute("perencanaan", perencanaan);
 		
+		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		model.addAttribute("listMedsup", listMedsup);
+		
 		return "add-perencanaan";
 	}
 	
@@ -208,13 +216,23 @@ public class MedicalSuppliesController {
 		perencanaan.getListPerencanaanMedicalSupplies().remove(rowId.intValue());
 		model.addAttribute("perencanaan", perencanaan);
 		
+		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		model.addAttribute("listMedsup", listMedsup);
+		
 		return "add-perencanaan";
 	}
 	
-//	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST)
-//	private String tambahPerencanaanSubmit(@ModelAttribute PerencanaanModel perencanaanModel, Model model) {
-//		
-//	}
+	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST)
+	private String tambahPerencanaanSubmit(@ModelAttribute PerencanaanModel perencanaan, Model model) {
+		perencanaanService.addPerencanaan(perencanaan);
+		
+		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
+			perencanaanMedsup.setPerencanaan(perencanaan);
+			perencanaanMedsupService.addPerencanaanMedsup(perencanaanMedsup);
+		}
+		
+		return viewPerencanaan(model);
+	}
 
 	//kerjaan awl
 	//fitur 13
@@ -222,7 +240,7 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.POST)
 	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model) {
 		
-		PermintaanModel targetPermintaan =permintaanService.getPermintaanDetailById(id).get();
+		PermintaanModel targetPermintaan = permintaanService.getPermintaanDetailById(id).get();
 
 		String response = permintaanService.postBilling(targetPermintaan);
 		
@@ -259,8 +277,7 @@ public class MedicalSuppliesController {
 	
 			medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
 					
-			MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-			List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+			List<MedicalSuppliesModel> allMedSup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 			model.addAttribute("allMedSup", allMedSup);
 			return "view-all-medical-supplies";
 		}

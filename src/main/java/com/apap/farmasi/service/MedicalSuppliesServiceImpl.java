@@ -22,8 +22,8 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	private MedicalSuppliesDb medicalSuppliesDb;
 
 	@Override
-	public MedicalSuppliesDb viewAllDaftarMedicalSupplies() {
-		return medicalSuppliesDb;
+	public List<MedicalSuppliesModel> viewAllDaftarMedicalSupplies() {
+		return medicalSuppliesDb.findAll();
 	}
 
 	@Override

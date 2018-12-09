@@ -7,7 +7,7 @@ import com.apap.farmasi.repository.MedicalSuppliesDb;
 
 public interface MedicalSuppliesService {
 
-	MedicalSuppliesDb viewAllDaftarMedicalSupplies();
+	List<MedicalSuppliesModel> viewAllDaftarMedicalSupplies();
 	MedicalSuppliesModel getMedicalSuppliesDetailById(long id);
 	public void addMedsup(MedicalSuppliesModel medsup);
 	String kirimKeRawatJalan(MedicalSuppliesModel target,int jumlahDitambah);

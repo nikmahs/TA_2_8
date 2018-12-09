@@ -11,13 +11,15 @@
 <body>
 	<nav th:replace = "fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
-		<h3 class="text-center">Tambah Perencanaan</h3>
+		<div class="row">
+			<div class="col-md-6">
+				<h3 class="text-center">Tambah Perencanaan</h3>
 		<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
   			<input type="hidden" name="id" th:value="*{id}">
 			<table>
 				<tr>
 					<td width="200">Tanggal</td>
-					<td><input type="Date" name="tanggal" class="form-control form-input" th:field="*{tanggal}" required /></td>
+					<td><input type="Date" name="tanggal" id="tanggal" class="form-control form-input" th:field="*{tanggal}" required /></td>
 					
 					<td><input type="hidden" name="status" value="diajukan" /></td>
 				</tr>
@@ -34,7 +36,13 @@
 				</thead>
 				<tr th:each="perencanaanMedsup, rowStat : *{listPerencanaanMedicalSupplies}">
 					<td>
-						<input type="text"  class="form-control form-input" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies.nama}" />
+						<select class="form-control form-input" name="medicalSupplies" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies}" required>
+					    	<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>
+					    	<option th:each="medsup : ${listMedsup}" th:value="${medsup.id}" th:text="${medsup.nama}"></option>
+				   		</select>
+					</td>
+					<td>
+						<input type="number"  class="form-control form-input" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].jumlah}" />
 					</td>
 					<td>
 						<button type="submit" name="removeRow" class="btn btn-primary" th:value="${rowStat.index}">Hapus</button>
@@ -44,10 +52,16 @@
 			
 			<button type="submit" class="btn btn-submit">Simpan</button>
   		</form>
+			</div>
+		</div>
+		
 	</div>
 	<!-- <div class="footer navbar-fixed-bottom text-center">
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
 	-->
 </body>
+<script>
+	// document.getElementById("tanggal").defaultValue = 
+</script>
 </html>
