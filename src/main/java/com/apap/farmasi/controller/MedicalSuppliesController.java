@@ -1,6 +1,8 @@
 package com.apap.farmasi.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,6 @@ import com.apap.farmasi.model.PerencanaanMedicalSuppliesModel;
 import com.apap.farmasi.model.PerencanaanModel;
 import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
-import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.JenisMedicalSuppliesService;
@@ -99,6 +100,35 @@ public class MedicalSuppliesController {
 		model.addAttribute("medsup", medsup);
 
 		return "view-detail-medical-supplies";
+	}
+	
+	/**
+	 * Mengecek apakah medical supplies yang akan direncanakan untuk dibeli valid atau tidak.
+	 * @param idMedsup 	: id medical supplies yang direncanakan untuk dibeli
+	 * @param date 		: waktu yang dipilih untuk merencanakan pembelian medical supplies
+	 * @param model
+	 * @return status valid atau tidaknya medical supplies yang direncanakan untuk dibeli
+	 */
+	@RequestMapping(value = "/getById", method = RequestMethod.GET)
+	@ResponseBody
+	private boolean isMedsupValid(	@RequestParam(value = "idMedsup", required = true) long idMedsup, 
+									@RequestParam(value = "date", required = true) Date date,
+									Model model) {
+		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(idMedsup);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		// flagUrgent = 0  --> NON URGENT
+		if (medsup.getJenisMedicalSupplies().getIdUrgent().getFlag() == 0) {
+			if (day < 7 || (day > 13 && day < 21)) {
+				return true;
+			}
+			return false;
+		}
+		return true;
 	}
 	
 	/**
