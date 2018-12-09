@@ -3,6 +3,8 @@ package com.apap.farmasi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
@@ -173,7 +175,12 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.GET)
 	private String tambahPerencanaan(Model model) {
 		PerencanaanModel newPerencanaan = new PerencanaanModel();
+		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedsup = new ArrayList<PerencanaanMedicalSuppliesModel>();
+		listPerencanaanMedsup.add(new PerencanaanMedicalSuppliesModel());
+		newPerencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
+
 		model.addAttribute("perencanaan", newPerencanaan);
+		model.addAttribute("listPerencanaanMedsup", listPerencanaanMedsup);
 		return "add-perencanaan";
 	}
 	
@@ -190,9 +197,16 @@ public class MedicalSuppliesController {
 		}
 		listPerencanaanMedsup.add(perencanaanMedsup);
 		perencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
-		model.addAttribute("listPerencanaanMedsup", listPerencanaanMedsup);
 		model.addAttribute("perencanaan", perencanaan);
-		model.addAttribute("pageTitle", "Add Perencanaan");
+		
+		return "add-perencanaan";
+	}
+	
+	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST, params= {"removeRow"})
+	private String removeRow(@ModelAttribute PerencanaanModel perencanaan, Model model, HttpServletRequest req) {
+		Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+		perencanaan.getListPerencanaanMedicalSupplies().remove(rowId.intValue());
+		model.addAttribute("perencanaan", perencanaan);
 		
 		return "add-perencanaan";
 	}

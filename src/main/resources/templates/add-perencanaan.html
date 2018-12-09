@@ -17,12 +17,31 @@
 			<table>
 				<tr>
 					<td width="200">Tanggal</td>
-					<td><input type="Date" name="tanggal" class="form-control form-input" /></td>
-					<input type="hidden" name="status" value="diajukan" />
+					<td><input type="Date" name="tanggal" class="form-control form-input" th:field="*{tanggal}" required /></td>
+					
+					<td><input type="hidden" name="status" value="diajukan" /></td>
 				</tr>
-				
-				
 			</table>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Nama Obat/Alat</th>
+						<th scope="col">Jumlah</th>
+						<th scope="col">
+							<button type="submit" name="addRow" class="btn btn-primary">Tambah Medical Supplies</button>
+						</th>
+					</tr>
+				</thead>
+				<tr th:each="perencanaanMedsup, rowStat : *{listPerencanaanMedicalSupplies}">
+					<td>
+						<input type="text"  class="form-control form-input" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies.nama}" />
+					</td>
+					<td>
+						<button type="submit" name="removeRow" class="btn btn-primary" th:value="${rowStat.index}">Hapus</button>
+					</td>
+				</tr>
+			</table>
+			
 			<button type="submit" class="btn btn-submit">Simpan</button>
   		</form>
 	</div>
