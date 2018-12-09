@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/add").permitAll()
 			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF") 				// Fitur 3
 			.antMatchers("/medical-supplies/{id}/").hasAnyAuthority("ADMIN", "STAF") 			// Fitur 5
-			//.antMatchers("/medical-supplies/tambah/").hasAnyAuthority("ADMIN") 				// Fitur 6
-			//.antMatchers("/medical-supplies/ubah/**").hasAnyAuthority("ADMIN")				// Fitur 7 
+			.antMatchers("/medical-supplies/tambah/").hasAnyAuthority("ADMIN", "STAF") 				// Fitur 6
+			.antMatchers("/medical-supplies/ubah/**").hasAnyAuthority("ADMIN")				// Fitur 7 
 			//.antMatchers("/rawat-jalan/obat/tambah").hasAnyAuthority("ADMIN", "STAF") 		// Fitur 8
 			.antMatchers("/medical-supplies/perencanaan/tambah/**").hasAnyAuthority("STAF") 	// Fitur 9 
 			.antMatchers("/medical-supplies/perencanaan/**").hasAnyAuthority("ADMIN", "STAF") 	// Fitur 10
