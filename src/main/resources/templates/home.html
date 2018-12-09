@@ -8,6 +8,10 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     
     <style>
+    	h4:hover {
+   		 background-color: #e6ffff
+   		 ;
+		}
 		.footer {
 		   position: fixed;
 		   color: black;
@@ -18,7 +22,7 @@
 		   bottom: 0px;
 		}
 		
-		.column {
+		.column: {
 		    float: left;
 		    width: 25%;
 		    padding: 7px;
@@ -45,28 +49,45 @@
     </div>
     <br> <br>
     <div class="row">
-	  <div class="col-sm-3" style="background-color:#D6EAF8;">
-	    <h4>Medical Supplies</h4>
-	    <p> Detail inventaris medical supplies terdiri dari obat-obat dan alat-alat kesehatan
+    
+	  <div class="col-sm-3" style="background-color:#EAF2F8;">
+	  <center>
+		  <img src="https://image.flaticon.com/icons/svg/178/178679.svg" alt="medsup" width="100" height="100">
+		  <h4>Medical Supplies</h4>
+	  </center>
+	    <p style= "font-size:13px"> Detail inventaris medical supplies terdiri dari obat-obat dan alat-alat kesehatan
 			yang dimiliki SI Farmasi RS Cepat Sembuh. Medical Supplies memiliki kategori urgent dan non urgent.
 			Medical Supplies berisi keterangan mengenai jumlah, harga, dan medical supplies yang dapat dikirim
 			ke sistem rawat jalan. </p>
+			
 	  </div>
-	  <div class="col-sm-3" style="background-color:#A9CCE3;">
+	  
+	  <div class="col-sm-3" style="background-color:#D6EAF8;">
+	  <center>
+	  <img src="https://image.flaticon.com/icons/svg/119/119043.svg" alt="permintaanLogo" width="100" height="100">
 	    <h4>Permintaan</h4>
-	    <p> Permintaan medical supplies ini berisi permintaan yang dilakukan Sistem Informasi lain.
+	   </center>
+	    <p style = "font-size:13px"> Permintaan medical supplies ini berisi permintaan yang dilakukan Sistem Informasi lain.
 	    Tanggal permintaan, jumlah, status, staf yang bertanggungjawab terhadap permintaan tersebut,
 	    dan beberapa detail info lainnya.</p>
 	  </div>
-	 <div class="col-sm-3" style="background-color:#85C1E9">
-	    <h4>Perencanaan</h4>
-	    <p> Perencanaan dilakukan untuk menambah inventaris medical supplies .Dalam setiap perencanaan medical-supplies
+	  
+	 <div class="col-sm-3" style="background-color:#A9CCE3">
+	 <center>
+	    <img src="https://image.flaticon.com/icons/svg/119/119063.svg" alt="perencanaanlogo" width="100" height="100">
+	  	<h4>Perencanaan</h4>
+	  </center>
+	    <p style="font-size:13px"> Perencanaan dilakukan untuk menambah inventaris medical supplies. Dalam setiap perencanaan medical-supplies
 	    terdapat informasi detail mengenai tanggal perencanaan dan status (diajukan, diproses, dan tersedia) tersebut.
 	    Perencanaan juga dilengkapi dengan infromasi jumlah setiap supplies yang direncakanan. </p>
 	  </div>
-	  <div class="col-sm-3" style="background-color:#EAF2F8">
+	  
+	  <div class="col-sm-3" style="background-color:#85C1E9">
+	  <center>
+	  	<img src="https://image.flaticon.com/icons/svg/119/119044.svg" alt="jadwallogo" width="100" height="100">
 	    <h4>Jadwal Jaga</h4>
-	    <p>Berisi setiap jadwal jaga staf yang bekerja pada farmasi RS Cepat Sembuh. Setiap jadwal pada
+	    </center>
+	    <p style="font-size:13px">Berisi setiap jadwal jaga staf yang bekerja pada farmasi RS Cepat Sembuh. Setiap jadwal pada
 	    tanggal tertentu memiliki informasi waktu mulai dan waktu selesai. Setiap permintaan terhadap SI
 	    Farmasi ini hanya dapat diproses ketika terdapat jadwal staf pada waktu tersebut.</p>
 	  </div>
