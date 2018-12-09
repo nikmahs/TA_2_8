@@ -60,6 +60,7 @@
 		<br></br>
 	<form class="form-horizontal" th:action="@{/medical-supplies/jadwal-staf/tambah}" th:object="${jadwal}" method="POST">
 
+<!--  HEAD  -->
   		<input type="hidden" name="id" th:value="*{id}">
   		
 		<div class = "row">
@@ -98,6 +99,41 @@
   	</form>
   	
   	<datalist id="timeStart">
+<!--  ======= -->
+		<!-- 
+			<div class="form-group">
+			<label class="control-label col-sm-2">Nama Staff Jaga:</label>
+    			<select type="text" name="idStaff">
+					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}" required></option>
+				</select>
+		</div>
+		  
+		<div class="form-group">
+			<label class="control-label col-sm-2">Waktu Mulai Jaga:</label>
+			<input list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" required>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">Waktu Berakhir Jaga:</label>
+	    	<input list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" required>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="tanggal_jaga">Tanggal Jaga:</label>
+    		<div class="col-sm-2">
+    		  <input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}" required>
+    		</div>
+		</div>
+		
+		<br></br>
+		<div class="form-group" >
+			<button type="submit" class="button" >Submit</button>
+		</div>
+
+	</form>
+	
+	<datalist id="timeStart"> -->
+<!--  yesica -->
 		<option value="8:00:00" ></option>
 		<option value="16:00:00" ></option>
 	</datalist>
@@ -108,9 +144,13 @@
 	</datalist>
 	
 	</div>
+<<<<<<< HEAD
   	
   	<div class="footer navbar-fixed-bottom text-center">
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
+=======
+	
+>>>>>>> origin/yesica
 </body>
 </html>

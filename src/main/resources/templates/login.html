@@ -16,6 +16,13 @@
 		   font-size:12px;
 		   bottom: 0px;
 		}
+		
+		body { 
+		    background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-size: cover; 
+}
 	</style>
     
 </head>
@@ -23,9 +30,10 @@
 <body>
     <div class="container-fluid">
     	<br>
-        <h2>
-       	<center>RUMAH SAKIT CEPAT SEMBUH</center>
-      	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css' />
+        <h2> RS UNIVERSITAS INDONESIA</h2>
+        <h6> Jl. Akses UI, Depok, Jawa Barat, (021) 8701234 </h6>
+
+      	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'/ >
       	<style>
          body {
             font-family: 'Poppins';
@@ -33,16 +41,17 @@
          }
      	</style>
      	
-        </h2>
-		<p></p>
 		<marquee>
-			<h4>Selamat datang di Sistem Informasi Farmasi!</h4>
+			<h5>Selamat datang di Sistem Informasi Farmasi!</h5>
 		</marquee>
+
 		<br></br>
 		<center>
-			<img src="https://olvigusnita.files.wordpress.com/2015/06/logo_bumsil_3.jpg" alt="farmasi" style="width:150px;height:150px;">
+			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:150px;height:150px;">
 		</center>
-		
+
+			
+
 		<br>
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -50,7 +59,7 @@
                     <br>
                     <h3>Log In </h3>
                     <br>
-                    <h10 style="margin-left:10px;margin-right:10px;">Exchanging pharmaceutical information between units become easier. You can also provide medical supplies here.</h10>
+                    <!-- <h10 style="margin-left:10px;margin-right:10px;">Exchanging pharmaceutical information between units become easier. You can also provide medical supplies here.</h10>  -->
                     <div class="card-body">
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid username or password</span>
@@ -68,7 +77,7 @@
                         </form>
                         <br>
                         <br>
-                        <h7  style="margin-left:35px;">Don't have any account?</h7>
+                        <h7 class="text-center">Don't have any account?</h7>
                         <form th:action="@{/user/add}" style="margin-left:150px;">
                         	<br>
                             <div class="row form-group" >
