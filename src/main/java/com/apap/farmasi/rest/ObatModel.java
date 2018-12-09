@@ -3,6 +3,16 @@ package com.apap.farmasi.rest;
 public class ObatModel {
 	String nama;
 	int jumlah;
+	long id;
+	
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getNama() {
 		return nama;
 	}

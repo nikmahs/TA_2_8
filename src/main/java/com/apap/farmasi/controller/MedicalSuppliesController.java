@@ -129,20 +129,20 @@ public class MedicalSuppliesController {
 	 * @param medsup, model
 	 * @return tampilan form mengubah medical supplies
 	 */	
-	@RequestMapping(value = "/ubah/{id}/", method = RequestMethod.POST)
-	private String updateMedsupSubmission(@PathVariable (value = "id") long id, MedicalSuppliesModel medsup, Model model) {
+	@RequestMapping(value = "/ubah", method = RequestMethod.POST)
+	private String updateMedsupSubmission(@ModelAttribute MedicalSuppliesModel medsup, Model model) {
 		medicalSuppliesService.addMedsup(medsup);
-		model.addAttribute("msg", "Berhasil ditambahkan");
+		model.addAttribute("msg", "Berhasil diperbaharui");
 		return "success";
 	}
 	
-	@RequestMapping(value = "/ubah/{id}/", method = RequestMethod.GET)
-	private String updateMedsup(@PathVariable (value = "id") long id, MedicalSuppliesModel medsup, Model model) {
-		MedicalSuppliesModel medsup1 = medicalSuppliesService.getMedicalSuppliesDetailById(id);
-		model.addAttribute("medsup1", medsup1);
+	@RequestMapping(value = "/ubah/{id}", method = RequestMethod.GET)
+	private String updateMedsup(@PathVariable (value = "id") long id, Model model) {
+		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(id);
+		model.addAttribute("medsup", medsup);
 		List<JenisMedicalSuppliesModel> listJenis = jenisMedicalSuppliesService.getAllJenisMedicalSuppliesById();
 		model.addAttribute("listJenis", listJenis);
-		return "add-medsup";
+		return "update-medical-supplies";
 	}
 	
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
@@ -209,71 +209,12 @@ public class MedicalSuppliesController {
 	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model) {
 		
 		PermintaanModel targetPermintaan =permintaanService.getPermintaanDetailById(id).get();
+
+		String response = permintaanService.postBilling(targetPermintaan);
 		
-		List<MedicalSuppliesModel> targetMedSuplst = new ArrayList<MedicalSuppliesModel>();
-		int counter = 0;
-		//cek cukup ato ga
-		for (PermintaanMedicalSuppliesModel temp : targetPermintaan.getListPermintaanMedicalSupplies()) {
-			MedicalSuppliesModel medSupIterasi = temp.getMedicalSupplies();
-			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(medSupIterasi.getId());
-			
-			targetMedSuplst.add(medSupIterasi);
-			if(targetPermintaan.getJumlahMedicalSupplies() > medSupDiDb.getJumlah()) {
-				return "gagal";
-			}
-			
+		if(response.equals("gagal")) {
+			return "gagal";
 		}
-		//ngurangin di db, bikin billing
-		List<BillingDetail> billinglst = new ArrayList<BillingDetail>();
-		int jumlahDipesan = (int)targetPermintaan.getJumlahMedicalSupplies();
-		for (MedicalSuppliesModel temp : targetMedSuplst) {
-			MedicalSuppliesModel medSupDiDb = medicalSuppliesService.getMedicalSuppliesDetailById(temp.getId());
-			int jumlahBaru = medSupDiDb.getJumlah()-jumlahDipesan;
-			
-			medSupDiDb.setJumlah(jumlahBaru);
-			
-			medicalSuppliesService.addMedsup(medSupDiDb);
-
-			BillingDetail billingTemp = new BillingDetail();
-			PasienModel pasienTarget = new PasienModel();
-			pasienTarget.setId(targetPermintaan.getIdPasien());
-			billingTemp.setPasien(pasienTarget);
-			billingTemp.setJumlahTagihan((int)medSupDiDb.getPrice()*jumlahDipesan);
-			billingTemp.setTanggalTagihan(targetPermintaan.getTanggal().toString());
-			billinglst.add(billingTemp);
-		}
-		//kirim billing
-		RestTemplate rt = rest();
-		List<String> responselst = new ArrayList<>();
-		int responseCounter = 0;
-		String path = Setting.urlApt + "/2/addBilling";
-		System.out.println(path);
-		for(BillingDetail temp : billinglst) {			
-			System.out.print(temp.getJumlahTagihan() + " ");
-			System.out.print(temp.getTanggalTagihan().toString() + " ");
-			System.out.println(temp.getPasien());
-
-			RestTemplate template = new RestTemplate();
-			HttpEntity<BillingDetail> requestEntity= new HttpEntity<BillingDetail>(temp);
-			System.out.println(requestEntity.toString());
-			String response = "";
-		    try{
-		       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
-		       response = responseEntity.getBody();
-		    }
-		    catch(Exception e){
-		       response = e.getMessage();
-		    }
-		    responselst.add(response);
-			System.out.println(response);
-			
-			
-		}
-
-		
-		StatusPermintaanModel diterima = statusPermintaanService.getStatusPermintaanDetailById(2);
-		targetPermintaan.setStatusPermintaan(diterima);
-		permintaanService.addPermintaan(targetPermintaan);
 		
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
@@ -293,51 +234,27 @@ public class MedicalSuppliesController {
 		//inisiasi dan kurangin jumlah
 		int jumlahDitambah = medSup.getJumlah();
 		MedicalSuppliesModel target = medicalSuppliesService.getMedicalSuppliesDetailById(medSup.getId());
-		target.setJumlah(target.getJumlah()-jumlahDitambah);
-		medicalSuppliesService.addMedsup(target);
-
-		
-		
-		//kirim ke api sono
-
-		ObatModel obatDikirim = new ObatModel();
-		obatDikirim.setJumlah(jumlahDitambah);
-		obatDikirim.setNama(target.getNama());
-		
-		
-		String path = Setting.urlMock + "/obat/tambah";
-
-		RestTemplate template = new RestTemplate();
-		HttpEntity<ObatModel> requestEntity= new HttpEntity<ObatModel>(obatDikirim);
-		System.out.println(requestEntity.toString());
-		String response = "";
-
-		System.out.println(path);
-		System.out.println("nama = " + obatDikirim.getNama());
-		System.out.println("jumlah = " + obatDikirim.getJumlah());
-
-		
-		try{
-	       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
-	       response = responseEntity.getBody();
-	    }
-	    catch(Exception e){
-	       response = e.getMessage();
-	    }
-		
-		System.out.println(response);
-		
-		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
-		model.addAttribute("allMedSup", allMedSup);
-		return "view-all-medical-supplies";
-//		return "home";
+		if(target.getJumlah() < jumlahDitambah) {
+			System.out.println("gagal awl");
+			return "gagal";
+		}
+		else {
+			
+			target.setJumlah(target.getJumlah()-jumlahDitambah);
+			medicalSuppliesService.addMedsup(target);
+	
+			medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
+					
+			MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+			List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+			model.addAttribute("allMedSup", allMedSup);
+			return "view-all-medical-supplies";
+		}
 	}
 	
 	
 	//bukan kerjaan awl lagi
 	
-//	@RequestMapping(value = "/permintaan", method = RequestMethod.GET)
 	@GetMapping(value = "/permintaan")
 	private String viewAllPermintaan(Model model) {
 		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
@@ -376,27 +293,19 @@ public class MedicalSuppliesController {
 			}
 		
 		//UBAH JADWAL  (tidak bisa diubah jika tanggalnya sudah lewat)
-		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.GET)
-		private String updateJadwal(Model model) {
-		model.addAttribute("jadwal", new JadwalJagaModel());
-		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
-		model.addAttribute("listStaff", listStaff);
-//		private String updateJadwal(@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			JadwalJagaModel jadwal = JadwalService.getJadwalDetailById(Long.parseLong(idJadwal));
-//			model.addAttribute("jadwal", jadwal);
-//			model.addAttribute("newJadwal", new JadwalJagaModel());
+		@RequestMapping(value = "/jadwal-staf/{id}", method = RequestMethod.GET)
+		private String updateJadwal(@PathVariable(value="id") long id, Model model) {
+			JadwalJagaModel listJadwalJaga = jadwalService.getJadwalDetailById(id).get();
+			List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+			model.addAttribute("listJadwalJaga", listJadwalJaga);
+			model.addAttribute("listStaff", listStaff);
 			return "updateJadwal";
 		}
-
-		@RequestMapping(value = "/jadwal-staf/update", method = RequestMethod.POST)
-		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
-			jadwalService.addJadwal(jadwal);
-//		@RequestMapping(value = "/jadwal-staf/{idJadwaL}", method = RequestMethod.POST)
-//		private String updateJadwalSubmit(@ModelAttribute JadwalJagaModel newJadwal, 
-//			@PathVariable(value = "idJadwal") String idJadwal, Model model) {
-//			JadwalService.updateJadwal(Long.parseLong(idJadwal), newJadwal);
-//			model.addAttribute("id", newJadwal.getId());
-		return "updateJadwalSuccess";
-		}
 		
+		@RequestMapping(value = "/jadwal-staf/{idJadwal}", method = RequestMethod.POST)
+		private String updateJadwalSubmit(@PathVariable(value = "idJadwal")long idJadwal,@ModelAttribute JadwalJagaModel jadwal, Model model) {
+			jadwal.setId(idJadwal);
+			jadwalService.updateJadwal(jadwal);
+			return "updateJadwalSuccess";
+		}
 }

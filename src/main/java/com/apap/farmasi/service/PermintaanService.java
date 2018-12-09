@@ -9,4 +9,5 @@ public interface PermintaanService {
 	Optional<PermintaanModel> getPermintaanDetailById(Long id);
 	List<PermintaanModel> getPermintaanList();
 	void addPermintaan(PermintaanModel permintaan);
+	String postBilling(PermintaanModel targePermintaan);
 }
