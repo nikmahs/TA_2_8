@@ -23,12 +23,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/api/**").permitAll() 												// ini harus ada biar apinya bisa diakses tanpa security
+			.antMatchers("/user/addUser").permitAll()
+			.antMatchers("/user/add").permitAll()
 			.antMatchers("/medical-supplies/").hasAnyAuthority("ADMIN", "STAF") 				// Fitur 3
 			.antMatchers("/medical-supplies/{id}/").hasAnyAuthority("ADMIN", "STAF") 			// Fitur 5
 			//.antMatchers("/medical-supplies/tambah/").hasAnyAuthority("ADMIN") 				// Fitur 6
 			//.antMatchers("/medical-supplies/ubah/**").hasAnyAuthority("ADMIN")				// Fitur 7 
 			//.antMatchers("/rawat-jalan/obat/tambah").hasAnyAuthority("ADMIN", "STAF") 		// Fitur 8
-			//.antMatchers("/medical-supplies/perencanaan/tambah/").hasAnyAuthority("STAF") 	// Fitur 9 
+			.antMatchers("/medical-supplies/perencanaan/tambah/**").hasAnyAuthority("STAF") 	// Fitur 9 
 			.antMatchers("/medical-supplies/perencanaan/**").hasAnyAuthority("ADMIN", "STAF") 	// Fitur 10
 			.antMatchers("/medical-supplies/permintaan/**").hasAnyAuthority("ADMIN", "STAF")	// Fitur 11
 			.antMatchers("/medical-supplies/permintaan/ubah/**").hasAnyAuthority("ADMIN") 		// Fitur 13

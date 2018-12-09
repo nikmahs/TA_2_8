@@ -42,42 +42,89 @@
 </head>
 
 <body>
-	<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pilot')"></nav>
-	<div id="Content" class="container-full-bg">
-		<h2 class="text-center"> Tambah Jadwal Jaga Baru</h2>
-		<center>
+<nav th:replace = "fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+		<div class="container-fluid">
+  		<div class="header">
+    		<div class="row">
+    			<div class="col-sm-12">
+    				<br>
+        			<h3 class="text-center"> Tambah Jadwal Jaga </h3>
+      			</div>
+    		</div>
+  		</div>
+  		<hr>
+  		<center>
 			<img src="https://img.icons8.com/ios/1600/user-female-circle-filled.png" alt="farmasi" style="width:150px;height:150px;">
 		</center>
 		<br></br>
 	<form class="form-horizontal" th:action="@{/medical-supplies/jadwal-staf/tambah}" th:object="${jadwal}" method="POST">
 
-		<div class="form-group">
+<!--  HEAD  -->
+  		<input type="hidden" name="id" th:value="*{id}">
+  		
+		<div class = "row">
+  			<div class="col-sm-3"><p>Nama Staf Jaga</p></div>
+  			<div class="col-sm-9">
+				<select type="text" name="idStaff" class="form-control">
+					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}"></option>
+				</select>
+			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Waktu Mulai Jaga</p></div>
+  			<div class="col-sm-9">
+  				<input  list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" class="form-control">
+  			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Waktu Berakhir Jaga</p></div>
+  			<div class="col-sm-9">
+				<input  list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" class="form-control">
+			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Tanggal Jaga</p></div>
+  			<div class="col-sm-9">
+  				<input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}">
+    		
+			</div>
+  		</div>
+  		
+  		<br>
+  		<button type="submit" class="btn btn-dark">Simpan</button>
+  	</form>
+  	
+  	<datalist id="timeStart">
+<!--  ======= -->
+		<!-- 
+			<div class="form-group">
 			<label class="control-label col-sm-2">Nama Staff Jaga:</label>
     			<select type="text" name="idStaff">
-					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}"></option>
+					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}" required></option>
 				</select>
 		</div>
 		  
 		<div class="form-group">
 			<label class="control-label col-sm-2">Waktu Mulai Jaga:</label>
-			<input list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}">
+			<input list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" required>
 		</div>
 		
 		<div class="form-group">
 			<label class="control-label col-sm-2">Waktu Berakhir Jaga:</label>
-	    	<input list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}">
+	    	<input list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" required>
 		</div>
 		
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="tanggal_jaga">Tanggal Jaga:</label>
     		<div class="col-sm-2">
-    		  <input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}">
+    		  <input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}" required>
     		</div>
 		</div>
 		
-		<br></br>
-		<br></br>
-		<br></br>
 		<br></br>
 		<div class="form-group" >
 			<button type="submit" class="button" >Submit</button>
@@ -85,7 +132,8 @@
 
 	</form>
 	
-	<datalist id="timeStart">
+	<datalist id="timeStart"> -->
+<!--  yesica -->
 		<option value="8:00:00" ></option>
 		<option value="16:00:00" ></option>
 	</datalist>
@@ -96,17 +144,13 @@
 	</datalist>
 	
 	</div>
-	<div class="footer navbar-fixed-bottom">
-  			<p>Sistem Farmasi &copy; Kelompok B - APAP A</p>
+<<<<<<< HEAD
+  	
+  	<div class="footer navbar-fixed-bottom text-center">
+  		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
+=======
+	
+>>>>>>> origin/yesica
 </body>
-<script>
-    $('#provinsi').on('click',function() {
-        $('#instansi').children('option').each(function(){
-            if($(this).attr('prov') !== $('#provinsi').val() ) $(this).attr('disabled', 'disabled')
-            else $(this).removeAttr('disabled')
-        }) 
-    })
-    $('#provinsi').trigger('click')
-</script>
 </html>

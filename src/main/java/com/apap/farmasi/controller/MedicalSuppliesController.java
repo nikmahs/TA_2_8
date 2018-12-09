@@ -3,8 +3,13 @@ package com.apap.farmasi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpMethod;
-
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -31,8 +31,8 @@ import com.apap.farmasi.model.PermintaanModel;
 import com.apap.farmasi.model.StatusPermintaanModel;
 import com.apap.farmasi.repository.MedicalSuppliesDb;
 import com.apap.farmasi.rest.BillingDetail;
-import com.apap.farmasi.rest.PasienModel;
 import com.apap.farmasi.rest.ObatModel;
+import com.apap.farmasi.rest.PasienModel;
 import com.apap.farmasi.rest.Setting;
 import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
@@ -150,15 +150,20 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/perencanaan", method = RequestMethod.GET)
 	private String viewPerencanaan(Model model) {
 		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
-		model.addAttribute("listPerencanaan", listPerencanaan);
 		
-		PerencanaanModel perencanaan = listPerencanaan.get(0);
-		model.addAttribute("aPerencanaan", perencanaan);
+		if (!listPerencanaan.isEmpty()) {
+			model.addAttribute("listPerencanaan", listPerencanaan);
+			
+			PerencanaanModel perencanaan = listPerencanaan.get(0);
+			model.addAttribute("aPerencanaan", perencanaan);
+			
+			List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
+			model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
+			
+			return "view-perencanaan";
+		}
 		
-		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
-		model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
-		
-		return "view-perencanaan";
+		return "perencanaan-kosong";
 	}
 	
 	@RequestMapping(value = "/perencanaan/getPerencanaanById", method = RequestMethod.GET)
@@ -166,6 +171,50 @@ public class MedicalSuppliesController {
 	private PerencanaanModel getPerencanaanById(@RequestParam(value = "idPerencanaan", required = true) long idPerencanaan, Model model) {
 		return perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
 	}
+	
+	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.GET)
+	private String tambahPerencanaan(Model model) {
+		PerencanaanModel newPerencanaan = new PerencanaanModel();
+		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedsup = new ArrayList<PerencanaanMedicalSuppliesModel>();
+		listPerencanaanMedsup.add(new PerencanaanMedicalSuppliesModel());
+		newPerencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
+
+		model.addAttribute("perencanaan", newPerencanaan);
+		model.addAttribute("listPerencanaanMedsup", listPerencanaanMedsup);
+		return "add-perencanaan";
+	}
+	
+	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST, params={"addRow"})
+	private String addRowPerencanaan(@ModelAttribute PerencanaanModel perencanaan, Model model) {
+		PerencanaanMedicalSuppliesModel perencanaanMedsup = new PerencanaanMedicalSuppliesModel();
+		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedsup = null;
+		
+		if (perencanaan.getListPerencanaanMedicalSupplies() != null) {
+			listPerencanaanMedsup = perencanaan.getListPerencanaanMedicalSupplies();
+		}
+		else {
+			listPerencanaanMedsup = new ArrayList<PerencanaanMedicalSuppliesModel>();
+		}
+		listPerencanaanMedsup.add(perencanaanMedsup);
+		perencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
+		model.addAttribute("perencanaan", perencanaan);
+		
+		return "add-perencanaan";
+	}
+	
+	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST, params= {"removeRow"})
+	private String removeRow(@ModelAttribute PerencanaanModel perencanaan, Model model, HttpServletRequest req) {
+		Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+		perencanaan.getListPerencanaanMedicalSupplies().remove(rowId.intValue());
+		model.addAttribute("perencanaan", perencanaan);
+		
+		return "add-perencanaan";
+	}
+	
+//	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST)
+//	private String tambahPerencanaanSubmit(@ModelAttribute PerencanaanModel perencanaanModel, Model model) {
+//		
+//	}
 
 	//kerjaan awl
 	//fitur 13

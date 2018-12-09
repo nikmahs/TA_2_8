@@ -53,7 +53,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	private String addUser(@ModelAttribute UserRoleModel user) {
+	private String addUser() {
 		//userService.addUser(user);
 		return "add-user";
 	}
