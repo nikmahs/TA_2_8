@@ -37,7 +37,7 @@
 		<div class = "row">
   			<div class="col-sm-3"><p>Nama</p></div>
   			<div class="col-sm-9">
-				<input type="text" class="form-control" name="nama" th:value="*{nama}">
+				<input type="text" class="form-control" name="nama" th:value="*{nama}" required>
 			</div>
   		</div>
   		<br>
@@ -51,21 +51,21 @@
   		<div class = "row">
   			<div class="col-sm-3"><p>Harga</p></div>
   			<div class="col-sm-9">
-				<input type="number" class="form-control" name="price" th:value="*{price}">
+				<input type="number" class="form-control" name="price" th:value="*{price}" pattern="^(0*([0-9]|[1-8][0-9]|9[0-9]|100))$" required="true">
 			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Deskripsi</p></div>
   			<div class="col-sm-9">
-  				<input type="text" class="form-control" name="deskripsi" th:value="*{deskripsi}">
+  				<input type="text" class="form-control" name="deskripsi" th:value="*{deskripsi}" required>
   			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Jenis</p></div>
   			<div class="col-sm-9">
-  			<select class="form-control" name="jenisMedicalSupplies" value="*{jenisMedicalSupplies}">
+  			<select class="form-control" name="jenisMedicalSupplies" value="*{jenisMedicalSupplies}" required>
 		    	<option th:each="jenis: ${listJenis}" th:value="${jenis.id}" th:text="${jenis.jenisMedicalSupplies}">pilihan jenis</option>
 	   		</select>
   			</div>
@@ -78,4 +78,13 @@
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
 </body>
+<script>
+function check(input) {
+	if (input.value == 0) {
+		input.setCustomValidity('Harga harus diisi');
+	} else {
+		input.setCustomValidity('');
+	}
+}
+</script>
 </html>

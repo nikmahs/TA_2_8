@@ -1,6 +1,7 @@
 package com.apap.farmasi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,22 +30,12 @@ public class JadwalServiceImpl implements JadwalService{
 	}
 
 	@Override
-	public JadwalJagaModel getJadwalDetailById(long parseLong) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<JadwalJagaModel> getJadwalDetailById(long id) {
+		return jadwalJagaDb.findById(id);
 	}
 
-//	@Override
-//	public JadwalJagaModel getJadwalDetailById(long parseLong) {
-//		return JadwalJagaModel.findJadwalById(parseLong);
-//	}
-//
-//	@Override
-//	public void updateJadwal(long parseLong, JadwalJagaModel newJadwal) {
-//		JadwalModel jadwalLama = this.getJadwalDetailById(idJadwal); TANGGA WAKTU MULAI WAKTU SELESAI
-//		JadwalLama.setDeskripsi(jabatan.getDeskripsi());
-//		JadwalLama.setNama(jabatan.getNama());
-//		JadwalLama.setGajiPokok(jabatan.getGajiPokok());
-//	}
-
+	@Override
+	public JadwalJagaModel updateJadwal(JadwalJagaModel jadwal) {
+		return jadwalJagaDb.save(jadwal);
+	}
 }

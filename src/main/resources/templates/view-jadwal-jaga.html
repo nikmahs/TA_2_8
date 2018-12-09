@@ -29,7 +29,9 @@
     	<table id="tableAllJadwalJaga" class="display">
 			<thead>
 				<tr>
+					<th>Id Jadwal</th>
 					<th>Nama</th>
+					<th>Id Staff</th>
 					<th>Tanggal</th>
 					<th>Waktu Mulai</th>
 					<th>Waktu Selesai</th>
@@ -42,12 +44,14 @@
 					<span th:each="staff : ${listStaff}">
 						<span th:if="${staff.id == jadwalJaga.idStaff}">
 							<tr>
+								<td th:text="${jadwalJaga.id}"></td>
 								<td th:text="${staff.nama}"></td>
+								<td th:text="${staff.id}"></td>
 								<td th:text="${jadwalJaga.tanggal}"></td>
 								<td th:text="${jadwalJaga.waktuMulai}"></td>
 								<td th:text="${jadwalJaga.waktuSelesai}"></td>
 								<td>
-									<form th:action="@{/medical-supplies/jadwal-staf/update}" style="margin-left:20px;">
+									<form th:action="@{'/medical-supplies/jadwal-staf/' + ${jadwalJaga.id}}" method="GET" style="margin-left:20px;">
 										<button type="submit" class="btn btn-primary">Update</button>
 									</form>
 								</td>
@@ -60,7 +64,7 @@
     </div>
 
     <div class="row form-group">
-    	<form th:action="@{/medical-supplies/jadwal-staf/tambah}" style="margin-left:600px;">
+    	<form th:action="@{/medical-supplies/jadwal-staf/tambah}" style="margin-left:650px;">
 			<button type="submit" class="btn btn-primary">Tambah</button>
 		</form>
      </div> 

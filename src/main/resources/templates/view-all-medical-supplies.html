@@ -50,7 +50,7 @@
 							 <form th:action="@{/medical-supplies/kirim}" method="post">				
 									<input type=hidden th:value="${medsup.id}"name=id>					
 									<input type=number name=jumlah required="true">												 		
-								<button type="submit" class="btn btn-primary">Terima</button>
+								<button type="submit" class="btn btn-primary">Kirim</button>
 							</form>
 						</td>						
 					</tr>
@@ -66,9 +66,9 @@
 	    $('#list-all-medsup').DataTable();
 	} );
 	</script>
-	<div class="footer navbar-fixed-bottom text-center">
-  		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
-	</div>
+<!-- 	<div class="footer navbar-fixed-bottom text-center"> -->
+<!--   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p> -->
+<!-- 	</div> -->
 	</body>
 
 </html>
