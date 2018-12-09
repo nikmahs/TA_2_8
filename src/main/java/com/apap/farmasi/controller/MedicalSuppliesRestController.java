@@ -24,8 +24,8 @@ public class MedicalSuppliesRestController {
 	@GetMapping(value="/api/daftar-medical-service")
 	private BaseResponse<List<MedicalSuppliesModel>> getAllMedicalSupplies() {
 		BaseResponse<List<MedicalSuppliesModel>> response = new BaseResponse<List<MedicalSuppliesModel>>();
-		MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		List<MedicalSuppliesModel> allMedSup = medsupRepo.findAll();
+		//MedicalSuppliesDb medsupRepo = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		List<MedicalSuppliesModel> allMedSup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		if(!allMedSup.isEmpty()) {
 			response.setStatus(200);
 			response.setMessage("success");
