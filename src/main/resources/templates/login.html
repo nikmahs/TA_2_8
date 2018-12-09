@@ -39,41 +39,51 @@
 			<h4>Selamat datang di Sistem Informasi Farmasi!</h4>
 		</marquee>
 		<br></br>
-		
 		<center>
 			<img src="https://olvigusnita.files.wordpress.com/2015/06/logo_bumsil_3.jpg" alt="farmasi" style="width:150px;height:150px;">
 		</center>
+		
 		<br>
         <div class="row justify-content-center">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="card card border-info mb-3 text-center">
-                    <div class="card-header">
-                       <h4> Log In </h4>
-                    </div>
+                    <br>
+                    <h3>Log In </h3>
+                    <br>
+                    <h10 style="margin-left:10px;margin-right:10px;">Exchanging pharmaceutical information between units become easier. You can also provide medical supplies here.</h10>
                     <div class="card-body">
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid username or password</span>
                         </div>
                         <form th:action="@{/login}" method="POST" >
                             <div class="row form-group">
-                                <label class="col-sm-3">Username</label>
-                                <input type="text" class="col-sm-9 form-control input-sm" name="username">
+                               <input type="text" class="col-sm-6 form-control input-sm" name="username" value="Username" style="margin-left:100px;"> 
                             </div>
                             <div class="row form-group">
-                                <label class="col-sm-3">Password</label>
-                                <input type="password" class="col-sm-9 form-control input-sm" name="password">
+                                <input type="text" class="col-sm-6 form-control input-sm" name="password" value="Password" style="margin-left:100px;">
                             </div>
                             <div class="row form-group" >
-                                <button type="submit" class="btn btn-primary" style="margin-left:213px;">Log In</button>
+                                <button type="submit" class="btn btn-primary" style="margin-left:160px;">Log In</button>
+                            </div>
+                        </form>
+                        <br>
+                        <br>
+                        <h7  style="margin-left:35px;">Doesn't have any account?</h7>
+                        <form th:action="@{/user/add}" style="margin-left:150px;">
+                        	<br>
+                            <div class="row form-group" >
+                                <button type="submit" class="btn btn-primary" style="margin-left:10px;">Sign Up</button>
                             </div>
                         </form>
                     </div>
-                </div>
                 
             </div>
         </div>
     </div>
+    
+    
 	<footer th:replace="fragments/fragment :: footer"></footer>
 </body>
+
 
 </html>
