@@ -22,9 +22,8 @@
  		    float: left; 
  		    width: 25%; 
  		    padding: 7px;
-
  			margin-right:150px; 
- 			margin-left:170px;
+ 			margin-left:210px;
  		} 
  		
  		 .column2 { 
@@ -32,7 +31,6 @@
  		    width: 25%; 
  		    padding: 7px;
 			margin-left: 50px;
-			
  		} 
 		
 		.row {
@@ -65,14 +63,16 @@
 	<center>
 			<h3>Sistem Farmasi Rumah Sakit Cepat Sembuh</h3>
 	</center>
-	<br></br>
+	<br>
     </div>    
     <br>
 
     <div class="row">
 	    <div class="column1">
-		    <div class="card" style="width: 20rem; height: 18rem;">
+		    <div class="card" style="width: 20rem; height: 22rem;">
 		  		<div class="card-body">
+		  			<img src="https://image.flaticon.com/icons/svg/527/527052.svg" style="width: 70px; height: 70px">
+		  			<br></br>
 		  	    	<h4><a th:href="@{/medical-supplies}">Medical Supplies</a></h4>
 			    	<p style="font-size: 12px; text-align: justify"> Detail inventaris medical supplies terdiri dari obat-obat dan alat-alat kesehatan
 					yang dimiliki SI Farmasi RS Cepat Sembuh. Medical Supplies memiliki kategori urgent dan non urgent.
@@ -83,8 +83,10 @@
 		</div>
 	
 		<div class="column2">
-			<div class="card" style="width: 20rem; height: 18rem;">
+			<div class="card" style="width: 20rem; height: 22rem;">
 		  		<div class="card-body">
+		  			<img src="https://image.flaticon.com/icons/svg/527/527046.svg" style="width: 70px; height: 70px">
+		  			<br></br>
 			    	<h4><a th:href="@{/medical-supplies/permintaan}">Permintaan</a></h4>
 			    	<p style="font-size: 12px; text-align: justify"> Permintaan medical supplies ini berisi permintaan yang dilakukan Sistem Informasi lain.
 				    Tanggal permintaan, jumlah, status, staf yang bertanggungjawab terhadap permintaan tersebut,
@@ -96,8 +98,10 @@
 		
 	<div class="row">
 		<div class="column1">
-			<div class="card" style="width: 20rem; height: 18rem;">
+			<div class="card" style="width: 20rem; height: 22rem;">
 		  		<div class="card-body">
+		  			<img src="https://image.flaticon.com/icons/svg/527/527043.svg" style="width: 70px; height: 70px">
+		  			<br></br>
 				    <h4><a th:href="@{/medical-supplies/perencanaan}">Perencanaan</a></h4>
 				    <p style="font-size: 12px; text-align: justify"> Perencanaan dilakukan untuk menambah inventaris medical supplies .Dalam setiap perencanaan medical-supplies
 				    terdapat informasi detail mengenai tanggal perencanaan dan status (diajukan, diproses, dan tersedia) tersebut.
@@ -107,8 +111,10 @@
 		</div>
 	
 		<div class="column2">
-			<div class="card" style="width: 20rem; height: 18rem;">
+			<div class="card" style="width: 20rem; height: 22rem;">
 		  		<div class="card-body">
+		  			<img src="https://image.flaticon.com/icons/svg/527/527054.svg" style="width: 70px; height: 70px">
+		  			<br></br>
 				   	<h4><a th:href="@{/medical-supplies/jadwal-staf}">Jadwal Jaga</a></h4>
 				    <p style="font-size: 12px; text-align: justify">Berisi setiap jadwal jaga staf yang bekerja pada farmasi RS Cepat Sembuh. Setiap jadwal pada
 				    tanggal tertentu memiliki informasi waktu mulai dan waktu selesai. Setiap permintaan terhadap SI
