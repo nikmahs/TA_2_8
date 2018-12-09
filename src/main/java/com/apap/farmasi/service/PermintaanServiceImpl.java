@@ -102,15 +102,15 @@ public class PermintaanServiceImpl implements PermintaanService{
 		List<String> responselst = new ArrayList<>();
 		int responseCounter = 0;
 		String path = Setting.urlApt + "/2/addBilling";
-		System.out.println(path);
+//		System.out.println(path);
 		for(BillingDetail temp : billinglst) {			
-			System.out.print(temp.getJumlahTagihan() + " ");
-			System.out.print(temp.getTanggalTagihan().toString() + " ");
-			System.out.println(temp.getPasien());
+//			System.out.print(temp.getJumlahTagihan() + " ");
+//			System.out.print(temp.getTanggalTagihan().toString() + " ");
+//			System.out.println(temp.getPasien());
 
 			RestTemplate template = new RestTemplate();
 			HttpEntity<BillingDetail> requestEntity= new HttpEntity<BillingDetail>(temp);
-			System.out.println(requestEntity.toString());
+//			System.out.println(requestEntity.toString());
 			String response = "";
 		    try{
 		       ResponseEntity<String> responseEntity = template.exchange(path, HttpMethod.POST, requestEntity,  String.class);
@@ -121,7 +121,7 @@ public class PermintaanServiceImpl implements PermintaanService{
 		    }
 		    responselst.add(response);
 		    
-			System.out.println(response);
+//			System.out.println(response);
 			
 			
 		}
@@ -132,8 +132,8 @@ public class PermintaanServiceImpl implements PermintaanService{
 		}
 
 		
-//		StatusPermintaanModel diterima = statusPermintaanDb.findById(2).get();
-//		targetPermintaan.setStatusPermintaan(diterima);
+		StatusPermintaanModel diterima = statusPermintaanDb.findById(2).get();
+		targetPermintaan.setStatusPermintaan(diterima);
 		permintaanDb.save(targetPermintaan);
 
 		return finalResponse;

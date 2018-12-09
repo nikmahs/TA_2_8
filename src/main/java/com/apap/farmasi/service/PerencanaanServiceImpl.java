@@ -24,4 +24,9 @@ public class PerencanaanServiceImpl implements PerencanaanService {
 	public List<PerencanaanModel> getAllPerencanaan() {
 		return perencanaanDb.findAll();
 	}
+	
+	@Override
+	public void addPerencanaan(PerencanaanModel perencanaan) {
+		perencanaanDb.save(perencanaan);
+	}
 }

@@ -9,4 +9,6 @@ public interface PerencanaanService {
 	Optional<PerencanaanModel> getPerencanaanDetailById(long id);
 	
 	List<PerencanaanModel> getAllPerencanaan();
+	
+	void addPerencanaan(PerencanaanModel perencanaan);
 }

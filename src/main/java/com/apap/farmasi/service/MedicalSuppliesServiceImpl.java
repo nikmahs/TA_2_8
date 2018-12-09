@@ -22,8 +22,8 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	private MedicalSuppliesDb medicalSuppliesDb;
 
 	@Override
-	public MedicalSuppliesDb viewAllDaftarMedicalSupplies() {
-		return medicalSuppliesDb;
+	public List<MedicalSuppliesModel> viewAllDaftarMedicalSupplies() {
+		return medicalSuppliesDb.findAll();
 	}
 
 	@Override
@@ -48,12 +48,12 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 
 		RestTemplate template = new RestTemplate();
 		HttpEntity<ObatModel> requestEntity= new HttpEntity<ObatModel>(obatDikirim);
-		System.out.println(requestEntity.toString());
+//		System.out.println(requestEntity.toString());
 		String response = "";
 
-		System.out.println(path);
-		System.out.println("nama = " + obatDikirim.getNama());
-		System.out.println("jumlah = " + obatDikirim.getJumlah());
+//		System.out.println(path);
+//		System.out.println("nama = " + obatDikirim.getNama());
+//		System.out.println("jumlah = " + obatDikirim.getJumlah());
 
 		
 		try{
@@ -64,7 +64,7 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	       response = e.getMessage();
 	    }
 		
-		System.out.println(response);
+//		System.out.println(response);
 
 		
 		return finalResponse;
