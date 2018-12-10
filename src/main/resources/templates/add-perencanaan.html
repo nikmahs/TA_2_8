@@ -71,8 +71,28 @@
 		    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
 		    return local.toJSON().slice(0,10);
 		});
-		
 		$('#tanggal').val(new Date().toDateInputValue());
+		
+		var setListMedsup = (function() {
+			$.ajax({
+				method : 'GET',
+				url : "/medical-supplies/getListMedsupByDate",
+				data : { date : $('#tanggal').val()}
+			}).done(function(data) {
+				var optionHtml = '<option value="">Pilih Obat/Alat</option>';
+				var dataLength = data.length;
+				for (var i = 0; i < dataLength; i++) {
+					optionHtml += '<option value="' + data[i].id + '">'
+									+ data[i].nama + '</option>';
+					console.log('<option th:value="' + data[i].id + '">'
+							+ data[i].nama + '</option>');
+				}
+				$('.medsup').html(optionHtml);
+			});
+		});
+		setListMedsup();
+		
+		$('#tanggal').change(setListMedsup());qfzqz
 		
 		$('.medSup').change(function(){
 			$.ajax({

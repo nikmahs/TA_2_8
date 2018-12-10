@@ -1,5 +1,8 @@
 package com.apap.farmasi.service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,30 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	@Override
 	public List<MedicalSuppliesModel> viewAllDaftarMedicalSupplies() {
 		return medicalSuppliesDb.findAll();
+	}
+	
+	@Override
+	public List<MedicalSuppliesModel> getAllMedsupByDate(Date date, List<MedicalSuppliesModel> listMedsup) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		// if week 1 or 3
+		if (day < 7 || (day > 13 && day < 21)) {
+			return medicalSuppliesDb.findAll();
+		}
+		else {
+			List<MedicalSuppliesModel> newList = new ArrayList<MedicalSuppliesModel>();
+			
+			for (MedicalSuppliesModel medsup : listMedsup) {
+				// if medsup is urgent
+				if (medsup.getJenisMedicalSupplies().getIdUrgent().getFlag() == 1) {
+					newList.add(medsup);
+				}
+			}
+			return newList;
+		}
 	}
 
 	@Override

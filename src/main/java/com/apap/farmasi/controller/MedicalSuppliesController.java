@@ -137,6 +137,17 @@ public class MedicalSuppliesController {
 		return true;
 	}
 	
+	@RequestMapping(value = "/getListMedsupByDate", method = RequestMethod.GET)
+	@ResponseBody
+	private List<MedicalSuppliesModel> getListMedsupByDate(@RequestParam(value = "date", required = true) Date date, Model model) {
+		
+		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		
+		List<MedicalSuppliesModel> newList = medicalSuppliesService.getAllMedsupByDate(date, listMedsup);
+		
+		return newList;
+	}
+	
 	/**
 	 * fitur 6 menambahkan medical supplies
 	 * @param medsup, model
@@ -203,6 +214,8 @@ public class MedicalSuppliesController {
 		return perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
 	}
 	
+	
+	
 	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.GET)
 	private String tambahPerencanaan(Model model) {
 		PerencanaanModel newPerencanaan = new PerencanaanModel();
@@ -213,10 +226,6 @@ public class MedicalSuppliesController {
 		
 		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
 		model.addAttribute("listMedsup", listMedsup);
-		
-//		Calendar currenttime = Calendar.getInstance();
-//	    Date sqldate = new Date((currenttime.getTime()).getTime());
-//	    newPerencanaan.setTanggal(sqldate);
 		
 		newPerencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
 
