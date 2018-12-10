@@ -14,44 +14,46 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h3 class="text-center">Tambah Perencanaan</h3>
-		<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
-  			<input type="hidden" name="id" th:value="*{id}">
-			<table>
-				<tr>
-					<td width="200">Tanggal</td>
-					<td><input type="Date" name="tanggal" id="tanggal" class="form-control form-input" th:field="*{tanggal}" required /></td>
+				<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
+					<table>
+						<tr>
+							<td width="200">Tanggal</td>
+							<td><input type="Date" name="tanggal" id="tanggal" class="form-control form-input" th:field="*{tanggal}" required /></td>
+							
+							<td><input type="hidden" name="status" value="diajukan" /></td>
+						</tr>
+					</table>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Nama Obat/Alat</th>
+								<th scope="col">Jumlah</th>
+								<th scope="col">
+									<button type="submit" name="addRow" class="btn btn-primary">Tambah Medical Supplies</button>
+									<!-- <div class="btn btn-primary" value="*{id}" onclick="showId()">Tambah</div> -->
+								</th>
+							</tr>
+						</thead>
+						<tr class="rowPerencanaanMedsup" th:each="perencanaanMedsup, rowStat : *{listPerencanaanMedicalSupplies}">
+							<td>
+								<select class="form-control form-input medSup" name="medicalSupplies" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies}" required>
+							    	<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>
+						   		</select>
+							</td>
+							<td>
+								<input type="number"  class="form-control form-input" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].jumlah}" />
+							</td>
+							<td>
+								<button type="submit" name="removeRow" class="btn btn-primary" th:value="${rowStat.index}">Hapus</button>
+							</td>
+						</tr>
+					</table>
 					
-					<td><input type="hidden" name="status" value="diajukan" /></td>
-				</tr>
-			</table>
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">Nama Obat/Alat</th>
-						<th scope="col">Jumlah</th>
-						<th scope="col">
-							<button type="submit" name="addRow" class="btn btn-primary">Tambah Medical Supplies</button>
-						</th>
-					</tr>
-				</thead>
-				<tr th:each="perencanaanMedsup, rowStat : *{listPerencanaanMedicalSupplies}">
-					<td>
-						<select class="form-control form-input medSup" name="medicalSupplies" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies}" required>
-					    	<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>
-					    	<option th:each="medsup : ${listMedsup}" th:value="${medsup.id}" th:text="${medsup.nama}"></option>
-				   		</select>
-					</td>
-					<td>
-						<input type="number"  class="form-control form-input" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].jumlah}" />
-					</td>
-					<td>
-						<button type="submit" name="removeRow" class="btn btn-primary" th:value="${rowStat.index}">Hapus</button>
-					</td>
-				</tr>
-			</table>
-			
-			<button id="btnSimpan" type="submit" class="btn btn-submit">Simpan</button>
-  		</form>
+					<button id="btnSimpan" type="submit" class="btn btn-submit">Simpan</button>
+		  		</form>
+		  		<br>
+		  		
+		  		
 			</div>
 		</div>
 		
@@ -63,6 +65,50 @@
 </body>
 <script th:inline="javascript">
 	$(document).ready(function(){
+		
+		Date.prototype.toDateInputValue = (function() {
+		    var local = new Date(this);
+		    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+		    return local.toJSON().slice(0,10);
+		});
+		$('#tanggal').val(new Date().toDateInputValue());
+		
+		var setListMedsup = (function() {
+			$.ajax({
+				method : 'GET',
+				url : "/medical-supplies/getListMedsupByDate",
+				data : { date : $('#tanggal').val()}
+			}).done(function(data) {
+				var optionHtml = '<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>';
+				var dataLength = data.length;
+				for (var i = 0; i < dataLength; i++) {
+					optionHtml += '<option value="' + data[i].id + '">'
+									+ data[i].nama + '</option>';
+					console.log('<option th:value="' + data[i].id + '">'
+							+ data[i].nama + '</option>');
+				}
+				$('.medSup').html(optionHtml);
+			});
+		});
+		
+		setListMedsup();
+		
+		/**
+		$('.medSup').change(function() {
+			$(this).addClass("medSupSelected");
+			$(this).removeClass("medSup");
+		});
+		**/
+		
+		$('#tanggal').change(function() {
+			setListMedsup();
+		});
+		
+
+		var showId = (function(id) {
+			alert("id: " + id);
+		});
+		/**
 		$('.medSup').change(function(){
 			$.ajax({
 				method : 'GET',
@@ -76,11 +122,9 @@
 				if (!isValid) {
 					alert("Medical Supplies bersifat urgent, hanya dapat diisi pada pekan ke-1 atau ke-3.");	
 				}
-				else {
-					alert("VALID KOK");
-				}
 			}); 
 		});
+		**/
 	});
 </script>
 </html>

@@ -24,8 +24,13 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container-fluid">
-    	<h1>KOSONG</h1>
+    	<h1>Kosong</h1>
+    	<p>Perencanaan belum terdaftar</p>
     </div>
+    <div class="card my-4">
+	    <a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-primary">Tambah</a>
+    </div>
+    
     <div class="footer navbar-fixed-bottom text-center">
   		<p>Sistem Informasi Farmasi &copy; Kelompok B - APAP A</p>
 	</div>
