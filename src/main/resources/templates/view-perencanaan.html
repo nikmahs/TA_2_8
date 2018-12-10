@@ -49,11 +49,11 @@
 								<td id="statusPerencanaan" th:text="': ' + ${aPerencanaan.status}"></td>
 							</span>		
 							<span th:unless="${authority == 'STAF'}">
-								<td id="statusPerencanaan">
+								<td>
 									<select class="form-control" name="status" required>
-								    	<option th:value="diajukan">Diajukan</option>
-								    	<option th:value="diproses">Diproses</option>
-								    	<option th:value="tersedia">Tersedia</option>
+								    	<option value="diajukan">Diajukan</option>
+								    	<option value="diproses">Diproses</option>
+								    	<option value="tersedia">Tersedia</option>
 							   		</select>
 						   		</td>
 							</span>
@@ -121,11 +121,27 @@
 				url : "/medical-supplies/perencanaan/getPerencanaanById",
 				data : {idPerencanaan : $(this).children("td.idPerencanaan").text()}
 			}).done(function(data){
-				var newTanggal = '<td id="tanggalPerencanaan">: ' + data.tanggal + '</td>';
-				$('#tanggalPerencanaan').html(newTanggal);
+				//var newTanggal = '<td id="tanggalPerencanaan">: ' + data.tanggal + '</td>';
+				//$('#tanggalPerencanaan').html(newTanggal);
+				
+				var statusNew = '<tr id="statusPerencanaan">' +
+									'<th height="60">Status</th>' + 
+									'<span th:if="${authority ==  &#39;STAF&#39;}">' +
+										'<td>: ' + data.status + '</td>' + 
+									'</span>' +
+									'<span th:unless="${authority ==  &#39;STAF&#39;}">' +	
+										'<td>' +
+											'<select class="form-control" name="status" required>' +
+										    	'<option th:value="diajukan">Diajukan</option>' +
+										    	'<option th:value="diproses">Diproses</option>' +
+										    	'<option th:value="tersedia">Tersedia</option>' +
+									   		'</select>' +
+								   		'</td>' +
+							   		'</span>' +
+								'</tr>';	  	
 				
 				var newStatus = '<td id="statusPerencanaan">: ' + data.status + '</td>';
-				$('#statusPerencanaan').html(newStatus);
+				$('#statusPerencanaan').html(statusNew);
 				
 				var itemHtml = '';
 				var listMedSup = data.listPerencanaanMedicalSupplies;
