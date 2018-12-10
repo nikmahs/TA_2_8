@@ -34,7 +34,7 @@
 	<h3 class="text-center">Daftar Medical Supplies</h3>
 		<form th:action = "@{/medical-supplies}" method = "GET">
 		<div class="card-body">
-        	<a th:href="@{/medical-supplies/tambah}" class="btn btn-primary">Tambah</a>
+        	<a th:href="@{/medical-supplies/tambah}" class="btn btn-info">Tambah</a>
        	</div>
 			<table id = "list-all-medsup" class = "table table-striped table-bordered" style = "width:100%">
 				<thead>
@@ -56,7 +56,7 @@
 							 <form th:action="@{/medical-supplies/kirim}" method="post">				
 									<input type=hidden th:value="${medsup.id}"name=id>					
 									<input type=number name=jumlah required=true>												 		
-								<button type="submit" class="btn btn-primary">Kirim</button>
+								<button type="submit" class="btn btn-info">Kirim</button>
 							</form>
 						</td>
 					</tr>
