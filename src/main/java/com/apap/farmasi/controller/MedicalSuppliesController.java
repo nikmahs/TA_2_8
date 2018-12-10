@@ -306,21 +306,74 @@ public class MedicalSuppliesController {
 	//kerjaan awl
 	//fitur 13
 	//lebih ribet daripada yg aing bayangin
-	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.POST)
-	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.GET)
+	private String terimaPermintaan(@PathVariable(value="id") Long id, Model model) {
 		
 		PermintaanModel targetPermintaan = permintaanService.getPermintaanDetailById(id).get();
-
-		String response = permintaanService.postBilling(targetPermintaan);
 		
-		if(response.equals("gagal")) {
-			redirectAttributes.addFlashAttribute("message", "Gagal mengubah status");
-			return "redirect:/medical-supplies/permintaan";
+		targetPermintaan.setId(id);
+		model.addAttribute("permintaan", targetPermintaan);
+		List<StatusPermintaanModel> listStatus = statusPermintaanService.getAllPermintaan();
+		StatusPermintaanModel untukselect = new StatusPermintaanModel();
+		model.addAttribute("statusModel", untukselect);
+		model.addAttribute("listStatus",listStatus);
+		
+		return "gantiStatus";
+	}
+
+	
+	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.POST)
+	private String terimaPermintaan(@PathVariable(value="id") Long id,@ModelAttribute StatusPermintaanModel statusDipilih, Model model) {
+		
+		System.out.println(statusDipilih.getId());
+		System.out.println(id);
+		
+		PermintaanModel targetPermintaan = permintaanService.getPermintaanDetailById(id).get();
+		StatusPermintaanModel targetStatus = statusPermintaanService.getStatusPermintaanDetailById(statusDipilih.getId());
+		System.out.println(targetStatus.getId());
+		//0 = pending
+		//1 = diterima
+		//2 = ditolak
+		if(targetPermintaan.getStatusPermintaan().getNama().equals("pending")) {
+			if (targetStatus.getNama().equals("diterima")) {			
+				String response = permintaanService.postBilling(targetPermintaan);
+				
+				if (response.equals("gagal")) {				
+					model.addAttribute("message", "Gagal mengubah status");
+				}
+				else {
+					model.addAttribute("message","Berhasil mengubah status dan mengirim billing");
+				}
+			}
+			else {
+				targetPermintaan.setStatusPermintaan(targetStatus);
+				permintaanService.addPermintaan(targetPermintaan);
+				model.addAttribute("message","Berhasil mengubah status");
+			}
 		}
 		else {
-			redirectAttributes.addFlashAttribute("message", "Berhasil mengubah status");		
-			return "redirect:/medical-supplies/permintaan";
+			model.addAttribute("message","Gagal mengubah status, permintaan sudah diterima atau ditolak");
 		}
+		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
+		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
+		//ditambah awl
+		List<StatusPermintaanModel> listStatus = statusPermintaanService.getAllPermintaan();
+		StatusPermintaanModel untukselect = new StatusPermintaanModel();
+		model.addAttribute("statusModel", untukselect);
+		model.addAttribute("listStatus",listStatus);
+		model.addAttribute("listPermintaan", listPermintaan);
+		model.addAttribute("listStaff", listStaff);
+
+		return "viewall-permintaan";
+		
+//		if(response.equals("gagal")) {
+//			redirectAttributes.addFlashAttribute("message", "Gagal mengubah status");
+//			return "redirect:/medical-supplies/permintaan";
+//		}
+//		else {
+//			redirectAttributes.addFlashAttribute("message", "Berhasil mengubah status");		
+//			return "redirect:/medical-supplies/permintaan";
+//		}
 	}
 	//fitur 8
 	//lebih ribet daripada yg aing bayangin juga
@@ -367,6 +420,8 @@ public class MedicalSuppliesController {
 		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
 		//ditambah awl
 		List<StatusPermintaanModel> listStatus = statusPermintaanService.getAllPermintaan();
+		StatusPermintaanModel untukselect = new StatusPermintaanModel();
+		model.addAttribute("statusModel", untukselect);
 		model.addAttribute("listStatus",listStatus);
 		model.addAttribute("listPermintaan", listPermintaan);
 		model.addAttribute("listStaff", listStaff);

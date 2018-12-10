@@ -81,9 +81,8 @@
 							<td th:text="${permintaan.jadwalJaga.idStaff}"></td>
 							<td th:text="${permintaan.idPasien}"></td>
 							<td>
-								 <form th:action="@{/medical-supplies/permintaan/ubah/{id}(id=${permintaan.id})}" method="post">					
-									<button th:if="${permintaan.statusPermintaan.nama == 'pending'}" type="submit" class="btn btn-primary">Terima</button>
-									<button th:unless="${permintaan.statusPermintaan.nama == 'pending'}" type="submit" class="btn btn-secondary" disabled>Terima</button>
+								 <form th:action="@{/medical-supplies/permintaan/ubah/{id}(id=${permintaan.id})}">	
+									<button type="submit" class="btn btn-primary">Ubah</button>
 								</form>
 							</td>
 							
