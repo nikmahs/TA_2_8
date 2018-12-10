@@ -37,12 +37,13 @@
     	<br>
     	<h1 class="text-center" style="font-weight:bold;font-family: calibri">Jadwal Jaga Staf Apoteker</h1>    
     	<div class="card-body">
-        	<a th:href="@{/medical-supplies/jadwal-staf/tambah}" class="btn btn-primary">Tambah Jadwal</a>
+
+        	<a th:href="@{/medical-supplies/jadwal-staf/tambah}" class="btn btn-info">Tambah Jadwal</a>
+
        	</div>
     	<table id="tableAllJadwalJaga" class = "table table-dark table-condensed"  style = "width:100%;" >
 			<thead>
 				<tr>
-					<th>Id Jadwal</th>
 					<th>Nama</th>
 					<th>Id Staff</th>
 					<th>Tanggal</th>
@@ -56,7 +57,6 @@
 					<span th:each="staff : ${listStaff}">
 						<span th:if="${staff.id == jadwalJaga.idStaff}">
 							<tr>
-								<td th:text="${jadwalJaga.id}"></td>
 								<td th:text="${staff.nama}"></td>
 								<td th:text="${staff.id}"></td>
 								<td th:text="${jadwalJaga.tanggal}"></td>
@@ -64,7 +64,7 @@
 								<td th:text="${jadwalJaga.waktuSelesai}"></td>
 								<td>
 									<form th:action="@{'/medical-supplies/jadwal-staf/' + ${jadwalJaga.id}}" method="GET" style="margin-left:20px;">
-										<button type="submit" class="btn btn-primary">Update</button>
+										<button type="submit" class="btn btn-info">Update</button>
 									</form>
 								</td>
 							</tr>

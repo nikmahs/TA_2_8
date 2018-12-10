@@ -8,6 +8,11 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
     <style>
     	body {
 			background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
@@ -24,6 +29,9 @@
 		   font-size:12px;
 		   bottom: 0px;
 		}
+		.row-detail {
+			margin : 10px;
+		}
 	</style>
 </head>
 
@@ -33,62 +41,118 @@
     	<br>
     	<div class="row">
     		<div class="col-md-7">
-    			<h3 class="text-center">Detail Perencanaan</h3>
-    			<a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-primary">Tambah Perencanaan</a>
-    			<div class="card my-5" id="tablePerencanaanContent">
-    				<table>
-						<tr>
-							<th height="60">Tanggal</th>
-							<td id="tanggalPerencanaan" th:text="': ' + ${aPerencanaan.tanggal}"></td>
-						</tr>
-						<tr>
-							<th height="60">Status</th>
-							<td id="statusPerencanaan" th:text="': ' + ${aPerencanaan.status}"></td>
-						</tr>
-    				</table>
+
+    			<div class="card">
+    				<div class="card-header bg-info">
+    					<h3 class="text-center">Detail Perencanaan</h3>
+    				</div>
+    				<div class="card-body">
+						<div class="row row-detail">
+							<div class="col-md-3"><strong>Tanggal</strong></div>
+							<div class="col-md-3" id="tanggalPerencanaan" th:text="${aPerencanaan.tanggal}"></div>
+						</div>
+						
+						<div class="row row-detail">
+							<div class="col-md-3"><strong>Status</strong></div>
+							<div class="col-md-3">
+								<span th:if="${authority == 'STAF'}">
+									<td id="statusPerencanaan" th:text="${aPerencanaan.status}"></td>
+								</span>	
+								<span th:unless="${authority == 'STAF'}">
+									<td>
+										
+							   		</td>
+								</span>
+							</div>
+							<div class="col-md-3">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
+								  Launch demo modal 
+								</button>
+							</div>
+						</div>
+							
+	    				<table id="tablePerencanaan" class="display">
+			    			<thead class="text-center">
+			    				<tr>
+			    					<th>Nama Obat/Alat</th>
+			    					<th>Jumlah</th>
+			    				</tr>
+			    			</thead>
+			    			<tbody id="itemPerencanaan" >
+		    					<tr th:each="perencanaanMedSup : ${listPerencanaanMedSup}">
+			    					<td th:text="${perencanaanMedSup.medicalSupplies.nama}"></td>
+			    					<td th:text="${perencanaanMedSup.jumlah}" class="text-center"></td>
+				    			</tr>
+			    			</tbody>
+						</table>
+
     				
-		    		<table id="tablePerencanaan" class="display">
-		    			<thead class="text-center">
-		    				<tr>
-		    					<th>Nama Obat/Alat</th>
-		    					<th>Jumlah</th>
-		    				</tr>
-		    			</thead>
-		    			<tbody id="itemPerencanaan" >
-	    					<tr th:each="perencanaanMedSup : ${listPerencanaanMedSup}">
-		    					<td th:text="${perencanaanMedSup.medicalSupplies.nama}"></td>
-		    					<td th:text="${perencanaanMedSup.jumlah}" class="text-center"></td>
-			    			</tr>
-		    			</tbody>
-					</table>
+    				</div>
     			</div>
-    		
+    			
+    			
+    			<a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-primary">Tambah Perencanaan</a>  		
+    			
     		</div>
     		<div class="col-md-5 text-center">
-    			<h3>Daftar Perencanaan</h3>
-    			<br>
-    			<br>
-    			<div class="card my-5">
-    				<table id="tableAllPerencanaan" class="display">
-	    				<thead>
-	    					<th>No</th>
-	    					<th>Tanggal</th>
-	    					<th>Status</th>
-	    				</thead>
-	    				<tbody>
-	    					<span th:each="perencanaan : ${listPerencanaan}">
-    							<tr class="rowPerencanaan" >
-	    							<td class="idPerencanaan" th:text="${perencanaan.id}"></td>
-	    							<td th:text="${perencanaan.tanggal}"></td>
-	    							<td th:text="${perencanaan.status}"></td>
-	    						</tr>
-	    					</span>
-	    				</tbody>
-	    			</table>
-    			</div>
+	    		<div class="card">
+	    			<div class="card-header bg-info">
+	    				<h3>Daftar Perencanaan</h3>
+	    			</div>
+	    			<div class="card-body">
+	    				<table id="tableAllPerencanaan" class="display">
+		    				<thead>
+		    					<th>No</th>
+		    					<th>Tanggal</th>
+		    					<th>Status</th>
+		    				</thead>
+		    				<tbody>
+		    					<span th:each="perencanaan : ${listPerencanaan}">
+	    							<tr class="rowPerencanaan" >
+		    							<td class="idPerencanaan" th:text="${perencanaan.id}"></td>
+		    							<td th:text="${perencanaan.tanggal}"></td>
+		    							<td th:text="${perencanaan.status}"></td>
+		    						</tr>
+		    					</span>
+		    				</tbody>
+		    			</table>
+	    			</div>
+	    		</div>
+    			
+    			
     		</div>
     	</div>
     	
+    	<!-- Modal -->
+		<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		    	<form th:action="@{/medical-supplies/perencanaan/ubah}" th:object="${aPerencanaan}" method="POST">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Tambah Medical Supplies</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        
+			        	<select id="setStatus" class="form-control" th:value="${aPerencanaan.status}" required>
+					    	<option id="diajukan" value="diajukan">Diajukan</option>
+					    	<option id="diproses" value="diproses">Diproses</option>
+					    	<option id="tersedia" value="tersedia">Tersedia</option>
+				   		</select>
+			        
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+			      </div>
+		    	</form>
+		    </div>
+		  </div>
+		</div>
+		<!-- End of Modal -->
     </div>
     <footer th:replace="fragments/fragment :: footer"></footer>
 </body>
@@ -107,11 +171,27 @@
 				url : "/medical-supplies/perencanaan/getPerencanaanById",
 				data : {idPerencanaan : $(this).children("td.idPerencanaan").text()}
 			}).done(function(data){
-				var newTanggal = '<td id="tanggalPerencanaan">: ' + data.tanggal + '</td>';
-				$('#tanggalPerencanaan').html(newTanggal);
+				//var newTanggal = '<td id="tanggalPerencanaan">: ' + data.tanggal + '</td>';
+				//$('#tanggalPerencanaan').html(newTanggal);
+				
+				var statusNew = '<tr id="statusPerencanaan">' +
+									'<th height="60">Status</th>' + 
+									'<span th:if="${authority ==  &#39;STAF&#39;}">' +
+										'<td>: ' + data.status + '</td>' + 
+									'</span>' +
+									'<span th:unless="${authority ==  &#39;STAF&#39;}">' +	
+										'<td>' +
+											'<select class="form-control" name="status" required>' +
+										    	'<option th:value="diajukan">Diajukan</option>' +
+										    	'<option th:value="diproses">Diproses</option>' +
+										    	'<option th:value="tersedia">Tersedia</option>' +
+									   		'</select>' +
+								   		'</td>' +
+							   		'</span>' +
+								'</tr>';	  	
 				
 				var newStatus = '<td id="statusPerencanaan">: ' + data.status + '</td>';
-				$('#statusPerencanaan').html(newStatus);
+				$('#statusPerencanaan').html(statusNew);
 				
 				var itemHtml = '';
 				var listMedSup = data.listPerencanaanMedicalSupplies;
@@ -128,6 +208,21 @@
 				
 			}); 
 		});
+		
+		/**
+		$('#setStatus').click(function(){
+			if (document.getElementById("tersedia").selected) {
+				$.ajax({
+					method : 'POST',
+					url : "/medical-supplies/perencanaan/ubah",
+					data : { status : $(this).val() }
+				}).done(function(data) {
+					var confirmHtml = "<p>Apakah yakin?</p>";
+					alert(confirmHtml);
+				});
+			}
+		});
+		**/
 	});
 </script>
 </html>
