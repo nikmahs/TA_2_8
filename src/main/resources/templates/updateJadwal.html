@@ -13,6 +13,12 @@
 	</style>
 	
 	<style>
+    	body {
+			background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-size: cover; 
+		    }
 		.footer {
 		   position: fixed;
 		   color: black;
@@ -42,41 +48,57 @@
 </head>
 
 <body>
-	<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pilot')"></nav>
-	<div id="Content" class="container-full-bg">
-		<h3 class="text-center"> Update Jadwal</h3>
-		
-	<form class="form-horizontal" th:action="@{'/medical-supplies/jadwal-staf/' + ${listJadwalJaga.id}}" th:object="${listJadwalJaga}" method="POST">
-		<center>
-			<img src="https://img.icons8.com/ios/1600/user-female-circle-filled.png" alt="farmasi" style="width:200px;height:200px;">
-		</center>
-		<div class="form-group">
-			<label class="control-label col-sm-2">Nama Staff Jaga:</label>
-    			<select type="text" name="idStaff">
-					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}" required></option>
-				</select>
-		</div>
-		  
-		<div class="form-group">
-			<label class="control-label col-sm-2">Waktu Mulai Jaga:</label>
-			<input list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" required>
-		</div>
-		
-		<div class="form-group">
-			<label class="control-label col-sm-2">Waktu Berakhir Jaga:</label>
-	    	<input list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" required >
-		</div>
-		
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="tanggal_jaga">Tanggal Jaga:</label>
-    		<div class="col-sm-2">
-    		  <input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="${listJadwalJaga.tanggal}" th:field="*{tanggal}" required >
+	<nav th:replace = "fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+		<div class="container-fluid">
+  		<div class="header">
+    		<div class="row">
+    			<div class="col-sm-12">
+    				<br>
+        			<h1 style="font-weight:bold;font-family: calibri" class="text-center"> Update Jadwal Jaga </h1>
+        			<center>
+						<img src="https://image.flaticon.com/icons/svg/119/119044.svg" alt="farmasi" style="width:150px;height:150px;">
+					</center>
+      			</div>
     		</div>
-		</div>
-		
-		<br></br>
-		<div class="form-group" >
-			<button type="submit" class="button" >Submit</button>
+  		</div>
+  		<hr>
+	<form class="form-horizontal" th:action="@{'/medical-supplies/jadwal-staf/' + ${listJadwalJaga.id}}" th:object="${listJadwalJaga}" method="POST">
+<input type="hidden" name="id" th:value="*{id}">
+		<div class = "row">
+  			<div class="col-sm-3"><p>Nama Staf Jaga</p></div>
+  			<div class="col-sm-4">
+				<select type="text" name="idStaff" class="form-control">
+					<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}"></option>
+				</select>
+			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Waktu Mulai Jaga</p></div>
+  			<div class="col-sm-4">
+  				<input  list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" class="form-control">
+  			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Waktu Berakhir Jaga</p></div>
+  			<div class="col-sm-4">
+				<input  list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" class="form-control">
+			</div>
+  		</div>
+  		<br>
+  		<div class = "row">
+  			<div class="col-sm-3"><p>Tanggal Jaga</p></div>
+  			<div class="col-sm-4">
+  				<input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}">
+    		
+			</div>
+  		</div>
+  		
+  		<br>
+  	
+			<button type="submit" class="button btn-primary" >Simpan</button>
 		</div>
 	</form>
 	
