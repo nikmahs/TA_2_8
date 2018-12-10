@@ -71,16 +71,15 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 		obatDikirim.setNama(target.getNama());
 		obatDikirim.setId(target.getId());
 		
-		String path = Setting.urlMock + "/obat/tambah";
-
+		String path = Setting.urlRawatJalan + "/rawat-jalan/obat/tambah";
 		RestTemplate template = new RestTemplate();
 		HttpEntity<ObatModel> requestEntity= new HttpEntity<ObatModel>(obatDikirim);
 //		System.out.println(requestEntity.toString());
 		String response = "";
 
-//		System.out.println(path);
-//		System.out.println("nama = " + obatDikirim.getNama());
-//		System.out.println("jumlah = " + obatDikirim.getJumlah());
+		System.out.println(path);
+		System.out.println("nama = " + obatDikirim.getNama());
+		System.out.println("jumlah = " + obatDikirim.getJumlah());
 
 		
 		try{
@@ -92,6 +91,7 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	    }
 		
 //		System.out.println(response);
+		finalResponse = response;
 
 		
 		return finalResponse;

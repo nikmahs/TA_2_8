@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
@@ -31,7 +31,7 @@ import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
-import com.apap.farmasi.service.PerencanaanMedicalSuppliesService;
+//import com.apap.farmasi.service.PerencanaanMedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.PermintaanService;
 import com.apap.farmasi.service.RestService;
@@ -61,8 +61,8 @@ public class MedicalSuppliesController {
 	@Autowired 
 	private JadwalService jadwalService;
 	
-	@Autowired
-	private PerencanaanMedicalSuppliesService perencanaanMedsupService;
+//	@Autowired
+//	private PerencanaanMedicalSuppliesService perencanaanMedsupService;
 
 	@Autowired
 	RestTemplate restTemplate;
@@ -155,9 +155,13 @@ public class MedicalSuppliesController {
 	 */	
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	private String addMedsupSubmission(@ModelAttribute MedicalSuppliesModel medsup, Model model) {
-		medicalSuppliesService.addMedsup(medsup);
-		model.addAttribute("msg", "Berhasil ditambahkan");
-		return "success";
+		if (medsup.getPrice() != 0) {
+			medicalSuppliesService.addMedsup(medsup);
+			model.addAttribute("msg", "Berhasil ditambahkan");
+			return "success";
+		}
+		model.addAttribute("msg", "Harga tidak bisa bernilai nol");
+		return "gagal";
 	}
 	
 	@RequestMapping(value = "/tambah", method = RequestMethod.GET)
@@ -273,7 +277,7 @@ public class MedicalSuppliesController {
 		
 		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
 			perencanaanMedsup.setPerencanaan(perencanaan);
-			perencanaanMedsupService.addPerencanaanMedsup(perencanaanMedsup);
+//			perencanaanMedsupService.addPerencanaanMedsup(perencanaanMedsup);
 		}
 		
 		return viewPerencanaan(model);
@@ -283,29 +287,25 @@ public class MedicalSuppliesController {
 	//fitur 13
 	//lebih ribet daripada yg aing bayangin
 	@RequestMapping(value = "/permintaan/ubah/{id}", method = RequestMethod.POST)
-	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model) {
+	private String terimaPermintaan(@PathVariable(value="id") Long id,Model model, RedirectAttributes redirectAttributes) {
 		
 		PermintaanModel targetPermintaan = permintaanService.getPermintaanDetailById(id).get();
 
 		String response = permintaanService.postBilling(targetPermintaan);
 		
 		if(response.equals("gagal")) {
-			return "gagal";
+			redirectAttributes.addFlashAttribute("message", "Gagal mengubah status");
+			return "redirect:/medical-supplies/permintaan";
 		}
-		
-		List<StaffDetail> listStaff = restService.getAllStaff().getResult();
-		List<PermintaanModel> listPermintaan = permintaanService.getPermintaanList();
-		//ditambah awl
-		List<StatusPermintaanModel> listStatus = statusPermintaanService.getAllPermintaan();
-		model.addAttribute("listStatus",listStatus);
-		model.addAttribute("listPermintaan", listPermintaan);
-		model.addAttribute("listStaff", listStaff);
-		return "viewall-permintaan";
+		else {
+			redirectAttributes.addFlashAttribute("message", "Berhasil mengubah status");		
+			return "redirect:/medical-supplies/permintaan";
+		}
 	}
 	//fitur 8
 	//lebih ribet daripada yg aing bayangin juga
 	@RequestMapping(value = "/kirim", method = RequestMethod.POST)
-	private String kirimMedSup(@ModelAttribute MedicalSuppliesModel medSup,Model model) {
+	private String kirimMedSup(@ModelAttribute MedicalSuppliesModel medSup,Model model, RedirectAttributes redirectAttributes) {
 		
 //		System.out.println("hay aul");
 		//inisiasi dan kurangin jumlah
@@ -313,18 +313,28 @@ public class MedicalSuppliesController {
 		MedicalSuppliesModel target = medicalSuppliesService.getMedicalSuppliesDetailById(medSup.getId());
 		if(target.getJumlah() < jumlahDitambah || jumlahDitambah == 0) {
 			System.out.println("gagal awl");
-			return "gagal";
+			redirectAttributes.addFlashAttribute("message", "Jumlah eror");
+			return "redirect:/medical-supplies";
 		}
 		else {
 			
-			target.setJumlah(target.getJumlah()-jumlahDitambah);
-			medicalSuppliesService.addMedsup(target);
 	
-			medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
-					
-			List<MedicalSuppliesModel> allMedSup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-			model.addAttribute("allMedSup", allMedSup);
-			return "view-all-medical-supplies";
+			String response = medicalSuppliesService.kirimKeRawatJalan(target, jumlahDitambah);
+			System.out.println(response);
+			if(response.equals("")) {
+				redirectAttributes.addFlashAttribute("message", "Tidak dapat konek dengan api rawat jalan");
+
+				return "redirect:/medical-supplies";
+			}
+			else {
+				target.setJumlah(target.getJumlah()-jumlahDitambah);
+				medicalSuppliesService.addMedsup(target);
+		
+				List<MedicalSuppliesModel> allMedSup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+				model.addAttribute("allMedSup", allMedSup);
+				redirectAttributes.addFlashAttribute("message", "Berhasil mengirim ke rawat jalan");
+				return "redirect:/medical-supplies";				
+			}
 		}
 	}
 	
