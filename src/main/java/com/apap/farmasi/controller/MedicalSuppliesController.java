@@ -2,13 +2,14 @@ package com.apap.farmasi.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -200,6 +201,11 @@ public class MedicalSuppliesController {
 		if (!listPerencanaan.isEmpty()) {
 			model.addAttribute("listPerencanaan", listPerencanaan);
 			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String authority = auth.getAuthorities().iterator().next().getAuthority();
+			model.addAttribute("authority", authority);
+			
+			
 			PerencanaanModel perencanaan = listPerencanaan.get(0);
 			model.addAttribute("aPerencanaan", perencanaan);
 			
@@ -301,6 +307,56 @@ public class MedicalSuppliesController {
 		}
 		
 		return viewPerencanaan(model);
+	}
+	
+//	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
+//	@ResponseBody
+//	private boolean ubahStatusPerancanaan(@RequestParam(value = "status", required = true) String status, @ModelAttribute PerencanaanModel perencanaan) {
+//		
+//		// update status perencanaan
+//		perencanaan.setStatus(status);
+//		perencanaanService.addPerencanaan(perencanaan);
+//		
+//		MedicalSuppliesModel medSup;
+//		int jumlah = 0;
+//		
+//		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
+//			
+//			medSup = perencanaanMedsup.getMedicalSupplies();
+//			jumlah = perencanaanMedsup.getJumlah();
+//			medSup.setJumlah(medSup.getJumlah() + jumlah);
+//			
+//			medicalSuppliesService.addMedsup(medSup);
+//			
+//			
+//		}
+//		
+//		return true;
+//	}
+	
+	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
+	private String ubahStatusPerancanaan(@ModelAttribute PerencanaanModel perencanaan, Model model) {
+		
+		perencanaanService.addPerencanaan(perencanaan);
+		
+		MedicalSuppliesModel medSup;
+		int jumlah = 0;
+		
+		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
+			
+			medSup = perencanaanMedsup.getMedicalSupplies();
+			jumlah = perencanaanMedsup.getJumlah();
+			medSup.setJumlah(medSup.getJumlah() + jumlah);
+			
+			medicalSuppliesService.addMedsup(medSup);
+		}
+		
+		model.addAttribute("perencanaan", perencanaan);
+		
+		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		model.addAttribute("listMedsup", listMedsup);
+		
+		return "view-perencanaan";
 	}
 
 	//kerjaan awl

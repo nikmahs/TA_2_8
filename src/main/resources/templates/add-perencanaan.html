@@ -6,14 +6,27 @@
 
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <style>
+       	body {
+			background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-size: cover; 
+		    }
+		   </style>
 </head>
 
 <body>
 	<nav th:replace = "fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-6">
-				<h3 class="text-center">Tambah Perencanaan</h3>
+			<div class="col-md-6 card">
+				<h3 class="text-center ">Tambah Perencanaan</h3>
 				<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
 					<table>
 						<tr>
@@ -29,8 +42,7 @@
 								<th scope="col">Nama Obat/Alat</th>
 								<th scope="col">Jumlah</th>
 								<th scope="col">
-									<button type="submit" name="addRow" class="btn btn-primary">Tambah Medical Supplies</button>
-									<!-- <div class="btn btn-primary" value="*{id}" onclick="showId()">Tambah</div> -->
+									<button type="submit" name="addRow" class="btn btn-primary">Tambah Obat/Alat</button>
 								</th>
 							</tr>
 						</thead>
@@ -44,7 +56,18 @@
 								<input type="number"  class="form-control form-input" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].jumlah}" />
 							</td>
 							<td>
-								<button type="submit" name="removeRow" class="btn btn-primary" th:value="${rowStat.index}">Hapus</button>
+								<div class="row">
+									<div class="col-md-3">
+										<button type="submit" name="removeRow" class="btn btn-primary" th:value="${rowStat.index}">Hapus</button>
+									</div>
+									<div class="col-md-9">
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
+										  Launch demo modal 
+										</button>
+									</div>
+								</div>
+								
 							</td>
 						</tr>
 					</table>
@@ -53,7 +76,29 @@
 		  		</form>
 		  		<br>
 		  		
-		  		
+		  		<!-- Modal -->
+				<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Tambah Medical Supplies</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <form th:action="@{/medical-supplies/tambah}" th:object="${medsup}" method="POST">
+				        	
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-primary">Save changes</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- End of Modal -->
 			</div>
 		</div>
 		
@@ -79,7 +124,7 @@
 				url : "/medical-supplies/getListMedsupByDate",
 				data : { date : $('#tanggal').val()}
 			}).done(function(data) {
-				var optionHtml = '<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>';
+				var optionHtml = '';
 				var dataLength = data.length;
 				for (var i = 0; i < dataLength; i++) {
 					optionHtml += '<option value="' + data[i].id + '">'
@@ -87,6 +132,7 @@
 					console.log('<option th:value="' + data[i].id + '">'
 							+ data[i].nama + '</option>');
 				}
+				optionHtml += '<option class="lain" value="">Lainnya</option>';
 				$('.medSup').html(optionHtml);
 			});
 		});
@@ -103,11 +149,15 @@
 		$('#tanggal').change(function() {
 			setListMedsup();
 		});
-		
 
-		var showId = (function(id) {
-			alert("id: " + id);
+		// BUAT MEDSUP BARU
+		$('.baru').click(function() {
+			var inputNew = '<input type="text"  class="form-control form-input" placeholder="Nama obat/alat" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies.nama}" />';
+			//$('.rowPerencanaanMedsup').html(inputNew);
+			$(this).parentsUntil(".table").html(inputNew);
 		});
+		
+		
 		/**
 		$('.medSup').change(function(){
 			$.ajax({
