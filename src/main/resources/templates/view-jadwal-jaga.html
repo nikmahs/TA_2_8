@@ -9,11 +9,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     
     <style>
-   		.th,td {
-		   color: black;
-		   text-align: center;
-		   font-size: 15px;
-		}
+   		.tr,td{
+			text-align: center;
+			color: black;
+			}
     	body {
 			background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
 		    background-repeat: no-repeat;
@@ -43,9 +42,9 @@
         	<a th:href="@{/medical-supplies/jadwal-staf/tambah}" class="btn btn-info" style= "margin-left:1165px">Tambah Jadwal</a>
 
        	</div>
-    	<table id="tableAllJadwalJaga" class = "table table-dark table-condensed"  style = "width:100%;" >
+    	<table id="tableAllJadwalJaga" class = "table table-bordered table-dark table-condensed"  style = "width:85%;" >
 			<thead>
-				<tr>
+				<tr >
 					<th>Nama</th>
 					<th>Id Staff</th>
 					<th>Tanggal</th>

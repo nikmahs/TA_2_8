@@ -60,6 +60,7 @@
 								<span th:if="${authority == 'ADMIN'}">
 									<form th:action="@{/medical-supplies/perencanaan/ubah}" th:object="${aPerencanaan}" method="GET">
 										<input type="hidden" name="id" th:value="*{id}" />
+
 										<span id="button-dis" th:if="${status == 'tersedia'}">
 											<button type="submit" class="btn btn-primary" disabled>Ubah</button>
 										</span>
@@ -69,6 +70,7 @@
 										
 									</form>	
 								</span>	
+
 							</div>
 							
 						</div>
