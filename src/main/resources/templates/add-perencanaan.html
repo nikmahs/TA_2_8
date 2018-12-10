@@ -30,6 +30,7 @@
 								<th scope="col">Jumlah</th>
 								<th scope="col">
 									<button type="submit" name="addRow" class="btn btn-primary">Tambah Medical Supplies</button>
+									<!-- <div class="btn btn-primary" value="*{id}" onclick="showId()">Tambah</div> -->
 								</th>
 							</tr>
 						</thead>
@@ -104,6 +105,9 @@
 		});
 		
 
+		var showId = (function(id) {
+			alert("id: " + id);
+		});
 		/**
 		$('.medSup').change(function(){
 			$.ajax({
