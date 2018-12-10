@@ -207,9 +207,11 @@ public class MedicalSuppliesController {
 			String authority = auth.getAuthorities().iterator().next().getAuthority();
 			model.addAttribute("authority", authority);
 			
-			
 			PerencanaanModel perencanaan = listPerencanaan.get(0);
 			model.addAttribute("aPerencanaan", perencanaan);
+			
+			String status = perencanaan.getStatus();
+			model.addAttribute("status", status);
 			
 			List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
 			model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
@@ -305,6 +307,9 @@ public class MedicalSuppliesController {
 			perencanaanMedsupService.addPerencanaanMedsup(perencanaanMedsup);
 		}
 		
+		String status = perencanaan.getStatus();
+		model.addAttribute("status", status);
+		
 		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
 		model.addAttribute("listPerencanaan", listPerencanaan);
 		
@@ -397,7 +402,7 @@ public class MedicalSuppliesController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String authority = auth.getAuthorities().iterator().next().getAuthority();
 		model.addAttribute("authority", authority);
-		
+		model.addAttribute("status", status);
 		model.addAttribute("aPerencanaan", oldPerencanaan);
 		
 		

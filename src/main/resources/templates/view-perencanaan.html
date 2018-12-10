@@ -60,7 +60,13 @@
 								<span th:if="${authority == 'ADMIN'}">
 									<form th:action="@{/medical-supplies/perencanaan/ubah}" th:object="${aPerencanaan}" method="GET">
 										<input type="hidden" name="id" th:value="*{id}" />
-										<button type="submit" class="btn btn-primary">Ubah</button>
+										<span id="button-dis" th:if="${status == 'tersedia'}">
+											<button type="submit" class="btn btn-primary" disabled>Ubah</button>
+										</span>
+										<span id="button-ubah" th:unless="${status == 'tersedia'}">
+											<button type="submit" class="btn btn-primary" >Ubah</button>
+										</span>
+										
 									</form>	
 								</span>	
 							</div>
@@ -84,14 +90,7 @@
 
     				
     				</div>
-    			</div>
-    			
-<<<<<<< HEAD
-=======
-    			<br></br>
-    			<a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-info" style= "margin-left:595px">Tambah Perencanaan</a>  		
->>>>>>> origin/yesica
-    			
+    			</div>    			
     		</div>
     		<div class="col-md-5 text-center">
 	    		<div class="card">
@@ -144,11 +143,19 @@
 				
 				var newTanggal = '<div id="tanggalPerencanaan">: '+ data.tanggal + '</div>';
 				$('#tanggalPerencanaan').html(newTanggal);
-				
-				var statusNew = '<div class="col-md-3" id="statusPerencanaan">' + data.status + '</div>';	  	
+				  	
 				var newStatus = '<div id="statusPerencanaan">: ' + data.status + '</div>';
-				
 				$('#statusPerencanaan').html(newStatus);
+				
+				if (data.status === 'tersedia') {
+					alert("TERSEDIA TADI");
+					$('#button-dis').html('<button type="submit" class="btn btn-primary" disabled>Ubah</button>');
+				}
+				else {
+					$('#button-dis').html('<button type="submit" class="btn btn-primary">Ubah</button>');
+				}
+				
+				
 				
 				var itemHtml = '';
 				var listMedSup = data.listPerencanaanMedicalSupplies;
