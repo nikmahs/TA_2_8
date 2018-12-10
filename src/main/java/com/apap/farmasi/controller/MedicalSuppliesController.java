@@ -206,7 +206,7 @@ public class MedicalSuppliesController {
 			model.addAttribute("authority", authority);
 			
 			
-			PerencanaanModel perencanaan = listPerencanaan.get(0);
+			PerencanaanModel perencanaan = listPerencanaan.get(2);
 			model.addAttribute("aPerencanaan", perencanaan);
 			
 			List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
@@ -233,9 +233,6 @@ public class MedicalSuppliesController {
 		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedsup = new ArrayList<PerencanaanMedicalSuppliesModel>();
 		listPerencanaanMedsup.add(new PerencanaanMedicalSuppliesModel());
 		model.addAttribute("listPerencanaanMedsup", listPerencanaanMedsup);
-		
-		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		model.addAttribute("listMedsup", listMedsup);
 		
 		newPerencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
 
@@ -334,27 +331,61 @@ public class MedicalSuppliesController {
 //		return true;
 //	}
 	
-	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
-	private String ubahStatusPerancanaan(@ModelAttribute PerencanaanModel perencanaan, Model model) {
+	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.GET)
+	private String ubahStatusPerancanaan(@RequestParam(value = "id", required = true) long id, Model model) {
 		
-		perencanaanService.addPerencanaan(perencanaan);
 		
-		MedicalSuppliesModel medSup;
-		int jumlah = 0;
+		PerencanaanModel perencanaan = perencanaanService.getPerencanaanDetailById(id).get();
 		
-		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
-			
-			medSup = perencanaanMedsup.getMedicalSupplies();
-			jumlah = perencanaanMedsup.getJumlah();
-			medSup.setJumlah(medSup.getJumlah() + jumlah);
-			
-			medicalSuppliesService.addMedsup(medSup);
-		}
 		
 		model.addAttribute("perencanaan", perencanaan);
 		
-		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
-		model.addAttribute("listMedsup", listMedsup);
+		return "perencanaan-ubah-status";
+	}
+	
+	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
+	private String submitUbahStatusPerancanaan(	@RequestParam(value = "status", required = true) String status, 
+												@RequestParam(value = "id", required = true) long id,
+												Model model) {
+		
+		//cari perencanaan berd ID 
+		PerencanaanModel oldPerencanaan = perencanaanService.getPerencanaanDetailById(id).get();
+		
+		System.out.println("ID PERENCANAAN: " + id);
+		System.out.println("STATUS: " + oldPerencanaan.getStatus());
+		
+		
+		// ganti statusnya 
+		oldPerencanaan.setStatus(status);
+		oldPerencanaan.setTanggal(oldPerencanaan.getTanggal());
+		
+		List<PerencanaanMedicalSuppliesModel> lstPerencanaanMedsup = oldPerencanaan.getListPerencanaanMedicalSupplies();
+		perencanaanService.addPerencanaan(oldPerencanaan);
+		System.out.println("LENGTH LIST: " + oldPerencanaan.getListPerencanaanMedicalSupplies().size());
+		
+		if (status.equals("tersedia")) {
+			MedicalSuppliesModel medSup;
+			int jumlah = 0;
+			
+			for (PerencanaanMedicalSuppliesModel perencanaanMedsup : lstPerencanaanMedsup) {
+				
+				medSup = perencanaanMedsup.getMedicalSupplies();
+				jumlah = perencanaanMedsup.getJumlah();
+				medSup.setJumlah(medSup.getJumlah() + jumlah);
+				
+				medicalSuppliesService.addMedsup(medSup);
+			}
+		}
+		
+		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
+		model.addAttribute("listPerencanaan", listPerencanaan);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String authority = auth.getAuthorities().iterator().next().getAuthority();
+		model.addAttribute("authority", authority);
+		
+		model.addAttribute("aPerencanaan", oldPerencanaan);
+		
 		
 		return "view-perencanaan";
 	}
