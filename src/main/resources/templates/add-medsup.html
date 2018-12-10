@@ -33,6 +33,9 @@
     			<div class="col-sm-12">
     				<br>
         			<h3 class="text-center">Tambah Medical Supplies</h3>
+        			<center>
+        				<img src="https://image.flaticon.com/icons/svg/527/527052.svg" style="width: 70px; height: 70px">
+      				</center>
       			</div>
     		</div>
   		</div>
@@ -42,42 +45,42 @@
   		<input type="hidden" name="id" th:value="*{id}">
 		<div class = "row">
   			<div class="col-sm-3"><p>Nama</p></div>
-  			<div class="col-sm-9">
+  			<div class="col-sm-4">
 				<input type="text" class="form-control" name="nama" th:value="*{nama}" required>
 			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Jumlah</p></div>
-  			<div class="col-sm-9">
+  			<div class="col-sm-4">
   				<input type="number" class="form-control" name="jumlah" th:value="*{jumlah}" readonly>
   			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Harga</p></div>
-  			<div class="col-sm-9">
+  			<div class="col-sm-4">
 				<input type="number" class="form-control" name="price" th:value="*{price}" pattern="^(0*([0-9]|[1-8][0-9]|9[0-9]|100))$" required="true">
 			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Deskripsi</p></div>
-  			<div class="col-sm-9">
+  			<div class="col-sm-4">
   				<input type="text" class="form-control" name="deskripsi" th:value="*{deskripsi}" required>
   			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Jenis</p></div>
-  			<div class="col-sm-9">
+  			<div class="col-sm-4">
   			<select class="form-control" name="jenisMedicalSupplies" value="*{jenisMedicalSupplies}" required>
 		    	<option th:each="jenis: ${listJenis}" th:value="${jenis.id}" th:text="${jenis.jenisMedicalSupplies}">pilihan jenis</option>
 	   		</select>
   			</div>
   		</div>
   		<br>
-  		<button type="submit" class="btn btn-dark">Simpan</button>
+  		<button type="submit" class="btn btn-info" style= "margin-left:670px">Simpan</button>
   	</form>
   	</div>
   	<footer th:replace="fragments/fragment :: footer"></footer>
