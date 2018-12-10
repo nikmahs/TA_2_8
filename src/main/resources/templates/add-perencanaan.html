@@ -15,7 +15,6 @@
 			<div class="col-md-6">
 				<h3 class="text-center">Tambah Perencanaan</h3>
 				<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
-		  			<input type="hidden" name="id" th:value="*{id}">
 					<table>
 						<tr>
 							<td width="200">Tanggal</td>
@@ -31,14 +30,14 @@
 								<th scope="col">Jumlah</th>
 								<th scope="col">
 									<button type="submit" name="addRow" class="btn btn-primary">Tambah Medical Supplies</button>
+									<!-- <div class="btn btn-primary" value="*{id}" onclick="showId()">Tambah</div> -->
 								</th>
 							</tr>
 						</thead>
-						<tr th:each="perencanaanMedsup, rowStat : *{listPerencanaanMedicalSupplies}">
+						<tr class="rowPerencanaanMedsup" th:each="perencanaanMedsup, rowStat : *{listPerencanaanMedicalSupplies}">
 							<td>
 								<select class="form-control form-input medSup" name="medicalSupplies" th:field="*{listPerencanaanMedicalSupplies[__${rowStat.index}__].medicalSupplies}" required>
 							    	<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>
-							    	<option th:each="medsup : ${listMedsup}" th:value="${medsup.id}" th:text="${medsup.nama}"></option>
 						   		</select>
 							</td>
 							<td>
@@ -66,6 +65,7 @@
 </body>
 <script th:inline="javascript">
 	$(document).ready(function(){
+		
 		Date.prototype.toDateInputValue = (function() {
 		    var local = new Date(this);
 		    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -79,7 +79,7 @@
 				url : "/medical-supplies/getListMedsupByDate",
 				data : { date : $('#tanggal').val()}
 			}).done(function(data) {
-				var optionHtml = '<option value="">Pilih Obat/Alat</option>';
+				var optionHtml = '<option disabled="disabled" selected="selected" value="">Pilih Obat/Alat</option>';
 				var dataLength = data.length;
 				for (var i = 0; i < dataLength; i++) {
 					optionHtml += '<option value="' + data[i].id + '">'
@@ -87,13 +87,28 @@
 					console.log('<option th:value="' + data[i].id + '">'
 							+ data[i].nama + '</option>');
 				}
-				$('.medsup').html(optionHtml);
+				$('.medSup').html(optionHtml);
 			});
 		});
+		
 		setListMedsup();
 		
-		$('#tanggal').change(setListMedsup());qfzqz
+		/**
+		$('.medSup').change(function() {
+			$(this).addClass("medSupSelected");
+			$(this).removeClass("medSup");
+		});
+		**/
 		
+		$('#tanggal').change(function() {
+			setListMedsup();
+		});
+		
+
+		var showId = (function(id) {
+			alert("id: " + id);
+		});
+		/**
 		$('.medSup').change(function(){
 			$.ajax({
 				method : 'GET',
@@ -109,6 +124,7 @@
 				}
 			}); 
 		});
+		**/
 	});
 </script>
 </html>

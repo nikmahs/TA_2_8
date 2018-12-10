@@ -108,34 +108,34 @@ public class MedicalSuppliesController {
 		return "view-detail-medical-supplies";
 	}
 	
-	/**
-	 * Mengecek apakah medical supplies yang akan direncanakan untuk dibeli valid atau tidak.
-	 * @param idMedsup 	: id medical supplies yang direncanakan untuk dibeli
-	 * @param date 		: waktu yang dipilih untuk merencanakan pembelian medical supplies
-	 * @param model
-	 * @return status valid atau tidaknya medical supplies yang direncanakan untuk dibeli
-	 */
-	@RequestMapping(value = "/getById", method = RequestMethod.GET)
-	@ResponseBody
-	private boolean isMedsupValid(	@RequestParam(value = "idMedsup", required = true) long idMedsup, 
-									@RequestParam(value = "date", required = true) Date date,
-									Model model) {
-		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(idMedsup);
-		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		
-		// flagUrgent = 0  --> NON URGENT
-		if (medsup.getJenisMedicalSupplies().getIdUrgent().getFlag() == 0) {
-			if (day < 7 || (day > 13 && day < 21)) {
-				return true;
-			}
-			return false;
-		}
-		return true;
-	}
+//	/**
+//	 * Mengecek apakah medical supplies yang akan direncanakan untuk dibeli valid atau tidak.
+//	 * @param idMedsup 	: id medical supplies yang direncanakan untuk dibeli
+//	 * @param date 		: waktu yang dipilih untuk merencanakan pembelian medical supplies
+//	 * @param model
+//	 * @return status valid atau tidaknya medical supplies yang direncanakan untuk dibeli
+//	 */
+//	@RequestMapping(value = "/getById", method = RequestMethod.GET)
+//	@ResponseBody
+//	private boolean isMedsupValid(	@RequestParam(value = "idMedsup", required = true) long idMedsup, 
+//									@RequestParam(value = "date", required = true) Date date,
+//									Model model) {
+//		MedicalSuppliesModel medsup = medicalSuppliesService.getMedicalSuppliesDetailById(idMedsup);
+//		
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(date);
+//		
+//		int day = cal.get(Calendar.DAY_OF_MONTH);
+//		
+//		// flagUrgent = 0  --> NON URGENT
+//		if (medsup.getJenisMedicalSupplies().getIdUrgent().getFlag() == 0) {
+//			if (day < 7 || (day > 13 && day < 21)) {
+//				return true;
+//			}
+//			return false;
+//		}
+//		return true;
+//	}
 	
 	@RequestMapping(value = "/getListMedsupByDate", method = RequestMethod.GET)
 	@ResponseBody
@@ -258,6 +258,26 @@ public class MedicalSuppliesController {
 		
 		return "add-perencanaan";
 	}
+	
+//	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST, params={"addRow"})
+//	@ResponseBody
+//	private PerencanaanModel addRowPerencanaan(@RequestParam(value = "idPerencanaan", required = true) long idPerencanaan) {
+//		
+//		PerencanaanModel perencanaan = perencanaanService.getPerencanaanDetailById(idPerencanaan).get();
+//		PerencanaanMedicalSuppliesModel perencanaanMedsup = new PerencanaanMedicalSuppliesModel();
+//		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedsup = null;
+//		
+//		if (perencanaan.getListPerencanaanMedicalSupplies() != null) {
+//			listPerencanaanMedsup = perencanaan.getListPerencanaanMedicalSupplies();
+//		}
+//		else {
+//			listPerencanaanMedsup = new ArrayList<PerencanaanMedicalSuppliesModel>();
+//		}
+//		listPerencanaanMedsup.add(perencanaanMedsup);
+//		perencanaan.setListPerencanaanMedicalSupplies(listPerencanaanMedsup);
+//		
+//		return perencanaan;
+//	}
 	
 	@RequestMapping(value = "/perencanaan/tambah", method = RequestMethod.POST, params= {"removeRow"})
 	private String removeRow(@ModelAttribute PerencanaanModel perencanaan, Model model, HttpServletRequest req) {
