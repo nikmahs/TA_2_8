@@ -17,15 +17,23 @@
 		   font-size:12px;
 		   bottom: 0px;
 		}
+		body { 
+		    background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-size: cover; 
+		}
 	</style>
 </head>
 
 <body>
 	<div class="container-fluid">
     	<br>
-        <h2>
-       	<center>RUMAH SAKIT CEPAT SEMBUH</center>
-      	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css' />
+        <h2> RS UNIVERSITAS INDONESIA</h2>
+        <h6> Jl. Akses UI, Depok, Jawa Barat, (021) 8701234 </h6>
+		</center>
+		
+      	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'/ >
       	<style>
          body {
             font-family: 'Poppins';
@@ -33,28 +41,20 @@
          }
      	</style>
      	
-        </h2>
-		<p></p>
 		<marquee>
-			<h4>Selamat datang di Sistem Informasi Farmasi!</h4>
+			<h5>Selamat datang di Sistem Informasi Farmasi!</h5>
 		</marquee>
+
 		<br></br>
-		
-		<center>
-			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:150px;height:150px;">
-		</center>
 		<br>
- 
     <div class="container-fluid">
 		<p th:text="${msg}"></p>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card card border-info mb-3 text-center">
+                <div class="card card border-info mb-3 text-center"  style="background-color: #EAEDED">
                 <br>
                     <h3>Sign Up </h3>
                     <br>
-                   
-                    
                     <div class="card-body">
                     	<form th:action="@{/user/addUser}" method="post">
                             <div class="row form-group">
@@ -69,13 +69,14 @@
                             <div class="row form-group">
                                	<select class="col-sm-6 form-control input-sm" name="role" style="margin-left:100px;">
 									<option disabled="disabled" selected="selected">Role</option>
-									<option value="ADMIN">Admin</option>
-									<option value="STAF">Staf Farmasi</option>
+									<option value="ADMIN">Admin Farmasi</option>
+									<option value="ADMIN_IGD">Admin IGD</option>
+									<option value="STAF">Staf Apoteker</option>
 								</select>
                             </div>
                             <br>
                             <div>
-                            	<button type="submit" class="btn btn-primary">Create Account</button>
+                            	<button type="submit" class="btn btn-info">Create Account</button>
                             </div>
                     	</form>
                     

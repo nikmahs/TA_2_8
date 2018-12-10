@@ -50,7 +50,7 @@
 		<br>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card card border-info mb-3 text-center" style="background-color: #EAEAEA">
+                <div class="card card border-info mb-3 text-center" style="background-color: #EAEDED">
                     <br>
                     <h3>Log In </h3>
                     <br>
@@ -67,20 +67,21 @@
                                 <input type="password" class="col-sm-6 form-control input-sm" name="password" value="Password" style="margin-left:100px;">
                             </div>
                             <div class="row form-group" >
-                                <button type="submit" class="btn btn-primary" style="margin-left:160px;">Log In</button>
+                                <button type="submit" class="btn btn-info" style="margin-left:160px;">Log In</button>
                             </div>
                         </form>
                         <br>
                         <br>
+                        <h7 class="text-center" style="margin-left:10px;">Don't have any account?</h7>
+		            	<form th:action="@{/user/add}" style="margin-left:150px;">
+		                 	<br>
+		                    <div class="row form-group" >
+		         	           <button type="submit" class="btn btn-info" style="margin-left:10px;">Sign Up</button>
+		                    </div>
+		                </form>
                     </div>
             </div>
-            <h7 class="text-center" style="margin-left:100px;">Don't have any account?</h7>
-            	<form th:action="@{/user/add}" style="margin-left:150px;">
-                 	<br>
-                    <div class="row form-group" >
-         	           <button type="submit" class="btn btn-primary" style="margin-left:10px;">Sign Up</button>
-                    </div>
-                </form>
+            
         </div>
     </div>
     
