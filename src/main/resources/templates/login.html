@@ -1,104 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
-    <title>Home</title>
-
-    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
-    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    <style>
-		.footer {
-		   position: fixed;
-		   color: black;
-		   width:100%;
-		   height:50px;
-		   text-align: center;
-		   font-size:12px;
-		   bottom: 0px;
-		}
-		
-		body { 
-		    background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
-		    background-repeat: no-repeat;
-		    background-attachment: fixed;
-		    background-size: cover; 
-		    }
-	</style>
-    
+	<title>Welcome</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
 </head>
-
 <body>
-    <div class="container-fluid">
-    	<br>
-    	<div class="row">
-    		<div class="col-md-1">
-    			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:80px;height:80px;">
-    		</div>
-    		<div class="col-md-11">
-	    		<h2 style="font-family: fantasy"> RS CEPAT SEMBUH </h2>
-	        	<h6 style="font-family: helvetica"> Jl. Akses Sehat, Cibubur, Jakarta Timur, (021) 8701234 </h6>
-    		</div>
-    	
-    	</div>
-       </div>		
-       <br></br>	
-      	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'/ >
-      	<style>
-         body {
-            font-family: 'Poppins';
-            font-size: 11pt;
-         }
-     	</style>
-     	
-		<marquee>
-			<h6 style="font-family: helvetica">Selamat datang di Sistem Informasi Farmasi!</h6>
-		</marquee>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="IMG">
+					<div class="text-center">
+					<br>
+					<h1 style="font-family: Poppins">Sistem Informasi</h1>
+					<h1 style="font-family: Poppins">FARMASI</h1>
+					</div>
+				</div>
 
-	 <!--	<center>
-			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:150px;height:150px;">
-		</center> -->
-		<br>
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card card border-info mb-3 text-center" style="background-color: #EAEDED">
-                    <br>
-                    <h3 style="font-family: fantasy">Log In </h3>
+				<form th:action="@{/login}" method="POST" class="login100-form validate-form">
+					<span class="login100-form-title">
+						Login
+					</span>
 
-                    <!-- <h10 style="margin-left:10px;margin-right:10px;">Exchanging pharmaceutical information between units become easier. You can also provide medical supplies here.</h10>  -->
-                    <div class="card-body">
-                        <div th:if="${param.error}">
-                            <span style="color: red">Invalid username or password</span>
-                        </div>
-                        <form th:action="@{/login}" method="POST" >
-                            <div class="row form-group">
-                               <input type="text" class="col-sm-6 form-control input-sm" name="username" value="Username" style="margin-left:100px;"> 
-                            </div>
-                            <div class="row form-group">
-                                <input type="password" class="col-sm-6 form-control input-sm" name="password" value="Password" style="margin-left:100px;">
-                            </div>
-                            <div class="row form-group" >
-                                <button type="submit" class="btn btn-info" style="margin-left:160px;">Log In</button>
-                            </div>
-                        </form>
-                        <br>
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="username" placeholder="Username">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
 
-                        <br>
-                        <h7 class="text-center" style="margin-left:10px;">Don't have any account?</h7>
-		            	<form th:action="@{/user/add}" style="margin-left:150px;">
-		                 	<br>
-		                    <div class="row form-group" >
-		         	           <button type="submit" class="btn btn-info" style="margin-left:10px;">Sign Up</button>
-		                    </div>
-		                </form>
-                    </div>
-            </div>
-            
-        </div>
-    </div>
-    
-    
-	<footer th:replace="fragments/fragment :: footer"></footer>
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							Don't have any account?
+						</span>
+						<a class="txt2" th:href="@{/user/add}">
+							Create your Account
+						</a>
+					</div>
+
+<!-- 					<div class="text-center p-t-136"> -->
+<!-- 						<a class="txt2" href="#" th:action="@{/user/add}"> -->
+<!-- 							Create your Account -->
+<!-- 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i> -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="static/js/main.js"></script>
+
 </body>
-
-
 </html>

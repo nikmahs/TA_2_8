@@ -77,27 +77,26 @@
   		<div class = "row">
   			<div class="col-sm-3"><p>Waktu Mulai Jaga</p></div>
   			<div class="col-sm-4">
-  				<input  list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" class="form-control">
+  				<input  list="timeStart" th:field="*{waktuMulai}" th:value="*{waktuMulai}" class="form-control" required>
   			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Waktu Berakhir Jaga</p></div>
   			<div class="col-sm-4">
-				<input  list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" class="form-control">
+				<input  list="timeEnd" th:field="*{waktuSelesai}" th:value="*{waktuSelesai}" class="form-control" required>
 			</div>
   		</div>
   		<br>
   		<div class = "row">
   			<div class="col-sm-3"><p>Tanggal Jaga</p></div>
   			<div class="col-sm-4">
-  				<input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}">
+  				<input type="date" class="form-control" id="tanggal_jaga" name="tanggal_jaga" th:value="*{tanggal}" th:field="*{tanggal}" required>
     		
 			</div>
   		</div>
-  		
-  		<br>
 
+		<br></br>
   		<button type="submit" class="btn btn-info" style= "margin-left:660px">Simpan</button>
 
   	</form>
@@ -112,6 +111,7 @@
 		<option value="23:59:59" ></option>
 	</datalist>
 	
+	<br></br>
 	</div>
   	<footer th:replace="fragments/fragment :: footer"></footer>
 </body>

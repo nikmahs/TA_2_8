@@ -24,6 +24,28 @@
 		   font-size:12px;
 		   bottom: 0px;
 		}
+		
+		.alert {
+		    padding: 20px;
+		    background-color: yellow;
+		    color: black;
+		}
+		
+		.closebtn {
+		    margin-left: 15px;
+		    color: white;
+		    font-weight: bold;
+		    float: right;
+		    font-size: 22px;
+		    line-height: 20px;
+		    cursor: pointer;
+		    transition: 0.3s;
+		}
+		
+		.closebtn:hover {
+		    color: black;
+		}
+			
 
    		.thead,tbody{
 		   color: black;
@@ -35,6 +57,11 @@
 
 	<body>
 	<nav th:replace = "fragments/fragment :: navbar"></nav>
+	<div th:if = "${message}"class="alert">
+	  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+	  <h5 th:text = "${message}"></h5>
+	</div>
+	
 	<div class="container-fluid">
 	<h1 class="text-center" style="font-weight:bold;font-family: calibri">Daftar Medical Supplies</h1>   
 		<center>

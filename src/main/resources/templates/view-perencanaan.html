@@ -7,8 +7,7 @@
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">  
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
@@ -51,15 +50,20 @@
     				<div class="card-body">
 						<div class="row row-detail">
 							<div class="col-md-3"><strong>Tanggal</strong></div>
-							<div class="col-md-3" id="tanggalPerencanaan" th:text="${aPerencanaan.tanggal}"></div>
+							<div class="col-md-3" id="tanggalPerencanaan" th:text="': ' + ${aPerencanaan.tanggal}"></div>
 						</div>
 						
 						<div class="row row-detail">
 							<div class="col-md-3"><strong>Status</strong></div>
+							<div class="col-md-3" id="statusPerencanaan" th:text="': ' + ${aPerencanaan.status}"></div>
 							<div class="col-md-3">
-								<span th:if="${authority == 'STAF'}">
-									<td id="statusPerencanaan" th:text="${aPerencanaan.status}"></td>
+								<span th:if="${authority == 'ADMIN'}">
+									<form th:action="@{/medical-supplies/perencanaan/ubah}" th:object="${aPerencanaan}" method="GET">
+										<input type="hidden" name="id" th:value="*{id}" />
+										<button type="submit" class="btn btn-primary">Ubah</button>
+									</form>	
 								</span>	
+<<<<<<< HEAD
 								<span th:unless="${authority == 'STAF'}">
 									<td>
 										
@@ -71,7 +75,10 @@
 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#basicExampleModal">
 								  Launch demo modal 
 								</button>
+=======
+>>>>>>> d953f6ddaf7387c0aeb9ee1bf57323990b86bb70
 							</div>
+							
 						</div>
 							
 	    				<table id="tablePerencanaan" class="display">
@@ -126,35 +133,6 @@
     		</div>
     	</div>
     	
-    	<!-- Modal -->
-		<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		    	<form th:action="@{/medical-supplies/perencanaan/ubah}" th:object="${aPerencanaan}" method="POST">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">Tambah Medical Supplies</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        
-			        	<select id="setStatus" class="form-control" th:value="${aPerencanaan.status}" required>
-					    	<option id="diajukan" value="diajukan">Diajukan</option>
-					    	<option id="diproses" value="diproses">Diproses</option>
-					    	<option id="tersedia" value="tersedia">Tersedia</option>
-				   		</select>
-			        
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-			      </div>
-		    	</form>
-		    </div>
-		  </div>
-		</div>
-		<!-- End of Modal -->
     </div>
     <br></br>
     <footer th:replace="fragments/fragment :: footer"></footer>
