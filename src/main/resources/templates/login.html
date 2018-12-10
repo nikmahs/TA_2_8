@@ -22,7 +22,7 @@
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
 		    background-size: cover; 
-}
+		    }
 	</style>
     
 </head>
@@ -32,17 +32,16 @@
     	<br>
     	<div class="row">
     		<div class="col-md-1">
-    			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:150px;height:150px;">
+    			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:80px;height:80px;">
     		</div>
     		<div class="col-md-11">
-	    		<h2> RS UNIVERSITAS INDONESIA</h2>
-	        	<h6> Jl. Akses UI, Depok, Jawa Barat, (021) 8701234 </h6>
+	    		<h2 style="font-family: fantasy"> RS CEPAT SEMBUH </h2>
+	        	<h6 style="font-family: helvetica"> Jl. Akses Sehat, Cibubur, Jakarta Timur, (021) 8701234 </h6>
     		</div>
     	
     	</div>
-        
-		
-		
+       </div>		
+       <br></br>	
       	<link href='http://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'/ >
       	<style>
          body {
@@ -52,21 +51,19 @@
      	</style>
      	
 		<marquee>
-			<h5>Selamat datang di Sistem Informasi Farmasi!</h5>
+			<h6 style="font-family: helvetica">Selamat datang di Sistem Informasi Farmasi!</h6>
 		</marquee>
 
-		<br>
 	 <!--	<center>
 			<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:150px;height:150px;">
 		</center> -->
-		</br>
 		<br>
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card card border-info mb-3 text-center" style="background-color: #EAEAEA">
                     <br>
-                    <h3>Log In </h3>
-                    <br>
+                    <h3 style="font-family: fantasy">Log In </h3>
+
                     <!-- <h10 style="margin-left:10px;margin-right:10px;">Exchanging pharmaceutical information between units become easier. You can also provide medical supplies here.</h10>  -->
                     <div class="card-body">
                         <div th:if="${param.error}">
@@ -84,10 +81,9 @@
                             </div>
                         </form>
                         <br>
-                        <br>
                     </div>
             </div>
-            <h7 class="text-center" style="margin-left:100px;">Don't have any account?</h7>
+            <h8 class="text-center" style="margin-left:100px;">Don't have any account?</h8>
             	<form th:action="@{/user/add}" style="margin-left:150px;">
                  	<br>
                     <div class="row form-group" >

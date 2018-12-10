@@ -55,6 +55,14 @@
 			text-align: center;
 			background-color: #FFFFFF;
 		}
+		
+		body {
+			background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-size: cover; 
+		    }
+		    
 	</style>
 </head>
 
@@ -66,9 +74,12 @@
  
 	<br>
 	<center>
-			<h3>Sistem Farmasi Rumah Sakit Cepat Sembuh</h3>
+		<div class="col-md-1">
+    		<img src="https://pngimage.net/wp-content/uploads/2018/06/logo-hospital-png-5.png" alt="farmasi" style="width:80px;height:80px;">
+   		</div>
+		<h1 style="font-weight:bold;font-family: calibri">SIFAR RS CEPAT SEMBUH</h1>
+		<h5 style="font-weight:bold;"> Temukan Kebutuhan Anda! </h5>
 	</center>
-	<br>
     </div>    
     <br>
 
@@ -94,7 +105,7 @@
 		  			<br></br>
 			    	<h4><a th:href="@{/medical-supplies/permintaan}">Permintaan</a></h4>
 			    	<p style="font-size: 12px; text-align: justify"> Permintaan medical supplies ini berisi permintaan yang dilakukan Sistem Informasi lain.
-				    Tanggal permintaan, jumlah, status, staf yang bertanggungjawab terhadap permintaan tersebut,
+				    Detail informasi berisi tanggal permintaan, jumlah, status, staf yang bertanggungjawab terhadap permintaan tersebut,
 				    dan beberapa detail info lainnya.</p>
 				</div>
 			</div>
@@ -128,43 +139,7 @@
 			</div>
 		</div>
 	</div>
-	
-			
-			
-			
-			
-<!--     <div class="row"> -->
-<!-- 	  <div class="container" style="background-color:#D6EAF8;"> -->
-<!-- 	    <h4>Medical Supplies</h4> -->
-<!-- 	    <p> Detail inventaris medical supplies terdiri dari obat-obat dan alat-alat kesehatan -->
-<!-- 			yang dimiliki SI Farmasi RS Cepat Sembuh. Medical Supplies memiliki kategori urgent dan non urgent. -->
-<!-- 			Medical Supplies berisi keterangan mengenai jumlah, harga, dan medical supplies yang dapat dikirim -->
-<!-- 			ke sistem rawat jalan. </p> -->
-<!-- 	  </div> -->
-<!-- 	  <br> -->
-<!-- 	  <div class="container" style="background-color:#A9CCE3;"> -->
-<!-- 	    <h4><a th:href="@{/medical-supplies/permintaan}" th:text="Permintaan"></a></h4> -->
-<!-- 	    <p> Permintaan medical supplies ini berisi permintaan yang dilakukan Sistem Informasi lain. -->
-<!-- 	    Tanggal permintaan, jumlah, status, staf yang bertanggungjawab terhadap permintaan tersebut, -->
-<!-- 	    dan beberapa detail info lainnya.</p> -->
-<!-- 	  </div> -->
-<!-- 	  <br> -->
-<!-- 	 <div class="container" style="background-color:#85C1E9"> -->
-<!-- 	    <h4>Perencanaan</h4> -->
-<!-- 	    <p> Perencanaan dilakukan untuk menambah inventaris medical supplies .Dalam setiap perencanaan medical-supplies -->
-<!-- 	    terdapat informasi detail mengenai tanggal perencanaan dan status (diajukan, diproses, dan tersedia) tersebut. -->
-<!-- 	    Perencanaan juga dilengkapi dengan infromasi jumlah setiap supplies yang direncakanan. </p> -->
-<!-- 	  </div> -->
-<!-- 	  <br> -->
-<!-- 	  <div class="container" style="background-color:#EAF2F8"> -->
-<!-- 	    <h4>Jadwal Jaga</h4> -->
-<!-- 	    <p>Berisi setiap jadwal jaga staf yang bekerja pada farmasi RS Cepat Sembuh. Setiap jadwal pada -->
-<!-- 	    tanggal tertentu memiliki informasi waktu mulai dan waktu selesai. Setiap permintaan terhadap SI -->
-<!-- 	    Farmasi ini hanya dapat diproses ketika terdapat jadwal staf pada waktu tersebut.</p> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
-    
-    <br></br>
+
     <footer th:replace="fragments/fragment :: footer"></footer>
 </body>
 </html>
