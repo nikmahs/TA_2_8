@@ -24,19 +24,27 @@
 		   font-size:12px;
 		   bottom: 0px;
 		}
+
+   		.thead,tbody{
+		   color: black;
+		   text-align: left;
+		   font-size: 15px;
+		}
 	</style>
 </head>
 
 	<body>
 	<nav th:replace = "fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
-	<br>
-	<h3 class="text-center">Daftar Medical Supplies</h3>
+	<h1 class="text-center" style="font-weight:bold;font-family: calibri">Daftar Medical Supplies</h1>   
+		<center>
+    		<img src="https://image.flaticon.com/icons/svg/527/527052.svg" style="width: 70px; height: 70px"> 
+    	</center>	
 		<form th:action = "@{/medical-supplies}" method = "GET">
 		<div class="card-body">
-        	<a th:href="@{/medical-supplies/tambah}" class="btn btn-info">Tambah</a>
+        	<a th:href="@{/medical-supplies/tambah}" class="btn btn-info" style = "margin-left:0px" >Tambah MedSup</a>
        	</div>
-			<table id = "list-all-medsup" class = "table table-striped table-bordered" style = "width:100%">
+			<table id = "list-all-medsup" class = "table table-dark table-condensed" style = "width:100%">
 				<thead>
 					<tr>
 						<th>No.</th>
@@ -66,7 +74,8 @@
 <br>
 	<br>
 	</div>
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<script>
 	$(document).ready(function() {

@@ -34,8 +34,10 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container-fluid">
-    	<br>
-    	<h1 class="text-center" style="font-weight:bold;font-family: calibri">Jadwal Jaga Staf Apoteker</h1>    
+    	<h1 class="text-center" style="font-weight:bold;font-family: calibri">Jadwal Jaga Staf Apoteker</h1>   
+    	<center>
+    		<img src="https://image.flaticon.com/icons/svg/527/527054.svg" style="width: 70px; height: 70px"> 
+    	</center>	
     	<div class="card-body">
 
         	<a th:href="@{/medical-supplies/jadwal-staf/tambah}" class="btn btn-info">Tambah Jadwal</a>
@@ -80,7 +82,7 @@
     
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script>
 	$(document).ready( function () {
