@@ -304,6 +304,56 @@ public class MedicalSuppliesController {
 		
 		return viewPerencanaan(model);
 	}
+	
+//	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
+//	@ResponseBody
+//	private boolean ubahStatusPerancanaan(@RequestParam(value = "status", required = true) String status, @ModelAttribute PerencanaanModel perencanaan) {
+//		
+//		// update status perencanaan
+//		perencanaan.setStatus(status);
+//		perencanaanService.addPerencanaan(perencanaan);
+//		
+//		MedicalSuppliesModel medSup;
+//		int jumlah = 0;
+//		
+//		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
+//			
+//			medSup = perencanaanMedsup.getMedicalSupplies();
+//			jumlah = perencanaanMedsup.getJumlah();
+//			medSup.setJumlah(medSup.getJumlah() + jumlah);
+//			
+//			medicalSuppliesService.addMedsup(medSup);
+//			
+//			
+//		}
+//		
+//		return true;
+//	}
+	
+	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
+	private String ubahStatusPerancanaan(@ModelAttribute PerencanaanModel perencanaan, Model model) {
+		
+		perencanaanService.addPerencanaan(perencanaan);
+		
+		MedicalSuppliesModel medSup;
+		int jumlah = 0;
+		
+		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
+			
+			medSup = perencanaanMedsup.getMedicalSupplies();
+			jumlah = perencanaanMedsup.getJumlah();
+			medSup.setJumlah(medSup.getJumlah() + jumlah);
+			
+			medicalSuppliesService.addMedsup(medSup);
+		}
+		
+		model.addAttribute("perencanaan", perencanaan);
+		
+		List<MedicalSuppliesModel> listMedsup = medicalSuppliesService.viewAllDaftarMedicalSupplies();
+		model.addAttribute("listMedsup", listMedsup);
+		
+		return "view-perencanaan";
+	}
 
 	//kerjaan awl
 	//fitur 13
