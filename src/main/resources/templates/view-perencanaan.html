@@ -50,6 +50,7 @@
 						<div class="row row-detail">
 							<div class="col-md-3"><strong>Tanggal</strong></div>
 							<div class="col-md-3" id="tanggalPerencanaan" th:text="': ' + ${aPerencanaan.tanggal}"></div>
+							<div class="col-md-3"><a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-primary">Tambah Perencanaan</a>  	</div>	
 						</div>
 						
 						<div class="row row-detail">
@@ -85,8 +86,6 @@
     				</div>
     			</div>
     			
-    			<br></br>
-    			<a th:href="@{/medical-supplies/perencanaan/tambah}" class="btn btn-primary">Tambah Perencanaan</a>  		
     			
     		</div>
     		<div class="col-md-5 text-center">

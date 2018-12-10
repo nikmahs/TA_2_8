@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.apap.farmasi.model.JadwalJagaModel;
 import com.apap.farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.farmasi.model.MedicalSuppliesModel;
@@ -32,6 +33,7 @@ import com.apap.farmasi.rest.StaffDetail;
 import com.apap.farmasi.service.JadwalService;
 import com.apap.farmasi.service.JenisMedicalSuppliesService;
 import com.apap.farmasi.service.MedicalSuppliesService;
+import com.apap.farmasi.service.PerencanaanMedicalSuppliesService;
 //import com.apap.farmasi.service.PerencanaanMedicalSuppliesService;
 import com.apap.farmasi.service.PerencanaanService;
 import com.apap.farmasi.service.PermintaanService;
@@ -62,8 +64,8 @@ public class MedicalSuppliesController {
 	@Autowired 
 	private JadwalService jadwalService;
 	
-//	@Autowired
-//	private PerencanaanMedicalSuppliesService perencanaanMedsupService;
+	@Autowired
+	private PerencanaanMedicalSuppliesService perencanaanMedsupService;
 
 	@Autowired
 	RestTemplate restTemplate;
@@ -206,7 +208,7 @@ public class MedicalSuppliesController {
 			model.addAttribute("authority", authority);
 			
 			
-			PerencanaanModel perencanaan = listPerencanaan.get(2);
+			PerencanaanModel perencanaan = listPerencanaan.get(0);
 			model.addAttribute("aPerencanaan", perencanaan);
 			
 			List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
@@ -300,10 +302,22 @@ public class MedicalSuppliesController {
 		
 		for (PerencanaanMedicalSuppliesModel perencanaanMedsup : perencanaan.getListPerencanaanMedicalSupplies()) {
 			perencanaanMedsup.setPerencanaan(perencanaan);
-//			perencanaanMedsupService.addPerencanaanMedsup(perencanaanMedsup);
+			perencanaanMedsupService.addPerencanaanMedsup(perencanaanMedsup);
 		}
 		
-		return viewPerencanaan(model);
+		List<PerencanaanModel> listPerencanaan = perencanaanService.getAllPerencanaan();
+		model.addAttribute("listPerencanaan", listPerencanaan);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String authority = auth.getAuthorities().iterator().next().getAuthority();
+		model.addAttribute("authority", authority);
+		
+		model.addAttribute("aPerencanaan", perencanaan);
+		
+		List<PerencanaanMedicalSuppliesModel> listPerencanaanMedicalSupplies = perencanaan.getListPerencanaanMedicalSupplies();
+		model.addAttribute("listPerencanaanMedSup", listPerencanaanMedicalSupplies);
+		
+		return "view-perencanaan";
 	}
 	
 //	@RequestMapping(value = "/perencanaan/ubah", method = RequestMethod.POST)
