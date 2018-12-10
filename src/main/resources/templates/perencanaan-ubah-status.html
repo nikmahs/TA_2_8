@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Lihat Perencanaan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
+    <style>
+    	body {
+			background-image: url(https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg);
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-size: cover; 
+		    }
+		.footer {
+		   position: fixed;
+		   color: black;
+		   width:100%;
+		   height:50px;
+		   text-align: center;
+		   font-size:12px;
+		   bottom: 0px;
+		}
+		.row-detail {
+			margin : 10px;
+		}
+	</style>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container-fluid text-center">
+    	<form th:action="@{/medical-supplies/perencanaan/ubah}" method="POST">
+    		<div class="card">
+    			<div class="card-header bg-info">
+    				Ubah Status Perencanaan
+    			</div>
+    			<div class="card-body">
+    				<input type="hidden" name="id" th:value="${perencanaan.id}" />
+    				<select id="setStatus" name="status" class="form-control" required>
+				    	<option id="diajukan" value="diajukan">Diajukan</option>
+				    	<option id="diproses" value="diproses">Diproses</option>
+				    	<option id="tersedia" value="tersedia">Tersedia</option>
+			   		</select>
+			   		<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+    			</div>
+  			</div>
+    	</form>
+    	
+    </div>
+    
