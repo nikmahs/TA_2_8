@@ -52,6 +52,9 @@
 		   text-align: left;
 		   font-size: 15px;
 		}
+		.tr,th,td{
+			text-align: center;
+			}
 	</style>
 </head>
 
@@ -71,7 +74,7 @@
 		<div class="card-body">
         	<a th:href="@{/medical-supplies/tambah}" class="btn btn-info" style= "margin-left:1155px" >Tambah MedSup</a>
        	</div>
-			<table id = "list-all-medsup" class = "table table-dark table-condensed" style = "width:100%">
+			<table id = "list-all-medsup" class = "table table-bordered table-dark table-condensed" style = "width:85%;margin:0 auto">
 				<thead>
 					<tr>
 						<th>No.</th>

@@ -3,7 +3,6 @@ package com.apap.farmasi.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -537,23 +536,34 @@ public class MedicalSuppliesController {
 			@RequestMapping(value = "/jadwal-staf/tambah", method = RequestMethod.POST)
 			private String addNewJadwalSubmit(@ModelAttribute JadwalJagaModel jadwal, Model model) {
 				jadwalService.addJadwal(jadwal);
-				return "addNewJadwalSuccess";
+				model.addAttribute("msg", "Jadwal Berhasil Ditambah");
+				return "success";
 			}
 		
 		//UBAH JADWAL  (tidak bisa diubah jika tanggalnya sudah lewat)
 		@RequestMapping(value = "/jadwal-staf/{id}", method = RequestMethod.GET)
 		private String updateJadwal(@PathVariable(value="id") long id, Model model) {
 			JadwalJagaModel listJadwalJaga = jadwalService.getJadwalDetailById(id).get();
+			Date request= listJadwalJaga.getTanggal();
+			Date sekarang= new Date(System.currentTimeMillis());
+			
 			List<StaffDetail> listStaff = restService.getAllStaff().getResult();
-			model.addAttribute("listJadwalJaga", listJadwalJaga);
-			model.addAttribute("listStaff", listStaff);
+			
+			if (!listJadwalJaga.getTanggal().after(sekarang)){
+				return"invalidUpdate";
+			}
+			else{
+				model.addAttribute("listJadwalJaga", listJadwalJaga);
+				model.addAttribute("listStaff", listStaff);
 			return "updateJadwal";
+			}
 		}
 		
 		@RequestMapping(value = "/jadwal-staf/{idJadwal}", method = RequestMethod.POST)
 		private String updateJadwalSubmit(@PathVariable(value = "idJadwal")long idJadwal,@ModelAttribute JadwalJagaModel jadwal, Model model) {
 			jadwal.setId(idJadwal);
 			jadwalService.updateJadwal(jadwal);
-			return "updateJadwalSuccess";
+			model.addAttribute("msg", "Jadwal Berhasil Diupdate");
+			return "success";
 		}
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 
 <head>
-	<title>Sukses Tambah Jadwal</title>
+	<title>Gagal Update Jadwal</title>
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -14,22 +14,22 @@
 		    background-attachment: fixed;
 		    background-size: cover; 
 		    }
-		.footer {
-		   position: absolute;
-		   bottom:0;
+		footer {
+		position: fixed;	
 		   color: black;
 		   width:100%;
 		   height:50px;
 		   text-align: center;
 		   font-size:12px;
+		   bottom: 0px;
 		}
 	</style>
 </head>
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	<h1>Sukses!</h1>
-	<h1>Jadwal Berhasil Ditambah</h1>
+	<h1>Gagal!</h1>
+	<h1>Tanggal invalid, silakan ulangi kembali</h1>
 </body>
 
 	<footer th:replace="fragments/fragment :: footer"></footer>

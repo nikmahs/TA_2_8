@@ -60,10 +60,9 @@
 								<span th:if="${authority == 'ADMIN'}">
 									<form th:action="@{/medical-supplies/perencanaan/ubah}" th:object="${aPerencanaan}" method="GET">
 										<input type="hidden" name="id" th:value="*{id}" />
-										<button type="submit" class="btn btn-primary">Ubah</button>
+										<button type="submit" class="btn btn-info">Ubah</button>
 									</form>	
 								</span>	
-<<<<<<< HEAD
 								<span th:unless="${authority == 'STAF'}">
 									<td>
 										
@@ -75,8 +74,7 @@
 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#basicExampleModal">
 								  Launch demo modal 
 								</button>
-=======
->>>>>>> d953f6ddaf7387c0aeb9ee1bf57323990b86bb70
+
 							</div>
 							
 						</div>
