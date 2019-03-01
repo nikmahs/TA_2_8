@@ -18,14 +18,7 @@ Sistem Informasi Farmasi (SI Farmasi) merupakan sebuah sistem yang dibuat berdas
 7. Mengubah data medical supplies
 8. Menambahkan medical supplies ke inventaris medical supplies sistem rawat jalan
 9. Membuat perencanaan pembelian medical supplies
-	- Yang mengajukan perencanaan pembelian adalah Staff Apoteker
-	- Ketika pertama kali mengajukan, maka status perancanaan default nya "diajukan"
-	- Minggu pertama: 1-7
-	- Minggu ketiga: 15-21
-	- Sebelum melakukan perencanaan, Staf Apoteker perlu mengecek medical supplies yg habis di SI Lab melalui API yg disediakan oleh SI Lab menggunakan method GET
 10. Melihat perencanaan pembelian medical supplies
-	- Admin Farmasi yg berperan mengubah status perencanaan menjadi "diproses" dan "tersedia"
-	- Ketika status berubah menjadi "tersedia", secara otomatis jumlah Medical Supplies di inventaris SI Farmasi bertambah (terupdate)
 11. Melihat daftar permintaan medical supplies
 12. Web Service untuk menyediakan kebutuhan medical supplies dari Rawat Inap
 13. Mengubah status permintaan medical supplies
